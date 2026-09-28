@@ -69,7 +69,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "3", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "4", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
 const DATA = (() => {
   try {
@@ -81,6 +81,7 @@ const DATA = (() => {
 })();
 const QUESTIONS = [
   { key: 'kind', text: 'What kind of exercise is it?', opts: [['strength', 'Strength'], ['cardio', 'Cardio'], ['stretch', 'Stretching or mobility'], ['sport', 'A sport or class']] },
+  { key: 'parts', text: 'Which parts of your body move?', hint: 'Pick all that do. For a hold, like a plank, pick the parts working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
   { key: 'move', text: "What's the movement?", opts: [['press', 'Press or push'], ['pull', 'Pull or row'], ['pullover', 'Pullover (the arms stay straight)'], ['curl', 'Curl'], ['raise', 'Raise'], ['fly', 'Fly'], ['apart', 'Spread apart'], ['together', 'Squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'], ['extension', 'Extension'], ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
   { key: 'resist', text: 'What gives the resistance?', opts: [['barbell', 'Barbell'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'], ['cable', 'Cable'], ['stack', 'A weight-stack machine'], ['plates', 'A plate-loaded machine'], ['smith', 'Smith machine'], ['band', 'Band'], ['body', 'Your body weight']] },
   { key: 'moves', text: 'What moves: the weight, or you?', hint: 'On a leg press the weight moves. On a push-up, you move.', opts: [['weight', 'The weight'], ['you', 'You']] },
@@ -89,7 +90,7 @@ const QUESTIONS = [
   { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Palms up'], ['down', 'Palms down'], ['facing', 'Palms facing each other'], ['none', "Hands don't hold anything"]] },
   { key: 'angle', text: 'Which way does the weight travel, compared to your body?', opts: [['updown', 'Up and down along it'], ['out', 'Straight out and back'], ['upangle', 'Up at an angle'], ['downangle', 'Down at an angle'], ['sides', 'Out to the sides']] },
 ];
-const SHORT = { kind: 'k', move: 'm', resist: 'r', moves: 'w', pos: 'p', sides: 's', hands: 'h', angle: 'a' };
+const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', sides: 's', hands: 'h', angle: 'a' };
 const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
 const STORE = DATA ? 'bet2-' + DATA.code : 'bet2-none';
 const now = () => new Date().toISOString();
@@ -287,14 +288,17 @@ function nextExercise() {
   if (S.cur < 4) { S.cur++; S.screen = 'ex'; } else { S.screen = 'how'; }
   render(); window.scrollTo(0, 0); save('progress');
 }
-function show(q, a) { return a.a === 'unsure' ? 'Not sure' : a.a === 'other' ? 'Something else: ' + a.other : LABEL[q.key][a.a]; }
+function show(q, a) { return a.a === 'unsure' ? 'Not sure' : a.a === 'other' ? 'Something else: ' + a.other : a.a.split('+').map(c => LABEL[q.key][c] || c).join(', '); }
+const picks = a => a && a.a !== 'unsure' && a.a !== 'other' ? a.a.split('+') : [];
 function question(q, a) {
   return `
     <div style="display:grid;gap:10px" id="qcard">
       <p class="qtext">${esc(q.text)}</p>
       ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ''}
       <div class="opts">
-        ${q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
+        ${q.multi ? q.opts.map(([code, label]) => `<button class="opt${picks(a).includes(code) ? ' picked' : ''}" data-t="${code}" aria-pressed="${picks(a).includes(code)}">${esc(label)}</button>`).join('')
+          : q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
+        ${q.multi ? `<button class="primary" id="multiok"${picks(a).length ? '' : ' disabled'}>Next</button>` : ''}
         <button class="opt aside${a && a.a === 'unsure' ? ' picked' : ''}" data-a="unsure">Not sure</button>
         <button class="opt aside${a && a.a === 'other' ? ' picked' : ''}" data-a="other">Something else</button>
       </div>
@@ -321,6 +325,15 @@ function wireQuestion(e, open) {
     if (b.dataset.a === 'other') { $('#otherbox').hidden = false; $('#othertext').focus(); return; }
     set(b.dataset.a);
   });
+  if (q.multi) {  // taps only mark the parts, with no redraw; Next answers with all of them
+    const sel = new Set(picks(e.q[q.key]));
+    document.querySelectorAll('#qcard [data-t]').forEach(b => b.onclick = () => {
+      const c = b.dataset.t; if (sel.has(c)) sel.delete(c); else sel.add(c);
+      b.classList.toggle('picked', sel.has(c)); b.setAttribute('aria-pressed', sel.has(c));
+      $('#multiok').disabled = !sel.size;
+    });
+    $('#multiok').onclick = () => { if (sel.size) set(q.opts.map(o => o[0]).filter(c => sel.has(c)).join('+')); };
+  }
   $('#otherok').onclick = () => { const t = $('#othertext').value.trim(); if (t) set('other', t); else $('#othertext').focus(); };
   $('#othertext').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); $('#otherok').click(); } };
 }
