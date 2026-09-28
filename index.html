@@ -22,21 +22,23 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.45; }
-.wrap { max-width: 560px; margin: 0 auto; padding-inline: 16px; padding-block: calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 16px; }
+.wrap { max-width: 560px; margin: 0 auto; padding-inline: 16px; padding-block: calc(14px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; }
 h1 { font-size: 26px; line-height: 1.15; margin: 0; text-wrap: balance; }
 h2 { font-size: 21px; line-height: 1.2; margin: 0; text-wrap: balance; }
 p { margin: 0; }
 .muted { color: var(--muted); }
 .small { font-size: 15px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; display: grid; gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; display: grid; gap: 12px; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .progress { display: flex; gap: 6px; }
 .progress i { flex: 1; height: 5px; border-radius: 3px; background: var(--line); }
 .progress i.done { background: var(--accent); }
 .progress i.now { background: var(--accent); opacity: .45; }
 button { font: inherit; color: inherit; cursor: pointer; }
-.opts { display: grid; gap: 8px; }
-.opt { display: block; width: 100%; text-align: left; min-height: 50px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
+.opts { display: grid; gap: 6px; }
+.opts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.opts > .primary { grid-column: 1 / -1; }
+.opt { display: block; width: 100%; text-align: left; min-height: 46px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
 .opt:active { background: var(--soft); }
 .opt.picked { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
 .opt.aside { color: var(--muted); }
@@ -54,22 +56,24 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 .done-row .q { color: var(--muted); font-size: 14px; grid-column: 1 / -1; }
 .done-row .a { font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
 .answers { display: grid; gap: 6px; }
-.changing { padding: 6px 0; color: var(--muted); }
-.qtext { font-size: 19px; font-weight: 650; line-height: 1.3; }
-.hint { color: var(--muted); font-size: 15px; }
-.exercise-title { font-size: 24px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.editing { padding-block: 10px; border-bottom: 1px solid var(--line); }
+.topline { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.status.top { min-height: 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qnav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-block: -6px; }
+.qtext { font-size: 18px; font-weight: 650; line-height: 1.3; }
+.hint { color: var(--muted); font-size: 14px; }
+.exercise-title { font-size: 21px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
 .status { font-size: 14px; color: var(--muted); min-height: 20px; }
 .status.bad { color: var(--warn); }
 .notice { background: var(--warn-soft); color: var(--ink); border-radius: 10px; padding: 12px 14px; }
 .copybox { width: 100%; min-height: 160px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
-.skip { justify-self: start; }
 [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "4", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "5", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
 const DATA = (() => {
   try {
@@ -138,9 +142,8 @@ function record() {
 }
 function status() {
   const el = $('#status'); if (!el) return;
-  if (S.saves.pending) { el.textContent = "Not sent yet. It'll try again at the next step."; el.className = 'status bad'; }
-  else if (S.saves.ok) { el.textContent = 'Saved.'; el.className = 'status'; }
-  else { el.textContent = ''; el.className = 'status'; }
+  el.textContent = S.saves.pending ? "Not sent yet. It'll try again at the next step." : S.saves.ok ? 'Saved.' : '';
+  el.classList.toggle('bad', !!S.saves.pending);
 }
 
 // ---- the text a tester can copy if saving fails
@@ -190,8 +193,10 @@ function wireCopy() { const parts = copyParts(); document.querySelectorAll('[dat
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 // ---- screens
+let keepPlace = false;  // true while the review is edited in place: no scrolling then
 function render() {
   keep();
+  document.body.style.minHeight = (scrollY + innerHeight) + 'px';  // a shorter screen never pulls the page up under the tester
   app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
   if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask Timmy to send it again.</p></div>`; return; }
   const s = S.screen;
@@ -237,48 +242,45 @@ function exercise() {
   const i = S.cur, e = S.ex[i], info = DATA.exercises[i];
   if (!e.shown) { e.shown = now(); keep(); }
   const open = e.open != null ? e.open : QUESTIONS.findIndex(q => !e.q[q.key]);
-  const answered = QUESTIONS.map((q, k) => ({ q, k, a: e.q[q.key] })).filter(x => x.a);
-  const allDone = QUESTIONS.every(q => e.q[q.key]);
-  // The current question always sits in one place, right under the exercise's name, so answering
-  // never moves it; the answers collect below it, and a changed one comes back into its place.
-  let slot = '';
-  if (open !== -1) slot = question(QUESTIONS[open], e.q[QUESTIONS[open].key]);
-  if (allDone && open === -1) slot = `
+  // One question at a time sits in the slot, right under the exercise's name, with nothing below it
+  // to move when it's answered; Back steps to the one before. Once all are answered, the slot holds
+  // them all, where Change opens a question in its own row, then the note.
+  const slot = open !== -1 ? question(QUESTIONS[open], e.q[QUESTIONS[open].key]) : `
+      <div class="answers">
+        <div class="eyebrow">Your answers</div>
+        <div class="done-list">` + QUESTIONS.map((q, k) => k === e.edit ? `<div class="editing">${question(q, e.q[q.key])}</div>` : `
+          <div class="done-row"><span class="q">${esc(q.text)}</span><span class="a">${esc(show(q, e.q[q.key]))}</span><button class="link" data-edit="${k}">Change</button></div>`).join('') + `
+        </div>
+      </div>
       <label class="qtext" for="note">Anything these questions didn't let you say about it?</label>
       <textarea id="note" placeholder="Optional.">${esc(e.note)}</textarea>
       <button class="primary" id="nextex">${i < 4 ? 'Next exercise' : 'Next'}</button>`;
-  const list = answered.length ? `
-      <div class="answers">
-        <div class="eyebrow">Your answers</div>
-        <div class="done-list">` + answered.map(x => `
-          <div class="done-row"><span class="q">${esc(x.q.text)}</span><span class="a">${esc(show(x.q, x.a))}</span>${x.k === open ? '<span class="changing">Changing it above</span>' : `<button class="link" data-change="${x.k}">Change</button>`}</div>`).join('') + `
-        </div>
-      </div>` : '';
+  const hide = ' style="visibility:hidden"';
   app.innerHTML = `
     ${bar()}
-    <div class="eyebrow">Exercise ${i + 1} of 5</div>
+    <div class="topline"><div class="eyebrow">Exercise ${i + 1} of 5</div><div class="status top" id="status"></div></div>
     <div class="card">
       <div style="display:grid;gap:4px">
         <div class="exercise-title">${esc(info.title)}</div>
         <p class="small muted">You've logged ${info.sets} ${info.sets === 1 ? 'set' : 'sets'}, most recently in ${esc(info.last)}.</p>
       </div>
+      <div class="qnav"${open === -1 ? ' hidden' : ''}><button class="link" id="back"${open > 0 ? '' : hide}>&lsaquo; Back</button><button class="link" id="skip">I don't remember this one</button></div>
       <div id="slot" style="display:grid;gap:14px">${slot}</div>
-      ${list}
-      <div class="status" id="status"></div>
-    </div>
-    <div id="skipzone"><button class="link skip" id="skip">I don't remember this one</button></div>`;
+    </div>`;
   status();
-  // Scrolled past the question to tap an answer low down, or a Change? Back to the top, the same place every time.
-  if ($('#slot').getBoundingClientRect().top < 0) window.scrollTo(0, 0);
-  document.querySelectorAll('[data-change]').forEach(b => b.onclick = () => { e.open = +b.dataset.change; render(); });
-  wireQuestion(e, open);
+  // Scrolled past the question to reach an answer low down? The next one starts at the top, the same place every time.
+  if (!keepPlace && $('#slot').getBoundingClientRect().top < 0) window.scrollTo(0, 0);
+  keepPlace = false;
+  $('#back').onclick = () => { if (open > 0) { e.open = open - 1; render(); } };
+  document.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => { e.edit = +b.dataset.edit; keepPlace = true; render(); });
+  wireQuestion(e, open !== -1 ? open : e.edit != null ? e.edit : -1);
   if ($('#note')) {
     $('#note').oninput = ev => { e.note = ev.target.value; keep(); };
-    $('#nextex').onclick = () => { e.note = $('#note').value.trim(); e.done = now(); nextExercise(); };
+    $('#nextex').onclick = () => { e.note = $('#note').value.trim(); e.done = now(); delete e.edit; nextExercise(); };
   }
   $('#skip').onclick = () => {
-    $('#skipzone').innerHTML = `<div class="card"><p>Skip ${esc(info.title)}? That's fine if you don't remember it.</p>
-      <div class="row"><button class="ghost" id="no">Keep going</button><button class="primary" id="yes">Skip it</button></div></div>`;
+    $('#slot').innerHTML = `<p>Skip ${esc(info.title)}? That's fine if you don't remember it.</p>
+      <div class="row"><button class="ghost" id="no">Keep going</button><button class="primary" id="yes">Skip it</button></div>`;
     $('#no').onclick = () => render();
     $('#yes').onclick = () => { e.dontRemember = true; e.done = now(); nextExercise(); };
   };
@@ -295,7 +297,7 @@ function question(q, a) {
     <div style="display:grid;gap:10px" id="qcard">
       <p class="qtext">${esc(q.text)}</p>
       ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ''}
-      <div class="opts">
+      <div class="opts${q.multi ? ' two' : ''}">
         ${q.multi ? q.opts.map(([code, label]) => `<button class="opt${picks(a).includes(code) ? ' picked' : ''}" data-t="${code}" aria-pressed="${picks(a).includes(code)}">${esc(label)}</button>`).join('')
           : q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
         ${q.multi ? `<button class="primary" id="multiok"${picks(a).length ? '' : ' disabled'}>Next</button>` : ''}
@@ -317,7 +319,8 @@ function wireQuestion(e, open) {
     const changed = prev && (prev.a !== code || (code === 'other' && prev.other !== other));
     e.q[q.key] = { a: code, other: code === 'other' ? other : undefined, at: now(), shown: prev ? prev.shown : (e['shown_' + q.key] || now()), changes: (prev ? prev.changes || 0 : 0) + (changed ? 1 : 0) };
     delete e['shown_' + q.key];
-    delete e.open;
+    keepPlace = e.edit != null;
+    delete e.open; delete e.edit;
     render();
     save('progress');
   };
