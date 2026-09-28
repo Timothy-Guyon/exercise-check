@@ -74,7 +74,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "6", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "7", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
 const DATA = (() => {
   try {
@@ -86,7 +86,7 @@ const DATA = (() => {
 })();
 const QUESTIONS = [
   { key: 'kind', text: 'What kind of exercise is it?', opts: [['strength', 'Strength'], ['cardio', 'Cardio'], ['stretch', 'Stretching or mobility'], ['sport', 'A sport or class']] },
-  { key: 'parts', text: 'Which parts of your body move?', hint: 'Pick all that do. For a hold, like a plank, pick the parts working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
+  { key: 'parts', text: 'Which joints move?', hint: 'Pick all that do. For a hold, like a plank, pick the joints working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
   { key: 'move', text: "What's the movement?", opts: [['press', 'Press or push'], ['pull', 'Pull or row'], ['pullover', 'Pullover (the arms stay straight)'], ['curl', 'Curl'], ['raise', 'Raise'], ['fly', 'Fly'], ['apart', 'Spread apart'], ['together', 'Squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'], ['extension', 'Extension'], ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
   { key: 'resist', text: 'What gives the resistance?', opts: [['barbell', 'Barbell'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'], ['cable', 'Cable'], ['stack', 'A weight-stack machine'], ['plates', 'A plate-loaded machine'], ['smith', 'Smith machine'], ['band', 'Band'], ['body', 'Your body weight']] },
   { key: 'moves', text: 'What moves: the weight, or you?', hint: 'On a leg press the weight moves. On a push-up, you move.', opts: [['weight', 'The weight'], ['you', 'You']] },
