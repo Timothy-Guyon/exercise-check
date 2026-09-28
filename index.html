@@ -74,16 +74,31 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "8", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
-// Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
-const DATA = (() => {
+const BASE = {"v": "9", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+// Each tester's link carries a short token after '#', which the browser never sends to any server. The token
+// unlocks that tester's name, code and five exercises from LOCKED, where they sit encrypted, so without a link
+// the page holds nothing anyone can read. Older, longer links carried the data itself, packed; those still work.
+const LOCKED = {"bcd33078bbe8e34a":["lwrNYHbjV/C7OONi","NuAcT8+b0Ache3tDhVNOw+LOVzakYnbepNmWUX5QjeL7OSBr9Uh+9XUnPeb3OZdkn61F/M18/qdJ0UoQas3lj0WInyV1rs+VdT8pQn99XCmNvznVIW2VsYk3KybtyG4Iwcv4CZprw6Zu9O2XjfrjR9Uw0yYR32h9UmIhNnigxu++QW9FyODXip4riiXI7bpZrR8mxKZVZe3ZpkB5EoCVVS9fGjEg8MLZTD727Za+w/Vg/Yy7VcbRnbVgaoTIgVh8vSS/VJ4ewayh+El9A//q1bchptLStdWdO9oG+7/6/KV121OPY9s0rSf2ezPoydF8gDW6LvC7KR68VPeD2fKrDYhN7W/HGkhqGS0Yc7cB7A=="],"bc9f9b41668aec1b":["rPEXgHmGgNrTp4mv","R4TLN0lr3tJS3d+fWYEN+zL3t8hLe08L3QEA2zAJJrJzPn9EBlFHG/I4WbhDn8M1fSFNx8NHHde0iy+s1d/sdS79rq9Y+Cuk4JvmHaUKdJYlDAKeGxQ6MuZtu+62/zRgJ9hIObvkl/YUj4LjYUv9HbZ5Du3cuuuS3sSMaxf7gNapJjjhQw+CVRjuceDeKyDly1bvxq4BZUnJyH6NIM9XsExMJvLBZeLssUjpBAUxnKqZ9Cdzaz9CJoTaC/EKDsFkLKXIfxqHKUFUwn1CJ7KRnVatonwiuUHwkLcfQjxtOSlxMbH1fDq40eDdqjgiCnReDO5aU3LJMGO9w5WUwIJrckqvr3En+r0jRF7dFBEIIK1VH0prsza86Dg="],"7dd9848c2d7aa4e4":["YHMIDOzlSWsu6rrq","wCm09ZQAKFGmLxlhVbnMiUzQ9i1pB3iCQw6LBipB6lShphl/i4ozMJws0l66E6vkhjdiNqoB9jqhWNxeuDfQwhHOdmg/U7neKtdopE+SbVGnEhbCOAZrHeax+4h33MLENtOy+QMN/yYNy9Jmll1Yl0OauO3lS4DOgD13NIz4tZ0VomyJZSoKN1WXt/aq0ioaoq5s9xjRvOt+tx3HpPjbKr53dLhjYDUMUsojXhmsMW5axUofpkHInYaqJCfCisuVa7Fe1KhpZtVKao6FWk+emsfToa274+9xALFYB+2wVJiHMnYjtE2cjULlnXWxLG1wt/AQEEUpE/siQyyopiu5jajVd+f5C+UFVZtQL8La4nHEWl04rvEqTK2Muw=="],"1c3c45d591d612c4":["tyPYVPPzPfjxD7Sr","98YzWJYHiKoSrZk3UM2exrWkqiPoZxCRSY74BgVDAU86lVeFq9O25tO4S/CCt/rd1flEFPztQcBhEfUoYZv5B8cfKByuCCWDnGvMK+A0Zae4nZUHA8s31XIN6Hek0LubmRvuKfZZcwfVSH5yTTMDsTRJPhEuV5jTB/B+avjsh0XfyK5bNgNr/M9xYdckKHt/e/yjowZqpMXgMr7jGgOhmH4k8aqZLc/CsCT8YHLC7ElBP0b0P9XoiTZ6iLMlgRfeecpGUj+6vSP3tDF2kxoLPCgZnX4UWOo5SdNsLAkEmnSn7kOSPutDMQLIvFIPicOq+HyMjj3yvPEl6MNnLNo1hA4se96Gt4uQ+WFipy8PxopJRJE9Z0/rPjjB9/pCLQ=="],"830b647d1c757957":["cotwgtHsuRIGjGEt","CqXdNnUuuR5IeJD0ihBLnB1c2oAq4qz/CXQ6S1bWhPGmaRKrpdVtoti6encTnOgz1QsACt3mNWIuUGN5s5rMQMJeNLb+GYrORtBCbxQqN+LP6b8201GVAUbMfilxWZsRtvaoQ312DWW1Iim0iaoNYI9B90zVTSA74PFpwFMUY5pI14FGtQdLW5m5VzR1lDCCKV9yoved7vo6Kg0MHacVJ4jigDCUuUadtZGZuQFqfsr7OHmJaJWeJy/GLwJ+XD8h4k2kxTxaoXeaxxvwE3AD+w0e0mm+dsaRIV0Su6L5W34hZY03ezLf3zk/CpwBr1RAYAWJOcfoaGNOvJ9yt3VFcNfIYo85ppVjy5kSxowaDvZpjbw0oHJFD2KGWWmi7TNXJKMvxpC8"],"c1d2ce663672feb0":["JEeFfPFrgs9PRWUh","qAeZICnJ13YuX/qyPztYkKvWhEJy1xbQtZWz1UVotx+fUOKVdcx+zGgtlynoOPKGlkWsJ3JJQVdWJj8h4j1ZRq9TiW1eHQGkTCE0l5IzYwvRj6PXa3nIfqR07ArKA4nqyCdJc4Jp6AWP4fl9tpNQeXQu2IoRfRHWObmn0xa83Q/eNJmOJ2Lo+oxDBrUyY0ZeAB2NcGbkNH8yN3lRplbGQwmmtGBnkZUMy5u4+kjh/h9FWfqEcQkY/1u2ZzXl+NwJ1fNKNnDAIDu6uP0rUCsVuyxCbVnl7JIVeOjP7/YWR0H01e8kYGv4d2cvbkcKFtOPpgduMonPF44ZY39HAJv9E1Iq888MXZKqH6RUM8MyE+AvRwkOTfHFAQ1c4cbzu7dOtEGQSrPUb6+K"],"7fa707f34c3def9e":["4kNTt8XQaAzAFz3J","t2wzLOZD0PeMewA0YwKohDe+yHe1enZxUGFEzgvYKn1LPb6QEUamMqgbwRnWNWBuJgXuygtwuztRm6I59dRuniIeb5hxofO95TIaJWcVZgXXPoNkDbLnkeT4TQImO+eYB2NMC/rJNur9t7HpEqq+YtopCD2d5nNkyplQD2xDl/4EIgUZ29lNVd08v3fdXosHHJ/6TWbPX2KuY9sw9sJg+aBVrHpKLS+uBL8PMkaJJUhln73TWUBaKAFp8c7t0jRLcCcSZoQwNa3oVZccUwZhzuTDT0GyqzXUNaV4lzZaHrn70ITkqweHbxwsEX1xWRN7SH7TZB/ofUp+tlRbVtVKDtoRsJAEuarr1wFM7JnKi2KqBTw="],"23f0332902e05002":["9BMW1IltHfBWakeh","MuipvP7cfXcimK43JPzN48UTuXTl/2Ws4B8euUkqW21GiQAUeVLMm9hFme91MRotHkROUvBWc8xaNGfdZW5nTiQ+914Pk+2KdkbVkgrF6NzeOhujre/IFaSdiJbXzbv7utBBXsl1kcdmKE8EiYl+ielUXn5yU7R3kTB0K0BDyoIhuBAMcdn6tguAyQ6wWMNAg82CzqHCP3r9msL2FzZEodkLuJs4T565sblhHa9uGhY528Z0YkdHck/Hd6kPwx8D770suON96zWLEbybuyaiswoP7Pv5C+SQYKIqIEXxRa1l0V7FQGirlQtrUb3m8iNdKqTBD804Od0AHClDGqRhSMYsmKxDqGQeKmmgsFKcCNLHGfb6EtmdLK08zIfBYIalF6J+5Th8fm8xLg=="],"beb5f3ebd025188b":["aWyeFCI30t4MtysY","+H7uhRNijGUVdNby9xFyodfw1XvdB12gwE4uvkEST9BG2FJEZNJ1ghod3/0vzKjcOItrBsl4y5oFdEHxJ3PjcJ/rWO8cuYtEau6EltMvgyuEkH/H41nflKZ4Ou6S3YXt1gVCkCWvSg+/w1bD/7ZtXm6mH6LZ0roxV1AbN+Z5ogd0GzcZNu60mXPrXsm0MVJJI2yiMYAWIgR4th3ejssdd07XNyv3RPglYJIraMmHjYY6jhKx0I9eDentfvDL3p0xb1Bma9T6zTpne1swjl5pAbniYqYSg9PzfDsLIkwlLZK6uh4On/+EBi1vJokIKc94FUCyjLmxBH5chT46EGWhl7VVKmFTRfkpkpY2LYZnBo5xvDEDWq3Y0umIb3ddGVO8HvB1OAue2JOWQWUbwLKEn7ZeXjN0flU+z/JS9f/McLnCi+JePYhSaD3GdZiEKhca"],"24caa5fad45cd9e0":["jefULVaeI6BmOFlA","U82J+0SwgWR9OlUmhA7J6xTnvb0y4hp49QaoqE20EZlZ9UwPpt5zvaq7UAPIU/SRPkJUZIrxw2YiJdwB2nN9GLD9/w09FeGSHh1pSIG9Y8czdR9gkxTey9u0MpWfN5BlSBrouMl2dEAP1InHsAUins0foodQwzVnVmnOudGEe1J6GWopMuB9WvFyC5qiyL39q2OlUOFDr89Or7FMVwCfCa4YH+wo6jI4txUeOtv9lkl74HrM/v+M6bXa/HGZNv3tkZ71uOzw9ByclwfuFnSoNoUBkg4i3g0zg17puPKerXDuLo/5Vo7HMtlmdE9dyTjEP4DihtMthZPyozHnCiX9kYb5I3TKB22ivHlllJoyUTmZwRMW5kt1djxZn51A0se9DlfKLJwWWWArrleqWOw7o7wo3oHHx3UUUGCHXX34eXVxqNXou8U="]};
+let DATA = null;
+async function readLink() {
+  const h = decodeURIComponent(location.hash.slice(1)).trim();
+  let d = null;
   try {
-    const b64 = location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/');
-    const d = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0))));
-    if (!d.t || !d.c || !Array.isArray(d.x) || d.x.length !== 5) return null;
-    return { ...BASE, tester: d.t, first: d.f, code: d.c, exercises: d.x.map(([title, sets, last]) => ({ title, sets, last })) };
-  } catch (e) { return null; }
-})();
+    const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    if (h.startsWith('eyJ')) d = JSON.parse(new TextDecoder().decode(bytes(h.replace(/-/g, '+').replace(/_/g, '/'))));
+    else if (h) {
+      const sha = async t => new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)));
+      const id = [...(await sha('id:' + h))].slice(0, 8).map(b => b.toString(16).padStart(2, '0')).join('');
+      if (LOCKED[id]) {
+        const key = await crypto.subtle.importKey('raw', await sha('key:' + h), 'AES-GCM', false, ['decrypt']);
+        const [iv, box] = LOCKED[id].map(bytes);
+        d = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, box)));
+      }
+    }
+  } catch (e) { d = null; }
+  if (!d || !d.t || !d.c || !Array.isArray(d.x) || d.x.length !== 5) return null;
+  return { ...BASE, tester: d.t, first: d.f, code: d.c, exercises: d.x.map(([title, sets, last]) => ({ title, sets, last })) };
+}
 const QUESTIONS = [
   { key: 'kind', text: 'What kind of exercise is it?', opts: [['strength', 'Strength'], ['cardio', 'Cardio'], ['stretch', 'Stretching or mobility'], ['sport', 'A sport or class']] },
   { key: 'parts', text: 'Which joints move?', hint: 'Pick all that do. For a hold, like a plank, pick the joints working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
@@ -97,7 +112,7 @@ const QUESTIONS = [
 ];
 const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', sides: 's', hands: 'h', angle: 'a' };
 const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
-const STORE = DATA ? 'bet2-' + DATA.code : 'bet2-none';
+let STORE = 'bet2-none';
 const now = () => new Date().toISOString();
 const $ = s => document.querySelector(s);
 const app = $('#app');
@@ -111,10 +126,14 @@ function fresh() {
     saves: { ok: 0, failed: 0, last: null, lastOk: null, pending: false },
   };
 }
-let S = DATA ? fresh() : { screen: 'hello', saves: {} };
-try { if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(STORE); history.replaceState(null, '', location.pathname + location.hash); } } catch (e) {}
-// Keep a stored state whenever it is for these same five exercises, even if the page was rebuilt since.
-try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === DATA.exercises[i].title)) S = kept; } catch (e) {}
+let S = { screen: 'hello', saves: {} };
+function setUp() {
+  STORE = DATA ? 'bet2-' + DATA.code : 'bet2-none';
+  S = DATA ? fresh() : { screen: 'hello', saves: {} };
+  try { if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(STORE); history.replaceState(null, '', location.pathname + location.hash); } } catch (e) {}
+  // Keep a stored state whenever it is for these same five exercises, even if the page was rebuilt since.
+  try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (DATA && kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === DATA.exercises[i].title)) S = kept; } catch (e) {}
+}
 function keep() { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
 
 // ---- saving: every save is a new row holding everything so far
@@ -372,9 +391,11 @@ function done() {
   wireCopy(); status();
   if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
 }
-render();
-document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.started) save(S.screen === 'done' ? 'final' : 'progress'); });
-if (DATA && S.screen !== 'hello' && (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk))) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
+readLink().then(d => {
+  DATA = d; setUp(); render();
+  document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.started) save(S.screen === 'done' ? 'final' : 'progress'); });
+  if (DATA && S.screen !== 'hello' && (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk))) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
+});
 </script>
 </body>
 </html>
