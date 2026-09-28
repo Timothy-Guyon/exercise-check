@@ -37,7 +37,8 @@ p { margin: 0; }
 button { font: inherit; color: inherit; cursor: pointer; }
 .opts { display: grid; gap: 6px; }
 .opts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.opts > .primary { grid-column: 1 / -1; }
+.opts.two > .wide { grid-column: 1 / -1; }
+.opts > .primary { grid-column: 1 / -1; position: sticky; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 4px 14px rgba(0, 0, 0, .18); }
 .opt { display: block; width: 100%; text-align: left; min-height: 46px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
 .opt:active { background: var(--soft); }
 .opt.picked { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
@@ -60,7 +61,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 .topline { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .status.top { min-height: 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .qnav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-block: -6px; }
-.qtext { font-size: 18px; font-weight: 650; line-height: 1.3; }
+.qtext { font-size: 17px; font-weight: 650; line-height: 1.3; }
 .hint { color: var(--muted); font-size: 14px; }
 .exercise-title { font-size: 21px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
 .status { font-size: 14px; color: var(--muted); min-height: 20px; }
@@ -73,7 +74,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "5", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "6", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
 const DATA = (() => {
   try {
@@ -298,7 +299,7 @@ function question(q, a) {
       <p class="qtext">${esc(q.text)}</p>
       ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ''}
       <div class="opts${q.multi ? ' two' : ''}">
-        ${q.multi ? q.opts.map(([code, label]) => `<button class="opt${picks(a).includes(code) ? ' picked' : ''}" data-t="${code}" aria-pressed="${picks(a).includes(code)}">${esc(label)}</button>`).join('')
+        ${q.multi ? q.opts.map(([code, label]) => `<button class="opt${picks(a).includes(code) ? ' picked' : ''}${label.length > 16 ? ' wide' : ''}" data-t="${code}" aria-pressed="${picks(a).includes(code)}">${esc(label)}</button>`).join('')
           : q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
         ${q.multi ? `<button class="primary" id="multiok"${picks(a).length ? '' : ' disabled'}>Next</button>` : ''}
         <button class="opt aside${a && a.a === 'unsure' ? ' picked' : ''}" data-a="unsure">Not sure</button>
