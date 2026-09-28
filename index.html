@@ -1,1 +1,353 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Nothing here</title></head><body style="font-family:system-ui,sans-serif;padding:24px">Nothing here. If you were sent a link, open that one.</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Five of your exercises</title>
+<style>
+:root {
+  --ground: #F2F1EC; --panel: #FFFFFF; --ink: #1B1D1F; --muted: #5F6468; --line: #D9D8D2; --soft: #EAE9E3;
+  --accent: #1F6E5A; --accent-ink: #FFFFFF; --accent-soft: #DCEDE7; --warn: #9A4A12; --warn-soft: #F6E7DA;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #151716; --panel: #1E2120; --ink: #E8EAE8; --muted: #9CA3A0; --line: #323735; --soft: #262A29;
+    --accent: #5FC3A4; --accent-ink: #0E1512; --accent-soft: #1D3530; --warn: #F0A56B; --warn-soft: #3A2A1E;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.45; }
+.wrap { max-width: 560px; margin: 0 auto; padding-inline: 16px; padding-block: calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 16px; }
+h1 { font-size: 26px; line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-size: 21px; line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; display: grid; gap: 14px; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.progress { display: flex; gap: 6px; }
+.progress i { flex: 1; height: 5px; border-radius: 3px; background: var(--line); }
+.progress i.done { background: var(--accent); }
+.progress i.now { background: var(--accent); opacity: .45; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.opts { display: grid; gap: 8px; }
+.opt { display: block; width: 100%; text-align: left; min-height: 50px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
+.opt:active { background: var(--soft); }
+.opt.picked { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.opt.aside { color: var(--muted); }
+.primary { width: 100%; min-height: 52px; border: 0; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 650; }
+.primary:disabled { opacity: .45; cursor: default; }
+.link { background: none; border: 0; padding: 6px 0; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row > .primary { flex: 1 1 160px; width: auto; }
+.ghost { min-height: 52px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); flex: 1 1 140px; }
+textarea, input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+textarea { min-height: 110px; resize: vertical; }
+textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.done-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.done-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.done-row .q { color: var(--muted); font-size: 14px; grid-column: 1 / -1; }
+.done-row .a { font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+.qtext { font-size: 19px; font-weight: 650; line-height: 1.3; }
+.hint { color: var(--muted); font-size: 15px; }
+.exercise-title { font-size: 24px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.status { font-size: 14px; color: var(--muted); min-height: 20px; }
+.status.bad { color: var(--warn); }
+.notice { background: var(--warn-soft); color: var(--ink); border-radius: 10px; padding: 12px 14px; }
+.copybox { width: 100%; min-height: 160px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+.skip { justify-self: start; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app" aria-live="polite"></div>
+<script>
+const BASE = {"v": "2", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+// Each tester's name, code and five exercises travel in the link after '#', which the browser never sends to any server.
+const DATA = (() => {
+  try {
+    const b64 = location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/');
+    const d = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0))));
+    if (!d.t || !d.c || !Array.isArray(d.x) || d.x.length !== 5) return null;
+    return { ...BASE, tester: d.t, first: d.f, code: d.c, exercises: d.x.map(([title, sets, last]) => ({ title, sets, last })) };
+  } catch (e) { return null; }
+})();
+const QUESTIONS = [
+  { key: 'kind', text: 'What kind of exercise is it?', opts: [['strength', 'Strength'], ['cardio', 'Cardio'], ['stretch', 'Stretching or mobility'], ['sport', 'A sport or class']] },
+  { key: 'move', text: "What's the movement?", opts: [['press', 'Press or push'], ['pull', 'Pull or row'], ['pullover', 'Pullover (the arms stay straight)'], ['curl', 'Curl'], ['raise', 'Raise'], ['fly', 'Fly'], ['apart', 'Spread apart'], ['together', 'Squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'], ['extension', 'Extension'], ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
+  { key: 'resist', text: 'What gives the resistance?', opts: [['barbell', 'Barbell'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'], ['cable', 'Cable'], ['stack', 'A weight-stack machine'], ['plates', 'A plate-loaded machine'], ['smith', 'Smith machine'], ['band', 'Band'], ['body', 'Your body weight']] },
+  { key: 'moves', text: 'What moves: the weight, or you?', hint: 'On a leg press the weight moves. On a push-up, you move.', opts: [['weight', 'The weight'], ['you', 'You']] },
+  { key: 'pos', text: 'What position are you in?', opts: [['standing', 'Standing'], ['sitting', 'Sitting'], ['faceup', 'Lying face up'], ['facedown', 'Lying face down'], ['side', 'Lying on your side'], ['kneeling', 'Kneeling'], ['bentover', 'Bent over'], ['hanging', 'Hanging']] },
+  { key: 'sides', text: 'Both sides or one?', opts: [['both', 'Both together'], ['each', 'Both, each on its own (like two dumbbells)'], ['one', 'One side, then the other'], ['alt', 'Alternating sides']] },
+  { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Palms up'], ['down', 'Palms down'], ['facing', 'Palms facing each other'], ['none', "Hands don't hold anything"]] },
+  { key: 'angle', text: 'Which way does the weight travel, compared to your body?', opts: [['updown', 'Up and down along it'], ['out', 'Straight out and back'], ['upangle', 'Up at an angle'], ['downangle', 'Down at an angle'], ['sides', 'Out to the sides']] },
+];
+const SHORT = { kind: 'k', move: 'm', resist: 'r', moves: 'w', pos: 'p', sides: 's', hands: 'h', angle: 'a' };
+const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
+const STORE = DATA ? 'bet2-' + DATA.code : 'bet2-none';
+const now = () => new Date().toISOString();
+const $ = s => document.querySelector(s);
+const app = $('#app');
+
+function fresh() {
+  return {
+    v: DATA.v, tester: DATA.tester, seq: 0, opened: now(), started: null, finished: null, screen: 'hello', cur: 0,
+    past: { text: '', never: false, at: null },
+    ex: DATA.exercises.map(e => ({ title: e.title, shown: null, done: null, dontRemember: false, note: '', q: {} })),
+    how: '', ua: navigator.userAgent, width: window.innerWidth,
+    saves: { ok: 0, failed: 0, last: null, lastOk: null, pending: false },
+  };
+}
+let S = DATA ? fresh() : { screen: 'hello', saves: {} };
+try { if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(STORE); history.replaceState(null, '', location.pathname + location.hash); } } catch (e) {}
+// Keep a stored state whenever it is for these same five exercises, even if the page was rebuilt since.
+try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === DATA.exercises[i].title)) S = kept; } catch (e) {}
+function keep() { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
+
+// ---- saving: every save is a new row holding everything so far
+async function save(kind) {
+  S.seq = (S.seq || 0) + 1; keep();
+  const body = JSON.stringify({ tester: DATA.tester, code: DATA.code, page_version: DATA.v, kind, answers: record() });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 10000);
+    try {
+      const r = await fetch(DATA.url + '/rest/v1/bet2_answers', {
+        method: 'POST',
+        headers: { 'apikey': DATA.key, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body, signal: ac.signal,
+      });
+      clearTimeout(timer);
+      if (r.ok) { S.saves.ok++; S.saves.lastOk = now(); S.saves.pending = false; if (kind === 'final') S.saves.finalOk = true; keep(); status(); return true; }
+    } catch (e) { clearTimeout(timer); }
+    await new Promise(res => setTimeout(res, 800 * (attempt + 1)));
+  }
+  S.saves.failed++; S.saves.pending = true; S.saves.last = now(); keep(); status();
+  return false;
+}
+function record() {
+  const { screen, cur, saves, ...rest } = S;
+  return { ...rest, at: now(), screen, cur, saveFailures: saves.failed };
+}
+function status() {
+  const el = $('#status'); if (!el) return;
+  if (S.saves.pending) { el.textContent = "Not sent yet. It'll try again at the next step."; el.className = 'status bad'; }
+  else if (S.saves.ok) { el.textContent = 'Saved.'; el.className = 'status'; }
+  else { el.textContent = ''; el.className = 'status'; }
+}
+
+// ---- the text a tester can copy if saving fails
+function copyText() {
+  const fmtT = iso => iso ? iso.slice(0, 16).replace('T', ' ') : '?';
+  const dur = (a, b) => (a && b) ? Math.round((new Date(b) - new Date(a)) / 1000) + 's' : '?';
+  const lines = [`Bet 2 answers v${DATA.v} | ${DATA.tester} | ${fmtT(S.started)} to ${fmtT(S.finished)}`];
+  lines.push('past: ' + (S.past.never ? 'never ' : '') + JSON.stringify(S.past.text || ''));
+  S.ex.forEach((e, i) => {
+    if (e.dontRemember) { lines.push(`${i + 1} | ${dur(e.shown, e.done)} | don't remember`); return; }
+    const parts = QUESTIONS.map(q => {
+      const a = e.q[q.key]; if (!a) return null;
+      return SHORT[q.key] + ':' + (a.a === 'other' ? 'other' + JSON.stringify(a.other) : a.a);
+    }).filter(Boolean).join(' ');
+    const changed = QUESTIONS.filter(q => e.q[q.key] && e.q[q.key].changes).map(q => SHORT[q.key] + e.q[q.key].changes).join(',');
+    lines.push(`${i + 1} | ${dur(e.shown, e.done)} | ${parts}` + (changed ? ` | changed: ${changed}` : '') + (e.note ? ` | note: ${JSON.stringify(e.note)}` : ''));
+  });
+  lines.push('how: ' + JSON.stringify(S.how || ''));
+  return lines.join('\n');
+}
+function copyParts() {
+  const LIMIT = 1900, text = copyText(), parts = [];
+  let cur = '';
+  for (const line of text.split('\n')) {
+    let rest = line;
+    while (rest.length > LIMIT - 20) { if (cur) { parts.push(cur); cur = ''; } parts.push(rest.slice(0, LIMIT - 20)); rest = '...' + rest.slice(LIMIT - 20); }
+    if (cur && (cur.length + 1 + rest.length) > LIMIT - 20) { parts.push(cur); cur = ''; }
+    cur = cur ? cur + '\n' + rest : rest;
+  }
+  if (cur) parts.push(cur);
+  return parts.length === 1 ? parts : parts.map((p, i) => `(part ${i + 1} of ${parts.length})\n` + p);
+}
+async function copy(text, btn) {
+  const box = btn.parentElement.parentElement.querySelector('textarea');
+  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
+  catch (e) { if (box) { box.hidden = false; box.focus(); box.select(); } btn.textContent = 'Select the text and copy it'; }
+}
+function copyPanel(intro) {
+  const parts = copyParts();
+  return `<div class="card" id="copypanel"><p>${intro}</p>` + parts.map((p, i) => `
+    <div class="copy-part" style="display:grid;gap:8px">
+      <div class="row"><button class="primary" data-copy="${i}">${parts.length > 1 ? `Copy part ${i + 1} of ${parts.length}` : 'Copy my answers'}</button></div>
+      <textarea class="copybox" readonly hidden>${esc(p)}</textarea>
+    </div>`).join('') + `<p class="small muted">Then paste it in a Discord message to Timmy${parts.length > 1 ? ', one part per message' : ''}.</p></div>`;
+}
+function wireCopy() { const parts = copyParts(); document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(parts[+b.dataset.copy], b)); }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---- screens
+function render() {
+  keep();
+  app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
+  if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask Timmy to send it again.</p></div>`; return; }
+  const s = S.screen;
+  if (s === 'hello') return hello();
+  if (s === 'past') return past();
+  if (s === 'ex') return exercise();
+  if (s === 'how') return how();
+  if (s === 'done') return done();
+}
+function bar() {
+  const i = S.screen === 'ex' ? S.cur : (S.screen === 'how' || S.screen === 'done' ? 5 : -1);
+  return `<div class="progress" aria-hidden="true">${DATA.exercises.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>`;
+}
+function hello() {
+  app.innerHTML = `
+    <div class="eyebrow">Five of your exercises</div>
+    <h1>Hi ${esc(DATA.first)}.</h1>
+    <div class="card">
+      <p>This takes about ten minutes. I'll ask about five exercises from your Hevy log, one at a time.</p>
+      <p>Answer from memory, the way you actually do them. <b>"Not sure"</b> is always a fine answer.</p>
+      <p class="small muted">Your answers save as you go and go to Timmy. You can close this and come back; it picks up where you left off.</p>
+      <button class="primary" id="go">Start</button>
+    </div>`;
+  $('#go').onclick = () => { S.started = S.started || now(); S.screen = 'past'; render(); };
+}
+function past() {
+  app.innerHTML = `
+    <div class="eyebrow">Before the exercises</div>
+    <div class="card">
+      <p class="qtext">When did you last add your own exercise in Hevy, and why?</p>
+      <textarea id="pt" placeholder="A rough date and the reason is plenty.">${esc(S.past.text)}</textarea>
+      <div class="row"><button class="ghost" id="never">I never have</button><button class="primary" id="next">Next</button></div>
+      <div class="status" id="status"></div>
+    </div>`;
+  const go = never => { S.past.text = $('#pt').value.trim(); S.past.never = never; S.past.at = now(); S.screen = 'ex'; S.cur = 0; render(); save('progress'); };
+  const gate = () => { $('#next').disabled = !$('#pt').value.trim(); };
+  $('#never').onclick = () => go(true);
+  $('#next').onclick = () => go(false);
+  $('#pt').oninput = e => { S.past.text = e.target.value; keep(); gate(); };
+  gate();
+}
+function exercise() {
+  const i = S.cur, e = S.ex[i], info = DATA.exercises[i];
+  if (!e.shown) { e.shown = now(); keep(); }
+  const open = e.open != null ? e.open : QUESTIONS.findIndex(q => !e.q[q.key]);
+  const answered = QUESTIONS.map((q, k) => ({ q, k, a: e.q[q.key] })).filter(x => x.a && x.k !== open);
+  const allDone = QUESTIONS.every(q => e.q[q.key]);
+  let body = '';
+  if (answered.length) body += `<div class="done-list">` + answered.map(x => `
+      <div class="done-row"><span class="q">${esc(x.q.text)}</span><span class="a">${esc(show(x.q, x.a))}</span><button class="link" data-change="${x.k}">Change</button></div>`).join('') + `</div>`;
+  if (open !== -1) body += question(QUESTIONS[open], e.q[QUESTIONS[open].key]);
+  if (allDone && open === -1) body += `
+      <label class="qtext" for="note">Anything these questions didn't let you say about it?</label>
+      <textarea id="note" placeholder="Optional.">${esc(e.note)}</textarea>
+      <button class="primary" id="nextex">${i < 4 ? 'Next exercise' : 'Next'}</button>`;
+  app.innerHTML = `
+    ${bar()}
+    <div class="eyebrow">Exercise ${i + 1} of 5</div>
+    <div class="card">
+      <div style="display:grid;gap:4px">
+        <div class="exercise-title">${esc(info.title)}</div>
+        <p class="small muted">You've logged ${info.sets} ${info.sets === 1 ? 'set' : 'sets'}, most recently in ${esc(info.last)}.</p>
+      </div>
+      ${body}
+      <div class="status" id="status"></div>
+    </div>
+    <div id="skipzone"><button class="link skip" id="skip">I don't remember this one</button></div>`;
+  status();
+  const focus = $('#qcard') || $('#note');
+  if (focus && answered.length) focus.scrollIntoView({ block: 'nearest' });
+  document.querySelectorAll('[data-change]').forEach(b => b.onclick = () => { e.open = +b.dataset.change; render(); });
+  wireQuestion(e, open);
+  if ($('#note')) {
+    $('#note').oninput = ev => { e.note = ev.target.value; keep(); };
+    $('#nextex').onclick = () => { e.note = $('#note').value.trim(); e.done = now(); nextExercise(); };
+  }
+  $('#skip').onclick = () => {
+    $('#skipzone').innerHTML = `<div class="card"><p>Skip ${esc(info.title)}? That's fine if you don't remember it.</p>
+      <div class="row"><button class="ghost" id="no">Keep going</button><button class="primary" id="yes">Skip it</button></div></div>`;
+    $('#no').onclick = () => render();
+    $('#yes').onclick = () => { e.dontRemember = true; e.done = now(); nextExercise(); };
+  };
+}
+function nextExercise() {
+  delete S.ex[S.cur].open;
+  if (S.cur < 4) { S.cur++; S.screen = 'ex'; } else { S.screen = 'how'; }
+  render(); window.scrollTo(0, 0); save('progress');
+}
+function show(q, a) { return a.a === 'unsure' ? 'Not sure' : a.a === 'other' ? 'Something else: ' + a.other : LABEL[q.key][a.a]; }
+function question(q, a) {
+  return `
+    <div style="display:grid;gap:10px" id="qcard">
+      <p class="qtext">${esc(q.text)}</p>
+      ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ''}
+      <div class="opts">
+        ${q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
+        <button class="opt aside${a && a.a === 'unsure' ? ' picked' : ''}" data-a="unsure">Not sure</button>
+        <button class="opt aside${a && a.a === 'other' ? ' picked' : ''}" data-a="other">Something else</button>
+      </div>
+      <div id="otherbox" hidden style="display:grid;gap:8px">
+        <input type="text" id="othertext" placeholder="Say it in your own words" value="${a && a.a === 'other' ? esc(a.other) : ''}">
+        <button class="primary" id="otherok">OK</button>
+      </div>
+    </div>`;
+}
+function wireQuestion(e, open) {
+  if (open === -1) return;
+  const q = QUESTIONS[open];
+  if (!e.q[q.key] || !e.q[q.key].shown) { e['shown_' + q.key] = e['shown_' + q.key] || now(); }
+  const set = (code, other) => {
+    const prev = e.q[q.key];
+    const changed = prev && (prev.a !== code || (code === 'other' && prev.other !== other));
+    e.q[q.key] = { a: code, other: code === 'other' ? other : undefined, at: now(), shown: prev ? prev.shown : (e['shown_' + q.key] || now()), changes: (prev ? prev.changes || 0 : 0) + (changed ? 1 : 0) };
+    delete e['shown_' + q.key];
+    delete e.open;
+    render();
+    save('progress');
+  };
+  document.querySelectorAll('#qcard [data-a]').forEach(b => b.onclick = () => {
+    if (b.dataset.a === 'other') { $('#otherbox').hidden = false; $('#othertext').focus(); return; }
+    set(b.dataset.a);
+  });
+  $('#otherok').onclick = () => { const t = $('#othertext').value.trim(); if (t) set('other', t); else $('#othertext').focus(); };
+  $('#othertext').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); $('#otherok').click(); } };
+}
+function how() {
+  app.innerHTML = `
+    ${bar()}
+    <div class="eyebrow">Last question</div>
+    <div class="card">
+      <label class="qtext" for="how">How was that?</label>
+      <textarea id="how" placeholder="In your own words. Short is fine.">${esc(S.how)}</textarea>
+      <button class="primary" id="finish">Finish</button>
+      <div class="status" id="status"></div>
+    </div>`;
+  status();
+  $('#how').oninput = ev => { S.how = ev.target.value; keep(); };
+  $('#finish').onclick = async () => {
+    S.how = $('#how').value.trim(); S.finished = S.finished || now(); S.screen = 'done'; S.sending = true;
+    render(); await save('final'); S.sending = false; render();
+  };
+}
+function done() {
+  if (S.sending) { app.innerHTML = `${bar()}<div class="card"><p>Sending your answers to Timmy...</p></div><details><summary class="small muted">Taking a while? Copy your answers instead</summary>${copyPanel('Paste this to Timmy on Discord.')}</details>`; wireCopy(); return; }
+  const sent = !!S.saves.finalOk;
+  app.innerHTML = `
+    ${bar()}
+    <h1>Thanks, ${esc(DATA.first)}.</h1>
+    ${sent ? `<div class="card"><p>Your answers are with Timmy. That's everything.</p><p class="small muted">Timmy may message you with a question or two about them.</p></div>`
+           : `<div class="notice"><p><b>Your answers haven't reached Timmy yet.</b> Tap Copy and paste them to Timmy on Discord. Or, if your signal is back, try sending again.</p></div>
+              <div class="row"><button class="primary" id="retry">Try sending again</button></div>`}
+    ${sent ? `<details><summary class="small muted">Want to be sure? Copy your answers</summary>${copyPanel('Paste this to Timmy on Discord only if he asks.')}</details>` : copyPanel('Your answers:')}
+    <div class="status" id="status"></div>`;
+  wireCopy(); status();
+  if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
+}
+render();
+document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.started) save(S.screen === 'done' ? 'final' : 'progress'); });
+if (DATA && S.screen !== 'hello' && (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk))) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
+</script>
+</body>
+</html>
