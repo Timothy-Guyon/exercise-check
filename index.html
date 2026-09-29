@@ -247,7 +247,7 @@ function copyPanel(intro) {
     <div class="copy-part" style="display:grid;gap:8px">
       <div class="row"><button class="primary" data-copy="${i}">${parts.length > 1 ? `Copy part ${i + 1} of ${parts.length}` : 'Copy my answers'}</button></div>
       <textarea class="copybox" readonly hidden>${esc(p)}</textarea>
-    </div>`).join('') + `<p class="small muted">Then paste it in a Discord message to Timmy${parts.length > 1 ? ', one part per message' : ''}.</p></div>`;
+    </div>`).join('') + `<p class="small muted">Then paste it in a Discord message to me${parts.length > 1 ? ', one part per message' : ''}.</p></div>`;
 }
 function wireCopy() { const parts = copyParts(); document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(parts[+b.dataset.copy], b)); }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -258,7 +258,7 @@ function render() {
   keep();
   document.body.style.minHeight = (scrollY + innerHeight) + 'px';  // a shorter screen never pulls the page up under the tester
   app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
-  if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask Timmy to send it again.</p></div>`; return; }
+  if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask me to send it again.</p></div>`; return; }
   if (!S.tester) return hello();
   const s = S.screen;
   if (s === 'past') return past();
@@ -280,9 +280,9 @@ function hello() {
       <p>This is a short questionnaire. I'll show you five common gym exercises, one at a time, and ask a few plain questions about how you do each one.</p>
       <p>Answer from memory, the way you actually do them. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
       <label class="qtext" for="name">First, what's your first name?</label>
-      <input type="text" id="name" autocomplete="given-name" placeholder="So Timmy knows whose answers these are" value="${esc(last)}">
+      <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
-      <p class="small muted">Your answers save as you go and go to Timmy. You can close this and come back; type the same name and it picks up where you left off.</p>
+      <p class="small muted">Your answers save as you go and come to me. You can close this and come back; type the same name and it picks up where you left off.</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
@@ -423,15 +423,15 @@ function how() {
   };
 }
 function done() {
-  if (S.sending) { app.innerHTML = `${bar()}<div class="card"><p>Sending your answers to Timmy...</p></div><details><summary class="small muted">Taking a while? Copy your answers instead</summary>${copyPanel('Paste this to Timmy on Discord.')}</details>`; wireCopy(); return; }
+  if (S.sending) { app.innerHTML = `${bar()}<div class="card"><p>Sending your answers to me...</p></div><details><summary class="small muted">Taking a while? Copy your answers instead</summary>${copyPanel('Paste this to me on Discord.')}</details>`; wireCopy(); return; }
   const sent = !!S.saves.finalOk;
   app.innerHTML = `
     ${bar()}
     <h1>Thanks, ${esc(S.first)}.</h1>
-    ${sent ? `<div class="card"><p>Your answers are with Timmy. That's everything.</p><p class="small muted">Timmy may message you with a question or two about them.</p></div>`
-           : `<div class="notice"><p><b>Your answers haven't reached Timmy yet.</b> Tap Copy and paste them to Timmy on Discord. Or, if your signal is back, try sending again.</p></div>
+    ${sent ? `<div class="card"><p>Your answers are with me. That's everything.</p><p class="small muted">I may message you with a question or two about them.</p></div>`
+           : `<div class="notice"><p><b>Your answers haven't reached me yet.</b> Tap Copy and paste them to me on Discord. Or, if your signal is back, try sending again.</p></div>
               <div class="row"><button class="primary" id="retry">Try sending again</button></div>`}
-    ${sent ? `<details><summary class="small muted">Want to be sure? Copy your answers</summary>${copyPanel('Paste this to Timmy on Discord only if Timmy asks for it.')}</details>` : copyPanel('Your answers:')}
+    ${sent ? `<details><summary class="small muted">Want to be sure? Copy your answers</summary>${copyPanel('Paste this to me on Discord only if I ask for it.')}</details>` : copyPanel('Your answers:')}
     <div class="status" id="status"></div>`;
   wireCopy(); status();
   if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
