@@ -282,7 +282,7 @@ function hello() {
       <label class="qtext" for="name">First, what's your first name?</label>
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
-      <p class="small muted">Your answers save as you go and come to me. You can close this and come back; type the same name and it picks up where you left off.</p>
+      <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, type the same name, and it picks up where you left off.</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
