@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Five of your exercises</title>
+<title>Five exercises</title>
 <style>
 :root {
   --ground: #F2F1EC; --panel: #FFFFFF; --ink: #1B1D1F; --muted: #5F6468; --line: #D9D8D2; --soft: #EAE9E3;
@@ -74,19 +74,20 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
-const BASE = {"v": "9", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
-// Each tester's link carries a short token after '#', which the browser never sends to any server. The token
-// unlocks that tester's name, code and five exercises from LOCKED, where they sit encrypted, so without a link
-// the page holds nothing anyone can read. Older, longer links carried the data itself, packed; those still work.
-const LOCKED = {"bcd33078bbe8e34a":["lwrNYHbjV/C7OONi","NuAcT8+b0Ache3tDhVNOw+LOVzakYnbepNmWUX5QjeL7OSBr9Uh+9XUnPeb3OZdkn61F/M18/qdJ0UoQas3lj0WInyV1rs+VdT8pQn99XCmNvznVIW2VsYk3KybtyG4Iwcv4CZprw6Zu9O2XjfrjR9Uw0yYR32h9UmIhNnigxu++QW9FyODXip4riiXI7bpZrR8mxKZVZe3ZpkB5EoCVVS9fGjEg8MLZTD727Za+w/Vg/Yy7VcbRnbVgaoTIgVh8vSS/VJ4ewayh+El9A//q1bchptLStdWdO9oG+7/6/KV121OPY9s0rSf2ezPoydF8gDW6LvC7KR68VPeD2fKrDYhN7W/HGkhqGS0Yc7cB7A=="],"bc9f9b41668aec1b":["rPEXgHmGgNrTp4mv","R4TLN0lr3tJS3d+fWYEN+zL3t8hLe08L3QEA2zAJJrJzPn9EBlFHG/I4WbhDn8M1fSFNx8NHHde0iy+s1d/sdS79rq9Y+Cuk4JvmHaUKdJYlDAKeGxQ6MuZtu+62/zRgJ9hIObvkl/YUj4LjYUv9HbZ5Du3cuuuS3sSMaxf7gNapJjjhQw+CVRjuceDeKyDly1bvxq4BZUnJyH6NIM9XsExMJvLBZeLssUjpBAUxnKqZ9Cdzaz9CJoTaC/EKDsFkLKXIfxqHKUFUwn1CJ7KRnVatonwiuUHwkLcfQjxtOSlxMbH1fDq40eDdqjgiCnReDO5aU3LJMGO9w5WUwIJrckqvr3En+r0jRF7dFBEIIK1VH0prsza86Dg="],"7dd9848c2d7aa4e4":["YHMIDOzlSWsu6rrq","wCm09ZQAKFGmLxlhVbnMiUzQ9i1pB3iCQw6LBipB6lShphl/i4ozMJws0l66E6vkhjdiNqoB9jqhWNxeuDfQwhHOdmg/U7neKtdopE+SbVGnEhbCOAZrHeax+4h33MLENtOy+QMN/yYNy9Jmll1Yl0OauO3lS4DOgD13NIz4tZ0VomyJZSoKN1WXt/aq0ioaoq5s9xjRvOt+tx3HpPjbKr53dLhjYDUMUsojXhmsMW5axUofpkHInYaqJCfCisuVa7Fe1KhpZtVKao6FWk+emsfToa274+9xALFYB+2wVJiHMnYjtE2cjULlnXWxLG1wt/AQEEUpE/siQyyopiu5jajVd+f5C+UFVZtQL8La4nHEWl04rvEqTK2Muw=="],"1c3c45d591d612c4":["tyPYVPPzPfjxD7Sr","98YzWJYHiKoSrZk3UM2exrWkqiPoZxCRSY74BgVDAU86lVeFq9O25tO4S/CCt/rd1flEFPztQcBhEfUoYZv5B8cfKByuCCWDnGvMK+A0Zae4nZUHA8s31XIN6Hek0LubmRvuKfZZcwfVSH5yTTMDsTRJPhEuV5jTB/B+avjsh0XfyK5bNgNr/M9xYdckKHt/e/yjowZqpMXgMr7jGgOhmH4k8aqZLc/CsCT8YHLC7ElBP0b0P9XoiTZ6iLMlgRfeecpGUj+6vSP3tDF2kxoLPCgZnX4UWOo5SdNsLAkEmnSn7kOSPutDMQLIvFIPicOq+HyMjj3yvPEl6MNnLNo1hA4se96Gt4uQ+WFipy8PxopJRJE9Z0/rPjjB9/pCLQ=="],"830b647d1c757957":["cotwgtHsuRIGjGEt","CqXdNnUuuR5IeJD0ihBLnB1c2oAq4qz/CXQ6S1bWhPGmaRKrpdVtoti6encTnOgz1QsACt3mNWIuUGN5s5rMQMJeNLb+GYrORtBCbxQqN+LP6b8201GVAUbMfilxWZsRtvaoQ312DWW1Iim0iaoNYI9B90zVTSA74PFpwFMUY5pI14FGtQdLW5m5VzR1lDCCKV9yoved7vo6Kg0MHacVJ4jigDCUuUadtZGZuQFqfsr7OHmJaJWeJy/GLwJ+XD8h4k2kxTxaoXeaxxvwE3AD+w0e0mm+dsaRIV0Su6L5W34hZY03ezLf3zk/CpwBr1RAYAWJOcfoaGNOvJ9yt3VFcNfIYo85ppVjy5kSxowaDvZpjbw0oHJFD2KGWWmi7TNXJKMvxpC8"],"c1d2ce663672feb0":["JEeFfPFrgs9PRWUh","qAeZICnJ13YuX/qyPztYkKvWhEJy1xbQtZWz1UVotx+fUOKVdcx+zGgtlynoOPKGlkWsJ3JJQVdWJj8h4j1ZRq9TiW1eHQGkTCE0l5IzYwvRj6PXa3nIfqR07ArKA4nqyCdJc4Jp6AWP4fl9tpNQeXQu2IoRfRHWObmn0xa83Q/eNJmOJ2Lo+oxDBrUyY0ZeAB2NcGbkNH8yN3lRplbGQwmmtGBnkZUMy5u4+kjh/h9FWfqEcQkY/1u2ZzXl+NwJ1fNKNnDAIDu6uP0rUCsVuyxCbVnl7JIVeOjP7/YWR0H01e8kYGv4d2cvbkcKFtOPpgduMonPF44ZY39HAJv9E1Iq888MXZKqH6RUM8MyE+AvRwkOTfHFAQ1c4cbzu7dOtEGQSrPUb6+K"],"7fa707f34c3def9e":["4kNTt8XQaAzAFz3J","t2wzLOZD0PeMewA0YwKohDe+yHe1enZxUGFEzgvYKn1LPb6QEUamMqgbwRnWNWBuJgXuygtwuztRm6I59dRuniIeb5hxofO95TIaJWcVZgXXPoNkDbLnkeT4TQImO+eYB2NMC/rJNur9t7HpEqq+YtopCD2d5nNkyplQD2xDl/4EIgUZ29lNVd08v3fdXosHHJ/6TWbPX2KuY9sw9sJg+aBVrHpKLS+uBL8PMkaJJUhln73TWUBaKAFp8c7t0jRLcCcSZoQwNa3oVZccUwZhzuTDT0GyqzXUNaV4lzZaHrn70ITkqweHbxwsEX1xWRN7SH7TZB/ofUp+tlRbVtVKDtoRsJAEuarr1wFM7JnKi2KqBTw="],"23f0332902e05002":["9BMW1IltHfBWakeh","MuipvP7cfXcimK43JPzN48UTuXTl/2Ws4B8euUkqW21GiQAUeVLMm9hFme91MRotHkROUvBWc8xaNGfdZW5nTiQ+914Pk+2KdkbVkgrF6NzeOhujre/IFaSdiJbXzbv7utBBXsl1kcdmKE8EiYl+ielUXn5yU7R3kTB0K0BDyoIhuBAMcdn6tguAyQ6wWMNAg82CzqHCP3r9msL2FzZEodkLuJs4T565sblhHa9uGhY528Z0YkdHck/Hd6kPwx8D770suON96zWLEbybuyaiswoP7Pv5C+SQYKIqIEXxRa1l0V7FQGirlQtrUb3m8iNdKqTBD804Od0AHClDGqRhSMYsmKxDqGQeKmmgsFKcCNLHGfb6EtmdLK08zIfBYIalF6J+5Th8fm8xLg=="],"beb5f3ebd025188b":["aWyeFCI30t4MtysY","+H7uhRNijGUVdNby9xFyodfw1XvdB12gwE4uvkEST9BG2FJEZNJ1ghod3/0vzKjcOItrBsl4y5oFdEHxJ3PjcJ/rWO8cuYtEau6EltMvgyuEkH/H41nflKZ4Ou6S3YXt1gVCkCWvSg+/w1bD/7ZtXm6mH6LZ0roxV1AbN+Z5ogd0GzcZNu60mXPrXsm0MVJJI2yiMYAWIgR4th3ejssdd07XNyv3RPglYJIraMmHjYY6jhKx0I9eDentfvDL3p0xb1Bma9T6zTpne1swjl5pAbniYqYSg9PzfDsLIkwlLZK6uh4On/+EBi1vJokIKc94FUCyjLmxBH5chT46EGWhl7VVKmFTRfkpkpY2LYZnBo5xvDEDWq3Y0umIb3ddGVO8HvB1OAue2JOWQWUbwLKEn7ZeXjN0flU+z/JS9f/McLnCi+JePYhSaD3GdZiEKhca"],"24caa5fad45cd9e0":["jefULVaeI6BmOFlA","U82J+0SwgWR9OlUmhA7J6xTnvb0y4hp49QaoqE20EZlZ9UwPpt5zvaq7UAPIU/SRPkJUZIrxw2YiJdwB2nN9GLD9/w09FeGSHh1pSIG9Y8czdR9gkxTey9u0MpWfN5BlSBrouMl2dEAP1InHsAUins0foodQwzVnVmnOudGEe1J6GWopMuB9WvFyC5qiyL39q2OlUOFDr89Or7FMVwCfCa4YH+wo6jI4txUeOtv9lkl74HrM/v+M6bXa/HGZNv3tkZ71uOzw9ByclwfuFnSoNoUBkg4i3g0zg17puPKerXDuLo/5Vo7HMtlmdE9dyTjEP4DihtMthZPyozHnCiX9kYb5I3TKB22ivHlllJoyUTmZwRMW5kt1djxZn51A0se9DlfKLJwWWWArrleqWOw7o7wo3oHHx3UUUGCHXX34eXVxqNXou8U="]};
+// Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
+const BASE = {"v": "10", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+// The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
+// the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
+// the link the page holds nothing anyone can read. The tester types their first name, and the name picks
+// which five of the twenty they get.
+const LOCKED = {"56eaeab3db645274":["iIf1tUwnmnLib5ZN","0nIQEBOXmnVBbAUoZiFDWny3Oi7jgjBxQia8RWh9pBrQb7PADV8u10MmK+F2xLHZTGw1XY0GSqQ7jz1vF3IPSeRaIoTPixNLC9sB5suZm3o1DcX+Ez548APvm0T1G9Jk4USA1dUJoFU3GWZ9FTeIXW6kj92rOb+H+5pEA6ZkgTtiIOl1+tViCd+ai1Ai7s53Gj5idB8WFG+8dEXDr3yhK72jhcxVHe3BTRrpPAhniLzjLkmcRWOjjQ2KrWAPv/0pm3qxGb9krnYrsdHAD4JJVeEzNbC2F2TQZrMus63JsPjM//V5E9XDDDfwMsXAQydMIZo6v4mVa2I/2OVr1ygljsn6GRM1YLk3+2u2HL0onjMblGyvm32Afbey3MHRHa832knnhwxoDJtZ2HUUpLoEAjvVBQi4YVLZr4gt5YiU8EawJ2aC2cNQrqevTAMdsCuQodrhvTDv85+U7eW20tpApIFBUZLOyAzMLB+s8JlYuOTsZV6dp8+HK3J2lg1fykNHZWzHXZ0G4JwuuL3fNtxQoWE7qTtr20jvPOc7Y/6Uta5/6SLDh+wPjnDW+/0xFZZPDFPHuF3/tzyyiwaJTWzPr0q/2e+ZYct3Z8jHfdDd3GRAnxOhTI1u9naR52v2jGGmIjpzraj6aCJRA/m2OclO8iyAuViMlJGut9wbJdBNHQbUd1M78S1WwruwmFEO0VUVf7gjK3OGEnpwW6VtmiINUVfNQxG9yo7tbUX6uaoxpLAijfWkK/SDw99taj7G1L3TSRI="]};
 let DATA = null;
 async function readLink() {
   const h = decodeURIComponent(location.hash.slice(1)).trim();
   let d = null;
   try {
-    const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-    if (h.startsWith('eyJ')) d = JSON.parse(new TextDecoder().decode(bytes(h.replace(/-/g, '+').replace(/_/g, '/'))));
-    else if (h) {
+    if (h) {
+      const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
       const sha = async t => new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)));
       const id = [...(await sha('id:' + h))].slice(0, 8).map(b => b.toString(16).padStart(2, '0')).join('');
       if (LOCKED[id]) {
@@ -96,54 +97,93 @@ async function readLink() {
       }
     }
   } catch (e) { d = null; }
-  if (!d || !d.t || !d.c || !Array.isArray(d.x) || d.x.length !== 5) return null;
-  return { ...BASE, tester: d.t, first: d.f, code: d.c, exercises: d.x.map(([title, sets, last]) => ({ title, sets, last })) };
+  if (!d || !d.c || !Array.isArray(d.x) || !Array.isArray(d.g) || !d.g.length || !d.g.every(g => Array.isArray(g) && g.length === 5)) return null;
+  return { ...BASE, code: d.c, pool: d.x, groups: d.g };
 }
+// The questions, version 10: no exercise is named in an option or a hint, since the pool's own exercises
+// would be given away. The tenth, how the bench or seat is set, is asked only when the position is sitting
+// or lying, and is not counted.
 const QUESTIONS = [
   { key: 'kind', text: 'What kind of exercise is it?', opts: [['strength', 'Strength'], ['cardio', 'Cardio'], ['stretch', 'Stretching or mobility'], ['sport', 'A sport or class']] },
-  { key: 'parts', text: 'Which joints move?', hint: 'Pick all that do. For a hold, like a plank, pick the joints working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
-  { key: 'move', text: "What's the movement?", opts: [['press', 'Press or push'], ['pull', 'Pull or row'], ['pullover', 'Pullover (the arms stay straight)'], ['curl', 'Curl'], ['raise', 'Raise'], ['fly', 'Fly'], ['apart', 'Legs spread apart'], ['together', 'Legs squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'], ['extension', 'Extension'], ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
-  { key: 'resist', text: 'What gives the resistance?', opts: [['barbell', 'Barbell'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'], ['cable', 'Cable (a rope, handle or bar on a pulley)'], ['stack', 'A weight-stack machine'], ['plates', 'A plate-loaded machine'], ['smith', 'Smith machine'], ['band', 'Band'], ['body', 'Your body weight']] },
-  { key: 'moves', text: 'What moves: the weight, or you?', hint: 'On a leg press the weight moves. On a push-up, you move.', opts: [['weight', 'The weight'], ['you', 'You']] },
-  { key: 'pos', text: 'What position are you in?', opts: [['standing', 'Standing'], ['sitting', 'Sitting'], ['faceup', 'Lying face up'], ['facedown', 'Lying face down, or held up on your hands or forearms'], ['side', 'Lying on your side'], ['kneeling', 'Kneeling'], ['bentover', 'Bent over'], ['hanging', 'Hanging']] },
-  { key: 'sides', text: 'Both sides or one?', opts: [['both', 'Both together (joined, like one bar)'], ['each', 'Both, each on its own (like two dumbbells)'], ['one', 'One side for all the reps, then the other'], ['alt', 'Alternating sides, rep by rep']] },
-  { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Palms up (underhand grip)'], ['down', 'Palms down (overhand grip)'], ['facing', 'Palms facing each other (neutral grip)'], ['none', "Hands don't hold anything"]] },
-  { key: 'angle', text: 'Which way does the weight travel, compared to your body?', opts: [['updown', 'Up and down along it'], ['out', 'Straight out and back'], ['upangle', 'Up at an angle'], ['downangle', 'Down at an angle'], ['sides', 'Out to the sides']] },
+  { key: 'parts', text: 'Which joints move?', hint: 'Pick all that do. For a hold, pick the joints working to keep still.', multi: true, opts: [['neck', 'Neck'], ['shoulders', 'Shoulders'], ['blades', 'Shoulder blades, like a shrug'], ['elbows', 'Elbows'], ['wrists', 'Wrists'], ['back', 'Back or core, bending or twisting'], ['hips', 'Hips'], ['knees', 'Knees'], ['ankles', 'Ankles']] },
+  { key: 'move', text: "What's the movement?", opts: [
+    ['press', 'Press: you push the weight away; your elbow or knee straightens along with your shoulder or hip'],
+    ['pull', 'Row or pull: you pull the weight toward you, elbows bending'],
+    ['pullover', 'Straight-arm pull: the arms stay nearly straight and sweep down or over'],
+    ['curl', 'Curl'],
+    ['raise', 'Raise: you lift the weight out or up with a nearly straight arm, or you lift a leg'],
+    ['fly', 'Fly: the arms stay nearly straight and sweep together in front of you, or apart behind you'],
+    ['apart', 'Legs spread apart'], ['together', 'Legs squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'],
+    ['extension', 'Extension: only the elbow or the knee straightens; nothing else moves much'],
+    ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
+  { key: 'resist', text: 'What gives the resistance?', hint: 'Pick the kind of thing you hold or push against. A cable station counts as Cable even though a weight stack sits behind it; a Smith machine counts as a Smith machine even though you load plates on it.', opts: [
+    ['barbell', 'Barbell: a free bar, not on rails'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'],
+    ['cable', 'Cable station: a rope, handle or bar on a pulley'],
+    ['stack', 'A lever machine with pads, a seat or fixed handles, set with a pin in a weight stack'],
+    ['plates', 'A lever machine with pads, a seat or fixed handles, that you load plates onto'],
+    ['smith', 'Smith machine: a bar that slides on rails'], ['band', 'Band'], ['body', 'Your body weight']] },
+  { key: 'moves', text: 'Does your whole body travel, or does it stay put?', hint: 'Your whole body travels when your feet or hands stay planted and the rest of you moves through space, even with a bar on your back. Your body stays put when only an arm or a leg moves the weight.', opts: [['you', 'My whole body travels'], ['weight', 'My body stays put; an arm or a leg moves the weight']] },
+  { key: 'pos', text: 'What position are you in?', hint: "Pick what your legs are doing. A bench or seat set at an angle still counts as lying or sitting; the next question asks how it's set.", opts: [['standing', 'Standing'], ['bentover', 'Standing, bent over at the hips'], ['sitting', 'Sitting'], ['faceup', 'Lying face up'], ['facedown', 'Lying face down, or held up on your hands or forearms'], ['side', 'Lying on your side'], ['kneeling', 'Kneeling, upright or bent forward'], ['hanging', 'Hanging']] },
+  { key: 'tilt', text: 'How is the bench or seat set?', when: e => !!e.q.pos && ['sitting', 'faceup', 'facedown'].includes(e.q.pos.a), opts: [['flat', 'Flat'], ['uplittle', 'Tilted up a little'], ['steep', 'Steep, most of the way to upright'], ['upright', 'Upright, like a chair'], ['down', 'Tilted head-down'], ['none', 'No bench or seat']] },
+  { key: 'sides', text: 'Both sides or one?', opts: [['both', 'Both at once, moving as one piece (a bar, or a machine where both sides move together)'], ['each', 'Both at once, each side free to move on its own (two dumbbells, or a machine with two separate arms)'], ['one', 'One side for all the reps, then the other'], ['alt', 'Alternating sides, rep by rep']] },
+  { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Underhand: palms toward you'], ['down', 'Overhand: knuckles on top, palms away from you'], ['facing', 'Neutral: palms facing each other'], ['none', "Hands don't hold anything"]] },
+  { key: 'angle', text: 'Which way does the weight travel, compared to your torso?', hint: 'Picture yourself standing up straight, holding the weight, however you really do it.', opts: [['updown', 'Up or down along my torso'], ['out', 'Straight out from my chest or back, and back in'], ['upangle', 'Out and upward, between the two'], ['downangle', 'Out and downward, between the two'], ['sides', 'Out to my sides']] },
 ];
-const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', sides: 's', hands: 'h', angle: 'a' };
+const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', tilt: 't', sides: 's', hands: 'h', angle: 'a' };
 const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
-let STORE = 'bet2-none';
+const asked = (q, e) => !q.when || q.when(e);
+let STORE = 'bet3-none';
+const OPENED = new Date().toISOString();
 const now = () => new Date().toISOString();
 const $ = s => document.querySelector(s);
 const app = $('#app');
 
-function fresh() {
+// The name a tester types is their identity in the answers: trimmed, lowercased, one space between words.
+const normName = s => s.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N} '-]/gu, '').slice(0, 40);
+// The name picks the group, the same one every time that person opens the page, and the twenty spread about evenly.
+function groupOf(norm) { let h = 2166136261; for (const ch of norm) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h % DATA.groups.length; }
+function fresh(first, norm) {
+  const gi = groupOf(norm);
   return {
-    v: DATA.v, tester: DATA.tester, seq: 0, opened: now(), started: null, finished: null, screen: 'hello', cur: 0,
+    v: DATA.v, tester: norm, first, group: gi, seq: 0, opened: OPENED, started: now(), finished: null, screen: 'past', cur: 0,
     past: { text: '', never: false, at: null },
-    ex: DATA.exercises.map(e => ({ title: e.title, shown: null, done: null, dontRemember: false, note: '', q: {} })),
+    ex: DATA.groups[gi].map(k => ({ title: DATA.pool[k], shown: null, done: null, dontRemember: false, note: '', q: {} })),
     how: '', ua: navigator.userAgent, width: window.innerWidth,
     saves: { ok: 0, failed: 0, last: null, lastOk: null, pending: false },
   };
 }
 let S = { screen: 'hello', saves: {} };
 function setUp() {
-  STORE = DATA ? 'bet2-' + DATA.code : 'bet2-none';
-  S = DATA ? fresh() : { screen: 'hello', saves: {} };
-  try { if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(STORE); history.replaceState(null, '', location.pathname + location.hash); } } catch (e) {}
-  // Keep a stored state whenever it is for these same five exercises, even if the page was rebuilt since.
-  try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (DATA && kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === DATA.exercises[i].title)) S = kept; } catch (e) {}
+  try {
+    if (/[?&]reset\b/.test(location.search)) {
+      const last = localStorage.getItem('bet3-last') || '';
+      localStorage.removeItem('bet3-' + normName(last)); localStorage.removeItem('bet3-last');
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
+  } catch (e) {}
 }
-function keep() { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
+function begin(first) {
+  const norm = normName(first); if (!norm) return;
+  const shown = first.trim().replace(/\s+/g, ' ');
+  STORE = 'bet3-' + norm;
+  try { localStorage.setItem('bet3-last', shown); } catch (e) {}
+  S = fresh(shown, norm);
+  // The same name comes back to its own answers, even if the page was rebuilt since, as long as its five are the same.
+  try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === S.ex[i].title)) S = kept; } catch (e) {}
+  render();
+  // A save that failed last time goes again now.
+  if (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk)) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
+}
+function keep() { try { if (S.tester) localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
 
 // ---- saving: every save is a new row holding everything so far
 async function save(kind) {
   S.seq = (S.seq || 0) + 1; keep();
-  const body = JSON.stringify({ tester: DATA.tester, code: DATA.code, page_version: DATA.v, kind, answers: record() });
+  const body = JSON.stringify({ tester: S.tester, code: DATA.code, page_version: DATA.v, kind, answers: record() });
   for (let attempt = 0; attempt < 3; attempt++) {
     const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 10000);
     try {
-      const r = await fetch(DATA.url + '/rest/v1/bet2_answers', {
+      const r = await fetch(DATA.url + '/rest/v1/bet3_answers', {
         method: 'POST',
         headers: { 'apikey': DATA.key, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
         body, signal: ac.signal,
@@ -170,16 +210,16 @@ function status() {
 function copyText() {
   const fmtT = iso => iso ? iso.slice(0, 16).replace('T', ' ') : '?';
   const dur = (a, b) => (a && b) ? Math.round((new Date(b) - new Date(a)) / 1000) + 's' : '?';
-  const lines = [`Bet 2 answers v${DATA.v} | ${DATA.tester} | ${fmtT(S.started)} to ${fmtT(S.finished)}`];
+  const lines = [`Bet 3 answers v${DATA.v} | ${S.first} (${S.tester}) | ${fmtT(S.started)} to ${fmtT(S.finished)}`];
   lines.push('past: ' + (S.past.never ? 'never ' : '') + JSON.stringify(S.past.text || ''));
   S.ex.forEach((e, i) => {
-    if (e.dontRemember) { lines.push(`${i + 1} | ${dur(e.shown, e.done)} | don't remember`); return; }
+    if (e.dontRemember) { lines.push(`${i + 1} ${e.title} | ${dur(e.shown, e.done)} | never done`); return; }
     const parts = QUESTIONS.map(q => {
       const a = e.q[q.key]; if (!a) return null;
       return SHORT[q.key] + ':' + (a.a === 'other' ? 'other' + JSON.stringify(a.other) : a.a);
     }).filter(Boolean).join(' ');
     const changed = QUESTIONS.filter(q => e.q[q.key] && e.q[q.key].changes).map(q => SHORT[q.key] + e.q[q.key].changes).join(',');
-    lines.push(`${i + 1} | ${dur(e.shown, e.done)} | ${parts}` + (changed ? ` | changed: ${changed}` : '') + (e.note ? ` | note: ${JSON.stringify(e.note)}` : ''));
+    lines.push(`${i + 1} ${e.title} | ${dur(e.shown, e.done)} | ${parts}` + (changed ? ` | changed: ${changed}` : '') + (e.note ? ` | note: ${JSON.stringify(e.note)}` : ''));
   });
   lines.push('how: ' + JSON.stringify(S.how || ''));
   return lines.join('\n');
@@ -219,35 +259,42 @@ function render() {
   document.body.style.minHeight = (scrollY + innerHeight) + 'px';  // a shorter screen never pulls the page up under the tester
   app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
   if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask Timmy to send it again.</p></div>`; return; }
+  if (!S.tester) return hello();
   const s = S.screen;
-  if (s === 'hello') return hello();
   if (s === 'past') return past();
   if (s === 'ex') return exercise();
   if (s === 'how') return how();
   if (s === 'done') return done();
+  return past();
 }
 function bar() {
   const i = S.screen === 'ex' ? S.cur : (S.screen === 'how' || S.screen === 'done' ? 5 : -1);
-  return `<div class="progress" aria-hidden="true">${DATA.exercises.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>`;
+  return `<div class="progress" aria-hidden="true">${S.ex.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>`;
 }
 function hello() {
+  let last = ''; try { last = localStorage.getItem('bet3-last') || ''; } catch (e) {}
   app.innerHTML = `
-    <div class="eyebrow">Five of your exercises</div>
-    <h1>Hi ${esc(DATA.first)}.</h1>
+    <div class="eyebrow">Five exercises</div>
+    <h1>Hi.</h1>
     <div class="card">
-      <p>This is a short questionnaire. I'll ask about five exercises from your Hevy log, one at a time.</p>
-      <p>Answer from memory, the way you actually do them. <b>"Not sure"</b> is always a fine answer.</p>
-      <p class="small muted">Your answers save as you go and go to Timmy. You can close this and come back; it picks up where you left off.</p>
-      <button class="primary" id="go">Start</button>
+      <p>This is a short questionnaire. I'll show you five common gym exercises, one at a time, and ask a few plain questions about how you do each one.</p>
+      <p>Answer from memory, the way you actually do them. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
+      <label class="qtext" for="name">First, what's your first name?</label>
+      <input type="text" id="name" autocomplete="given-name" placeholder="So Timmy knows whose answers these are" value="${esc(last)}">
+      <button class="primary" id="go" disabled>Start</button>
+      <p class="small muted">Your answers save as you go and go to Timmy. You can close this and come back; type the same name and it picks up where you left off.</p>
     </div>`;
-  $('#go').onclick = () => { S.started = S.started || now(); S.screen = 'past'; render(); };
+  const gate = () => { $('#go').disabled = !normName($('#name').value); };
+  $('#name').oninput = gate; gate();
+  $('#name').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); if (!$('#go').disabled) $('#go').click(); } };
+  $('#go').onclick = () => begin($('#name').value);
 }
 function past() {
   app.innerHTML = `
     <div class="eyebrow">Before the exercises</div>
     <div class="card">
-      <p class="qtext">When did you last add your own exercise in Hevy, and why?</p>
-      <textarea id="pt" placeholder="A rough date and the reason is plenty.">${esc(S.past.text)}</textarea>
+      <p class="qtext">When did you last write down a workout, and how?</p>
+      <textarea id="pt" placeholder="A rough date, and how you kept it: an app, notes, paper.">${esc(S.past.text)}</textarea>
       <div class="row"><button class="ghost" id="never">I never have</button><button class="primary" id="next">Next</button></div>
       <div class="status" id="status"></div>
     </div>`;
@@ -259,16 +306,17 @@ function past() {
   gate();
 }
 function exercise() {
-  const i = S.cur, e = S.ex[i], info = DATA.exercises[i];
+  const i = S.cur, e = S.ex[i];
   if (!e.shown) { e.shown = now(); keep(); }
-  const open = e.open != null ? e.open : QUESTIONS.findIndex(q => !e.q[q.key]);
+  const open = e.open != null ? e.open : QUESTIONS.findIndex(q => asked(q, e) && !e.q[q.key]);
+  const prevAsked = k => { for (let j = k - 1; j >= 0; j--) if (asked(QUESTIONS[j], e)) return j; return -1; };
   // One question at a time sits in the slot, right under the exercise's name, with nothing below it
   // to move when it's answered; Back steps to the one before. Once all are answered, the slot holds
   // them all, where Change opens a question in its own row, then the note.
   const slot = open !== -1 ? question(QUESTIONS[open], e.q[QUESTIONS[open].key]) : `
       <div class="answers">
         <div class="eyebrow">Your answers</div>
-        <div class="done-list">` + QUESTIONS.map((q, k) => k === e.edit ? `<div class="editing">${question(q, e.q[q.key])}</div>` : `
+        <div class="done-list">` + QUESTIONS.map((q, k) => !asked(q, e) ? '' : k === e.edit ? `<div class="editing">${question(q, e.q[q.key])}</div>` : `
           <div class="done-row"><span class="q">${esc(q.text)}</span><span class="a">${esc(show(q, e.q[q.key]))}</span><button class="link" data-edit="${k}">Change</button></div>`).join('') + `
         </div>
       </div>
@@ -280,18 +328,15 @@ function exercise() {
     ${bar()}
     <div class="topline"><div class="eyebrow">Exercise ${i + 1} of 5</div><div class="status top" id="status"></div></div>
     <div class="card">
-      <div style="display:grid;gap:4px">
-        <div class="exercise-title">${esc(info.title)}</div>
-        <p class="small muted">You've logged ${info.sets} ${info.sets === 1 ? 'set' : 'sets'}, most recently in ${esc(info.last)}.</p>
-      </div>
-      <div class="qnav"${open === -1 ? ' hidden' : ''}><button class="link" id="back"${open > 0 ? '' : hide}>&lsaquo; Back</button><button class="link" id="skip">I don't remember this one</button></div>
+      <div class="exercise-title">${esc(e.title)}</div>
+      <div class="qnav"${open === -1 ? ' hidden' : ''}><button class="link" id="back"${prevAsked(open) !== -1 ? '' : hide}>&lsaquo; Back</button><button class="link" id="skip">I've never done this one</button></div>
       <div id="slot" style="display:grid;gap:14px">${slot}</div>
     </div>`;
   status();
   // Scrolled past the question to reach an answer low down? The next one starts at the top, the same place every time.
   if (!keepPlace && $('#slot').getBoundingClientRect().top < 0) window.scrollTo(0, 0);
   keepPlace = false;
-  $('#back').onclick = () => { if (open > 0) { e.open = open - 1; render(); } };
+  $('#back').onclick = () => { const p = prevAsked(open); if (p !== -1) { e.open = p; render(); } };
   document.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => { e.edit = +b.dataset.edit; keepPlace = true; render(); });
   wireQuestion(e, open !== -1 ? open : e.edit != null ? e.edit : -1);
   if ($('#note')) {
@@ -299,7 +344,7 @@ function exercise() {
     $('#nextex').onclick = () => { e.note = $('#note').value.trim(); e.done = now(); delete e.edit; nextExercise(); };
   }
   $('#skip').onclick = () => {
-    $('#slot').innerHTML = `<p>Skip ${esc(info.title)}? That's fine if you don't remember it.</p>
+    $('#slot').innerHTML = `<p>Skip ${esc(e.title)}? That's fine if you've never done it.</p>
       <div class="row"><button class="ghost" id="no">Keep going</button><button class="primary" id="yes">Skip it</button></div>`;
     $('#no').onclick = () => render();
     $('#yes').onclick = () => { e.dontRemember = true; e.done = now(); nextExercise(); };
@@ -382,7 +427,7 @@ function done() {
   const sent = !!S.saves.finalOk;
   app.innerHTML = `
     ${bar()}
-    <h1>Thanks, ${esc(DATA.first)}.</h1>
+    <h1>Thanks, ${esc(S.first)}.</h1>
     ${sent ? `<div class="card"><p>Your answers are with Timmy. That's everything.</p><p class="small muted">Timmy may message you with a question or two about them.</p></div>`
            : `<div class="notice"><p><b>Your answers haven't reached Timmy yet.</b> Tap Copy and paste them to Timmy on Discord. Or, if your signal is back, try sending again.</p></div>
               <div class="row"><button class="primary" id="retry">Try sending again</button></div>`}
@@ -393,8 +438,7 @@ function done() {
 }
 readLink().then(d => {
   DATA = d; setUp(); render();
-  document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.started) save(S.screen === 'done' ? 'final' : 'progress'); });
-  if (DATA && S.screen !== 'hello' && (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk))) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
+  document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.tester) save(S.screen === 'done' ? 'final' : 'progress'); });
 });
 </script>
 </body>
