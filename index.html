@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "10", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "11", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -115,21 +115,23 @@ const QUESTIONS = [
     ['fly', 'Fly: the arms stay nearly straight and sweep together in front of you, or apart behind you'],
     ['apart', 'Legs spread apart'], ['together', 'Legs squeeze together'], ['squat', 'Squat'], ['hinge', 'Deadlift or hinge'], ['lunge', 'Lunge'],
     ['extension', 'Extension: only the elbow or the knee straightens; nothing else moves much'],
-    ['crunch', 'Crunch'], ['carry', 'Carry'], ['hold', 'Hold']] },
+    ['crunch', 'Crunch: your spine curls, ribs toward hips'], ['carry', 'Carry'], ['hold', 'Hold']] },
   { key: 'resist', text: 'What gives the resistance?', hint: 'Pick the kind of thing you hold or push against. A cable station counts as Cable even though a weight stack sits behind it; a Smith machine counts as a Smith machine even though you load plates on it.', opts: [
     ['barbell', 'Barbell: a free bar, not on rails'], ['dumbbells', 'Dumbbells'], ['kettlebell', 'Kettlebell'],
     ['cable', 'Cable station: a rope, handle or bar on a pulley'],
     ['stack', 'A lever machine with pads, a seat or fixed handles, set with a pin in a weight stack'],
     ['plates', 'A lever machine with pads, a seat or fixed handles, that you load plates onto'],
     ['smith', 'Smith machine: a bar that slides on rails'], ['band', 'Band'], ['body', 'Your body weight']] },
-  { key: 'moves', text: 'Does your whole body travel, or does it stay put?', hint: 'Your whole body travels when your feet or hands stay planted and the rest of you moves through space, even with a bar on your back. Your body stays put when only an arm or a leg moves the weight.', opts: [['you', 'My whole body travels'], ['weight', 'My body stays put; an arm or a leg moves the weight'], ['none', 'Nothing moves']] },
+  { key: 'moves', text: 'Does your trunk move through space, or stay put?', hint: 'Your trunk is your chest and hips. If they travel, your trunk moves. If they stay where they are and only an arm, a leg or the thing in your hands moves, your trunk stays put.', opts: [['you', 'My trunk moves through space'], ['weight', "My trunk stays put; an arm, a leg or what I'm holding moves"], ['none', 'Nothing moves']] },
   { key: 'pos', text: 'What position are you in?', hint: "Pick what your legs are doing. A bench or seat set at an angle still counts as lying or sitting; the next question asks how it's set.", opts: [['standing', 'Standing'], ['bentover', 'Standing, bent over at the hips'], ['sitting', 'Sitting'], ['faceup', 'Lying face up'], ['facedown', 'Lying face down, or held up on your hands or forearms'], ['side', 'Lying on your side'], ['kneeling', 'Kneeling, upright or bent forward'], ['hanging', 'Hanging']] },
   { key: 'tilt', text: 'How is the bench or seat set?', when: e => !!e.q.pos && ['sitting', 'faceup', 'facedown'].includes(e.q.pos.a), opts: [['flat', 'Flat'], ['uplittle', 'Tilted up a little'], ['steep', 'Steep, most of the way to upright'], ['upright', 'Upright, like a chair'], ['down', 'Tilted head-down'], ['none', 'No bench or seat']] },
   { key: 'sides', text: 'Both sides or one?', opts: [['both', 'Both at once, moving as one piece (a bar, or a machine where both sides move together)'], ['each', 'Both at once, each side free to move on its own (two dumbbells, or a machine with two separate arms)'], ['one', 'One side for all the reps, then the other'], ['alt', 'Alternating sides, rep by rep']] },
   { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Underhand: palms toward you'], ['down', 'Overhand: knuckles on top, palms away from you'], ['facing', 'Neutral: palms facing each other'], ['none', "Hands don't hold anything"]] },
-  { key: 'angle', text: 'Which way does the weight travel, compared to your torso?', hint: 'Picture yourself standing up straight, holding the weight, however you really do it.', opts: [['updown', 'Up or down along my torso'], ['out', 'Straight out from my chest or back, and back in'], ['upangle', 'Out and upward, between the two'], ['downangle', 'Out and downward, between the two'], ['sides', 'Out to my sides'], ['none', "It doesn't travel"]] },
+  { key: 'angle', text: "Which way does what you're moving travel, compared to your torso?", when: e => !(e.q.move && e.q.move.a === 'fly'), opts: [['updown', 'Up or down along my torso'], ['out', 'Straight out from my chest or back, and back in'], ['upangle', 'Out and upward, between the two'], ['downangle', 'Out and downward, between the two'], ['sides', 'Out to my sides'], ['none', "It doesn't travel"]] },
+  // A fly gets its own direction question (founder, 2026-09-30): none of the five above is what a fly does.
+  { key: 'sweep', text: 'Which way do your arms sweep?', when: e => !!e.q.move && e.q.move.a === 'fly', opts: [['level', 'Together in front of me, level'], ['down', 'Together in front of me, and downward'], ['up', 'Together in front of me, and upward'], ['apart', 'Apart, behind me']] },
 ];
-const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', tilt: 't', sides: 's', hands: 'h', angle: 'a' };
+const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', tilt: 't', sides: 's', hands: 'h', angle: 'a', sweep: 'f' };
 const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
 const asked = (q, e) => !q.when || q.when(e);
 let STORE = 'bet3-none';
@@ -278,7 +280,7 @@ function hello() {
     <h1>Hi.</h1>
     <div class="card">
       <p>This is a short questionnaire. I'll show you five common gym exercises, one at a time, and ask a few plain questions about how you do each one.</p>
-      <p>Answer from memory, the way you actually do them. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
+      <p>Answer from memory, the way you do them. Each name points at one exercise; describe that one specifically. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
       <label class="qtext" for="name">First, what's your first name?</label>
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
@@ -329,6 +331,7 @@ function exercise() {
     <div class="topline"><div class="eyebrow">Exercise ${i + 1} of 5</div><div class="status top" id="status"></div></div>
     <div class="card">
       <div class="exercise-title">${esc(e.title)}</div>
+      <p class="hint">Describe the exercise this name points at.</p>
       <div class="qnav"${open === -1 ? ' hidden' : ''}><button class="link" id="back"${prevAsked(open) !== -1 ? '' : hide}>&lsaquo; Back</button><button class="link" id="skip">I've never done this one</button></div>
       <div id="slot" style="display:grid;gap:14px">${slot}</div>
     </div>`;
