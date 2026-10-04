@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "12", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "13", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -127,13 +127,15 @@ const QUESTIONS = [
   { key: 'tilt', text: 'How is the bench or seat set?', when: e => !!e.q.pos && ['sitting', 'faceup', 'facedown'].includes(e.q.pos.a), opts: [['flat', 'Flat'], ['uplittle', 'Tilted up a little'], ['steep', 'Steep, most of the way to upright'], ['upright', 'Upright, like a chair'], ['down', 'Tilted head-down'], ['none', 'No bench or seat']] },
   { key: 'sides', text: 'Both sides or one?', when: e => !(e.q.resist && e.q.resist.a === 'body'), opts: [['both', 'Both at once, moving as one piece (a bar, or a machine where both sides move together)'], ['each', 'Both at once, each side free to move on its own (two dumbbells, or a machine with two separate arms)'], ['one', 'One side for all the reps, then the other'], ['alt', 'Alternating sides, rep by rep']] },
   { key: 'bsides', text: 'Both sides or one?', when: e => !!e.q.resist && e.q.resist.a === 'body', opts: [['both', 'Both sides at once'], ['one', 'One side for all the reps, then the other'], ['alt', 'Alternating sides, rep by rep']] },
-  { key: 'hands', text: 'How do your hands hold it?', opts: [['up', 'Underhand: palms toward you'], ['down', 'Overhand: knuckles on top, palms away from you'], ['facing', 'Neutral: palms facing each other'], ['none', "Hands don't hold anything"]] },
+  { key: 'hands', text: 'How do your hands hold it?', when: e => !(e.q.resist && e.q.resist.a === 'body'), opts: [['up', 'Underhand: palms toward you'], ['down', 'Overhand: knuckles on top, palms away from you'], ['facing', 'Neutral: palms facing each other'], ['none', "Hands don't hold anything"]] },
+  // Version 13 (founder, 2026-10-04): with body weight there is no "it" to hold, so the same question in other words, the same four answers.
+  { key: 'bhands', text: 'How do your hands hold on?', hint: "If they're on a bar or handles, pick the grip. If they're flat on the floor or holding nothing, pick the last one.", when: e => !!e.q.resist && e.q.resist.a === 'body', opts: [['up', 'Underhand: palms toward you'], ['down', 'Overhand: knuckles on top, palms away from you'], ['facing', 'Neutral: palms facing each other'], ['none', "Hands don't hold anything"]] },
   { key: 'angle', text: "Which way does what you're moving travel, compared to your torso?", when: e => !(e.q.move && ['fly', 'raise'].includes(e.q.move.a)), opts: [['updown', 'Up or down along my torso'], ['out', 'Straight out from my chest or back, and back in'], ['upangle', 'Out and upward, between the two'], ['downangle', 'Out and downward, between the two'], ['sides', 'Out to my sides'], ['none', "It doesn't travel"]] },
   // A fly gets its own direction question (founder, 2026-09-30): none of the five above is what a fly does.
   { key: 'sweep', text: 'Which way do your arms sweep?', when: e => !!e.q.move && e.q.move.a === 'fly', opts: [['level', 'Together in front of me, level'], ['down', 'Together in front of me, and downward'], ['up', 'Together in front of me, and upward'], ['apart', 'Apart, behind me']] },
   { key: 'rdir', text: "Which way does what you're lifting go?", when: e => !!e.q.move && e.q.move.a === 'raise', opts: [['up', 'Straight up, close to my body'], ['front', 'Up in front of me'], ['side', 'Out to my sides']] },
 ];
-const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', tilt: 't', sides: 's', bsides: 'n', hands: 'h', angle: 'a', sweep: 'f', rdir: 'd' };
+const SHORT = { kind: 'k', parts: 'b', move: 'm', resist: 'r', moves: 'w', pos: 'p', tilt: 't', sides: 's', bsides: 'n', hands: 'h', bhands: 'g', angle: 'a', sweep: 'f', rdir: 'd' };
 const LABEL = Object.fromEntries(QUESTIONS.map(q => [q.key, Object.fromEntries(q.opts)]));
 const asked = (q, e) => !q.when || q.when(e);
 let STORE = 'bet3-none';
@@ -282,7 +284,7 @@ function hello() {
     <h1>Hi.</h1>
     <div class="card">
       <p>This is a short questionnaire. I'll show you five common gym exercises, one at a time, and ask a few plain questions about how you do each one.</p>
-      <p>Answer from memory, the way you do them. Each name points at one exercise; describe that one specifically. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
+      <p>Each name points at one exercise. Describe that one, the way you do it, from memory. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
       <label class="qtext" for="name">First, what's your first name?</label>
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
