@@ -68,14 +68,17 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 .status.bad { color: var(--warn); }
 .notice { background: var(--warn-soft); color: var(--ink); border-radius: 10px; padding: 12px 14px; }
 .copybox { width: 100%; min-height: 160px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+.ver { position: fixed; right: 8px; bottom: calc(4px + env(safe-area-inset-bottom, 0px)); font-size: 12px; line-height: 1; color: var(--muted); opacity: .8; pointer-events: none; }  /* version 21: the page's version, fixed in the corner of every screen, outside the flow so nothing below a question moves */
 [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <div class="wrap" id="app" aria-live="polite"></div>
+<div class="ver" id="ver" aria-hidden="true"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "20", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "21", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+document.getElementById('ver').textContent = 'v' + BASE.v;  // version 21: shown before the link is read, so a phone shows which copy it serves even on a bad link
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -313,7 +316,6 @@ function render() {
   if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask me to send it again.</p></div>`; return; }
   const s = S.screen;
   if (!S.tester) hello(); else if (s === 'past') past(); else if (s === 'ex') exercise(); else if (s === 'how') how(); else if (s === 'done') done(); else past();
-  app.insertAdjacentHTML('beforeend', `<p class="small muted" style="text-align:right">v${esc(DATA.v)}</p>`);  // version 20: the page's version on every screen, so a phone shows which copy it serves
 }
 function bar() {
   const i = S.screen === 'ex' ? S.cur : (S.screen === 'how' || S.screen === 'done' ? 5 : -1);
