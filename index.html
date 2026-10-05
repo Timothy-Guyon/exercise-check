@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "18", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "19", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -152,9 +152,9 @@ function groupOf(norm) { let h = 2166136261; for (const ch of norm) { h ^= ch.co
 // drawn at random from the never-done, then from whatever the name has gone longest without once none remain, and two drawn at random
 // from the four it has gone longest without among the done, the five shuffled. The first set is the group's five, as the bet set them.
 function storeKey(norm, run) { return 'bet3-' + norm + (run > 1 ? '-r' + run : ''); }
-function localRuns(norm) {  // the sets this phone has kept for the name, in order
+function localRuns(norm) {  // the sets this phone has kept for the name, in order. Version 19: no stopping at a gap, since a phone may hold only a later set (its first was elsewhere)
   const out = [];
-  for (let r = 1; r < 40; r++) { try { const k = JSON.parse(localStorage.getItem(storeKey(norm, r)) || 'null'); if (k && k.tester) out.push(k); else break; } catch (e) { break; } }
+  for (let r = 1; r < 40; r++) { try { const k = JSON.parse(localStorage.getItem(storeKey(norm, r)) || 'null'); if (k && k.tester) out.push(k); } catch (e) {} }
   return out;
 }
 async function serverHistory(norm) {  // what the server has for the name: {sets, done: [{title, last}]}, or null when it cannot say
@@ -335,7 +335,8 @@ function hello() {
       <label class="qtext" for="name">First, what's your first name?</label>
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
-      <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, type the same name, and it picks up where you left off.</p>
+      <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, and it picks up where you left off.</p>
+      <p class="small muted">v${esc(DATA.v)}</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
