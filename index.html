@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "17", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "18", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -516,7 +516,11 @@ function done() {
   if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
 }
 readLink().then(d => {
-  DATA = d; setUp(); render();
+  DATA = d; setUp();
+  // Version 18 (founder, 2026-10-05, from their dry run: "I want that"): a run this phone has not finished, or not finished sending, comes straight back on a reload, no start screen, no tap.
+  let last = ''; try { last = localStorage.getItem('bet3-last') || ''; } catch (e) {}
+  const open = last && localRuns(normName(last)).find(k => Array.isArray(k.ex) && k.ex.length === 5 && (!k.finished || !(k.saves && k.saves.finalOk)));
+  if (open) begin(last); else render();
   document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.tester) save(S.screen === 'done' ? 'final' : 'progress'); });
 });
 </script>
