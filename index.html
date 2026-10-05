@@ -77,7 +77,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="ver" id="ver" aria-hidden="true"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "22", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "23", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 document.getElementById('ver').textContent = 'v' + BASE.v;  // version 21: shown before the link is read, so a phone shows which copy it serves even on a bad link
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
@@ -223,7 +223,7 @@ async function begin(first) {
   const [hist, f] = await Promise.all([serverHistory(norm), followupsFor(norm)]), seen = seenBy(norm, hist);
   const run = seen.sets + 1;
   const start = () => { STORE = storeKey(norm, run); S = fresh(shown, norm, run, pickFive(norm, seen), hist ? 'server' : 'phone'); render(); };
-  if (f) { ASK = { norm, first: shown, data: f, afterSet: false, then: start }; render(); } else start();  // version 22: a question from last time comes before a fresh set
+  if (f) { ASK = { norm, first: shown, afterSet: false, ticks: [], ticksDone: true, fetched: true, data: f, then: start }; render(); } else start();  // version 22: a question from last time comes before a fresh set
 }
 function resend() {  // a save that failed last time goes again now
   if (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk)) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
@@ -308,9 +308,21 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 // ---- version 22 (founder, 2026-10-05): the page's own follow-up. The founder reads each run and decides which answers to ask
 // about ("each one needs to be shown to me first"); the questions they approve wait on the server for the name, and the page shows
-// them on the tester's next visit, or right after a later set, never showing the record's answer. The tester's words go back as a
-// row of kind "followup".
-let ASK = null;  // the follow-up showing: { norm, first, data: { notes }, afterSet, then }
+// them on the tester's next visit, or right after a later set, never showing the record's answer. Version 23 (founder, "Ask."):
+// right after a set, the page itself asks about the questions answered with more than one tick, "Both ways, or not sure which?",
+// and nothing else; every answer ticked is left out, since that reads as "Not sure". The tester's words go back as rows of kind "followup".
+const NAMES = { kind: 'Kind', move: 'Movement', resist: 'Resistance', moves: 'What moves', pos: 'Position', sides: 'Sides', bsides: 'Sides', hands: 'Hands', bhands: 'Hands', angle: 'Direction', sweep: 'Arm sweep', rdir: 'Direction' };
+let ASK = null;  // the follow-up showing: { norm, first, afterSet, started, ticks, ticksDone, choice, fetched, data: { notes }, then }
+const everyTick = (key, a) => a.a === 'varies' && Object.keys(LABEL[key] || {}).every(c => (a.all || []).includes(c));
+function tickSets(run) {  // the questions of a finished set answered with more than one tick, keyed as the scorer's chat files key them
+  const out = [];
+  (run.ex || []).forEach((e, i) => { if (e.dontRemember) return; for (const [key, a] of Object.entries(e.q || {})) {
+    if (!a || a.a !== 'varies' || !NAMES[key]) continue;
+    if ((a.all || []).length + (a.other ? 1 : 0) < 2 || everyTick(key, a)) continue;
+    out.push({ k: `${i + 1} ${key}`, title: e.title, name: NAMES[key], labels: (a.all || []).map(c => (LABEL[key] && LABEL[key][c]) || c), other: a.other || '' });
+  } });
+  return out;
+}
 async function followupsFor(norm) {  // the questions waiting for the name, or null when none or when the server cannot say
   const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 6000);
   try {
@@ -341,6 +353,36 @@ function finishUp(first) {  // version 15: a set that is in sends the page back 
   return hello();
 }
 function ask() {
+  if (ASK.ticks && ASK.ticks.length && !ASK.ticksDone) return askTicks();
+  if (!ASK.fetched) { app.innerHTML = `<div class="card"><p>One moment...</p></div>`; return; }
+  if (ASK.data && ASK.data.notes && ASK.data.notes.length) return askNotes();
+  const then = ASK.then; ASK = null; then();
+}
+function askTicks() {  // version 23: the ticked sets of the set just finished, each settled by the tester in the moment
+  const sets = ASK.ticks, choice = ASK.choice || (ASK.choice = {});
+  let html = `<div class="eyebrow">One more thing</div><h1>Thanks, ${esc(ASK.first)}.</h1>
+    <div class="card"><p>Your answers are with me. On these you ticked more than one answer. For each: is that both ways, or were you not sure which?</p></div>`;
+  for (const t of sets) html += `<div class="card"><h2>${esc(t.title)}</h2><p>${esc(t.name)}: ${t.labels.map(l => `"${esc(l)}"`).join(' and ')}${t.other ? ` and typed "${esc(t.other)}"` : ''}</p>
+    <div class="row"><button class="opt${choice[t.k] === 'both' ? ' picked' : ''}" data-k="${esc(t.k)}" data-c="both" aria-pressed="${choice[t.k] === 'both'}">Both ways</button><button class="opt${choice[t.k] === 'hedge' ? ' picked' : ''}" data-k="${esc(t.k)}" data-c="hedge" aria-pressed="${choice[t.k] === 'hedge'}">Not sure which</button></div></div>`;
+  html += `<div class="row"><button class="primary" id="sendticks" disabled>Send</button><button id="notnow">Not now</button></div><div class="status" id="askstatus"></div>`;
+  app.innerHTML = html;
+  const send = $('#sendticks'), notNow = $('#notnow'), st = $('#askstatus');
+  const refresh = () => { send.disabled = !sets.every(t => choice[t.k]); };
+  app.querySelectorAll('button[data-k]').forEach(b => b.onclick = () => {
+    choice[b.dataset.k] = b.dataset.c;
+    app.querySelectorAll('button[data-k]').forEach(x => { if (x.dataset.k !== b.dataset.k) return; const on = x.dataset.c === b.dataset.c; x.classList.toggle('picked', on); x.setAttribute('aria-pressed', String(on)); });
+    refresh();
+  });
+  refresh();
+  notNow.onclick = () => { ASK.ticksDone = true; render(); };
+  send.onclick = async () => {
+    send.disabled = true; notNow.disabled = true; st.textContent = 'Sending...'; st.classList.remove('bad');
+    const ok = await postRow('followup', { v: DATA.v, at: now(), tester: ASK.norm, first: ASK.first, ua: navigator.userAgent, started: ASK.started, ticks: { ...choice } });
+    if (ok) { ASK.ticksDone = true; return render(); }
+    st.textContent = 'Not sent. Check your signal and tap Send again.'; st.classList.add('bad'); send.disabled = false; notNow.disabled = false;
+  };
+}
+function askNotes() {  // the questions the founder approved for the name
   const d = ASK.data;
   let html = `<div class="eyebrow">One more thing</div>
     <h1>${ASK.afterSet ? `Thanks, ${esc(ASK.first)}.` : `Hi again, ${esc(ASK.first)}.`}</h1>
@@ -553,11 +595,12 @@ function how() {
 }
 function done() {
   if (S.saves.finalOk && !S.sending) {
-    if (!S.askChecked) {  // version 22: first, the page's own follow-up on this set, when the server has one
+    if (!S.askChecked) {  // version 22: first, the page's own follow-up: the ticked sets of this set (version 23), then any question waiting for the name
       S.askChecked = true; keep();
-      const norm = S.tester, first = S.first;
-      app.innerHTML = `<div class="card"><p>One moment...</p></div>`;
-      followupsFor(norm).then(f => { if (f) { ASK = { norm, first, data: f, afterSet: true, then: () => finishUp(first) }; render(); } else finishUp(first); });
+      const norm = S.tester, first = S.first, started = S.started, ticks = tickSets(S);
+      ASK = { norm, first, afterSet: true, started, ticks, ticksDone: false, fetched: false, data: null, then: () => finishUp(first) };
+      followupsFor(norm).then(f => { if (ASK && ASK.afterSet && ASK.norm === norm && ASK.started === started) { ASK.data = f; ASK.fetched = true; if (!ticks.length || ASK.ticksDone) render(); } });
+      render();
       return;
     }
     return finishUp(S.first);
