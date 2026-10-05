@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "13", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "14", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -148,12 +148,30 @@ const app = $('#app');
 const normName = s => s.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N} '-]/gu, '').slice(0, 40);
 // The name picks the group, the same one every time that person opens the page, and the twenty spread about evenly.
 function groupOf(norm) { let h = 2166136261; for (const ch of norm) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h % DATA.groups.length; }
-function fresh(first, norm) {
+// Version 14 (founder, 2026-10-05): a repeat run gives two exercises the name has already had and three it has not, the same set for the
+// same name on any device; each further repeat takes three more it has not had, until the pool runs out and the five are all repeats.
+function mix(norm, salt) { let h = 2166136261; for (const ch of norm + '|' + salt) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; }
+function shuffled(list, norm, salt) { return list.map(k => [mix(norm, salt + ':' + k), k]).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(p => p[1]); }
+function picksFor(norm, gi, run) {
+  const first = DATA.groups[gi];
+  if (!(run > 1)) return first;
+  const unseen = shuffled(DATA.pool.map((_, k) => k).filter(k => !first.includes(k)), norm, 'new');  // the fifteen the name has not had, in the name's own order
+  const fresh = unseen.slice(3 * (run - 2), 3 * (run - 2) + 3);                                        // run 2 takes the first three, run 3 the next three, and so on
+  const had = first.concat(unseen.slice(0, 3 * (run - 2)));                                            // everything the name has had before this run
+  return shuffled(had, norm, 'again:' + run).slice(0, 5 - fresh.length).concat(fresh);
+}
+function storeKey(norm, run) { return 'bet3-' + norm + (run > 1 ? '-r' + run : ''); }
+function runsDone(norm) {  // how many runs this name has finished in this browser
+  let n = 0;
+  for (let r = 1; r < 40; r++) { try { const k = JSON.parse(localStorage.getItem(storeKey(norm, r)) || 'null'); if (k && k.finished) n = r; else break; } catch (e) { break; } }
+  return n;
+}
+function fresh(first, norm, run = 1) {
   const gi = groupOf(norm);
   return {
-    v: DATA.v, tester: norm, first, group: gi, seq: 0, opened: OPENED, started: now(), finished: null, screen: 'past', cur: 0,
-    past: { text: '', never: false, at: null },
-    ex: DATA.groups[gi].map(k => ({ title: DATA.pool[k], shown: null, done: null, dontRemember: false, note: '', q: {} })),
+    v: DATA.v, tester: norm, first, group: gi, run, seq: 0, opened: OPENED, started: now(), finished: null, screen: run > 1 ? 'ex' : 'past', cur: 0,
+    past: { text: '', never: false, at: null, skipped: run > 1 },  // a repeat run is not asked about the past again
+    ex: picksFor(norm, gi, run).map(k => ({ title: DATA.pool[k], shown: null, done: null, dontRemember: false, note: '', q: {} })),
     how: '', ua: navigator.userAgent, width: window.innerWidth,
     saves: { ok: 0, failed: 0, last: null, lastOk: null, pending: false },
   };
@@ -163,17 +181,18 @@ function setUp() {
   try {
     if (/[?&]reset\b/.test(location.search)) {
       const last = localStorage.getItem('bet3-last') || '';
-      localStorage.removeItem('bet3-' + normName(last)); localStorage.removeItem('bet3-last');
+      for (let r = 1; r < 40; r++) localStorage.removeItem(storeKey(normName(last), r));
+      localStorage.removeItem('bet3-last');
       history.replaceState(null, '', location.pathname + location.hash);
     }
   } catch (e) {}
 }
-function begin(first) {
+function begin(first, run = 1) {
   const norm = normName(first); if (!norm) return;
   const shown = first.trim().replace(/\s+/g, ' ');
-  STORE = 'bet3-' + norm;
+  STORE = storeKey(norm, run);
   try { localStorage.setItem('bet3-last', shown); } catch (e) {}
-  S = fresh(shown, norm);
+  S = fresh(shown, norm, run);
   // The same name comes back to its own answers, even if the page was rebuilt since, as long as its five are the same.
   try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === S.ex[i].title)) S = kept; } catch (e) {}
   render();
@@ -216,7 +235,7 @@ function status() {
 function copyText() {
   const fmtT = iso => iso ? iso.slice(0, 16).replace('T', ' ') : '?';
   const dur = (a, b) => (a && b) ? Math.round((new Date(b) - new Date(a)) / 1000) + 's' : '?';
-  const lines = [`Bet 3 answers v${DATA.v} | ${S.first} (${S.tester}) | ${fmtT(S.started)} to ${fmtT(S.finished)}`];
+  const lines = [`Bet 3 answers v${DATA.v} | ${S.first} (${S.tester})${S.run > 1 ? ` | run ${S.run}` : ''} | ${fmtT(S.started)} to ${fmtT(S.finished)}`];
   lines.push('past: ' + (S.past.never ? 'never ' : '') + JSON.stringify(S.past.text || ''));
   S.ex.forEach((e, i) => {
     if (e.dontRemember) { lines.push(`${i + 1} ${e.title} | ${dur(e.shown, e.done)} | never done`); return; }
@@ -289,11 +308,13 @@ function hello() {
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
       <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, type the same name, and it picks up where you left off.</p>
+      <p class="small muted">Done this before? Type your name and <button class="link" id="again">do it again with a fresh set</button>.</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
   $('#name').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); if (!$('#go').disabled) $('#go').click(); } };
   $('#go').onclick = () => begin($('#name').value);
+  $('#again').onclick = () => { const n = normName($('#name').value); if (!n) { $('#name').focus(); return; } begin($('#name').value, Math.max(2, runsDone(n) + 1)); };
 }
 function past() {
   app.innerHTML = `
@@ -436,13 +457,15 @@ function done() {
   app.innerHTML = `
     ${bar()}
     <h1>Thanks, ${esc(S.first)}.</h1>
-    ${sent ? `<div class="card"><p>Your answers are with me. That's everything.</p><p class="small muted">I may message you with a question or two about them.</p></div>`
+    ${sent ? `<div class="card"><p>Your answers are with me. That's everything.</p><p class="small muted">I may message you with a question or two about them.</p>
+              <div class="row"><button class="ghost" id="again">Do it again, with a fresh set</button></div></div>`
            : `<div class="notice"><p><b>Your answers haven't reached me yet.</b> Tap Copy and paste them to me on Discord. Or, if your signal is back, try sending again.</p></div>
               <div class="row"><button class="primary" id="retry">Try sending again</button></div>`}
     ${sent ? `<details><summary class="small muted">Want to be sure? Copy your answers</summary>${copyPanel('Paste this to me on Discord only if I ask for it.')}</details>` : copyPanel('Your answers:')}
     <div class="status" id="status"></div>`;
   wireCopy(); status();
   if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
+  if ($('#again')) $('#again').onclick = () => begin(S.first, (S.run || 1) + 1);  // version 14: the next run for the same name
 }
 readLink().then(d => {
   DATA = d; setUp(); render();
