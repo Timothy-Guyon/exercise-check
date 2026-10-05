@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "19", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "20", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -311,13 +311,9 @@ function render() {
   document.body.style.minHeight = (scrollY + innerHeight) + 'px';  // a shorter screen never pulls the page up under the tester
   app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
   if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask me to send it again.</p></div>`; return; }
-  if (!S.tester) return hello();
   const s = S.screen;
-  if (s === 'past') return past();
-  if (s === 'ex') return exercise();
-  if (s === 'how') return how();
-  if (s === 'done') return done();
-  return past();
+  if (!S.tester) hello(); else if (s === 'past') past(); else if (s === 'ex') exercise(); else if (s === 'how') how(); else if (s === 'done') done(); else past();
+  app.insertAdjacentHTML('beforeend', `<p class="small muted" style="text-align:right">v${esc(DATA.v)}</p>`);  // version 20: the page's version on every screen, so a phone shows which copy it serves
 }
 function bar() {
   const i = S.screen === 'ex' ? S.cur : (S.screen === 'how' || S.screen === 'done' ? 5 : -1);
@@ -336,7 +332,6 @@ function hello() {
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
       <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, and it picks up where you left off.</p>
-      <p class="small muted">v${esc(DATA.v)}</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
