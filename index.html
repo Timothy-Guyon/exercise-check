@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "14", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "15", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -148,30 +148,51 @@ const app = $('#app');
 const normName = s => s.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N} '-]/gu, '').slice(0, 40);
 // The name picks the group, the same one every time that person opens the page, and the twenty spread about evenly.
 function groupOf(norm) { let h = 2166136261; for (const ch of norm) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h % DATA.groups.length; }
-// Version 14 (founder, 2026-10-05): a repeat run gives two exercises the name has already had and three it has not, the same set for the
-// same name on any device; each further repeat takes three more it has not had, until the pool runs out and the five are all repeats.
-function mix(norm, salt) { let h = 2166136261; for (const ch of norm + '|' + salt) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; }
-function shuffled(list, norm, salt) { return list.map(k => [mix(norm, salt + ':' + k), k]).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(p => p[1]); }
-function picksFor(norm, gi, run) {
-  const first = DATA.groups[gi];
-  if (!(run > 1)) return first;
-  const unseen = shuffled(DATA.pool.map((_, k) => k).filter(k => !first.includes(k)), norm, 'new');  // the fifteen the name has not had, in the name's own order
-  const fresh = unseen.slice(3 * (run - 2), 3 * (run - 2) + 3);                                        // run 2 takes the first three, run 3 the next three, and so on
-  const had = first.concat(unseen.slice(0, 3 * (run - 2)));                                            // everything the name has had before this run
-  return shuffled(had, norm, 'again:' + run).slice(0, 5 - fresh.length).concat(fresh);
-}
+// Version 15 (founder, 2026-10-05): a further set comes from the name's history, which the server keeps (bet3_history, answers.sql): three
+// drawn at random from the never-done, then from whatever the name has gone longest without once none remain, and two drawn at random
+// from the four it has gone longest without among the done, the five shuffled. The first set is the group's five, as the bet set them.
 function storeKey(norm, run) { return 'bet3-' + norm + (run > 1 ? '-r' + run : ''); }
-function runsDone(norm) {  // how many runs this name has finished in this browser
-  let n = 0;
-  for (let r = 1; r < 40; r++) { try { const k = JSON.parse(localStorage.getItem(storeKey(norm, r)) || 'null'); if (k && k.finished) n = r; else break; } catch (e) { break; } }
-  return n;
+function localRuns(norm) {  // the sets this phone has kept for the name, in order
+  const out = [];
+  for (let r = 1; r < 40; r++) { try { const k = JSON.parse(localStorage.getItem(storeKey(norm, r)) || 'null'); if (k && k.tester) out.push(k); else break; } catch (e) { break; } }
+  return out;
 }
-function fresh(first, norm, run = 1) {
+async function serverHistory(norm) {  // what the server has for the name: {sets, done: [{title, last}]}, or null when it cannot say
+  const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 6000);
+  try {
+    const r = await fetch(DATA.url + '/rest/v1/rpc/bet3_history', { method: 'POST', headers: { 'apikey': DATA.key, 'Content-Type': 'application/json' },
+                                                                      body: JSON.stringify({ p_tester: norm, p_code: DATA.code }), signal: ac.signal });
+    clearTimeout(timer);
+    if (!r.ok) return null;
+    const h = await r.json();
+    return h && Array.isArray(h.done) ? h : null;
+  } catch (e) { clearTimeout(timer); return null; }
+}
+function seenBy(norm, hist) {  // the server's history and this phone's, merged: when the name last did each title (a time number), and the sets finished
+  const last = {}; let sets = hist ? (+hist.sets || 0) : 0, local = 0;
+  const mark = (title, when) => { const t = Date.parse(when); if (title && t && t > (last[title] || 0)) last[title] = t; };
+  for (const d of (hist ? hist.done : [])) mark(d.title, d.last);
+  for (const k of localRuns(norm)) { if (!k.finished) continue; local++; for (const e of k.ex || []) if (e.done) mark(e.title, e.done); }  // finished sets only, as the server counts them
+  return { last, sets: Math.max(sets, local) };
+}
+function draw(list, n) { const pool = list.slice(), out = []; while (out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]); return out; }
+function pickFive(norm, seen) {
+  const first = DATA.groups[groupOf(norm)];
+  if (!seen.sets && !Object.keys(seen.last).length) return first;
+  const last = k => seen.last[DATA.pool[k]] || 0;                                                          // 0: never done
+  const byAge = DATA.pool.map((_, k) => k).sort((a, b) => last(a) - last(b) || a - b);                   // longest without first
+  const never = byAge.filter(k => !last(k)), done = byAge.filter(k => !!last(k));
+  const five = draw(never, 3);
+  five.push(...draw(done.slice(0, 4), Math.min(2, 5 - five.length)));
+  while (five.length < 5) { const next = byAge.filter(k => !five.includes(k)).slice(0, 4); if (!next.length) break; five.push(draw(next, 1)[0]); }
+  return draw(five, 5);
+}
+function fresh(first, norm, run, picks, picked) {
   const gi = groupOf(norm);
   return {
-    v: DATA.v, tester: norm, first, group: gi, run, seq: 0, opened: OPENED, started: now(), finished: null, screen: run > 1 ? 'ex' : 'past', cur: 0,
-    past: { text: '', never: false, at: null, skipped: run > 1 },  // a repeat run is not asked about the past again
-    ex: picksFor(norm, gi, run).map(k => ({ title: DATA.pool[k], shown: null, done: null, dontRemember: false, note: '', q: {} })),
+    v: DATA.v, tester: norm, first, group: gi, run, picked, seq: 0, opened: OPENED, started: now(), finished: null, screen: run > 1 ? 'ex' : 'past', cur: 0,
+    past: { text: '', never: false, at: null, skipped: run > 1 },  // a further set is not asked about the past again
+    ex: picks.map(k => ({ title: DATA.pool[k], shown: null, done: null, dontRemember: false, note: '', q: {} })),
     how: '', ua: navigator.userAgent, width: window.innerWidth,
     saves: { ok: 0, failed: 0, last: null, lastOk: null, pending: false },
   };
@@ -187,16 +208,22 @@ function setUp() {
     }
   } catch (e) {}
 }
-function begin(first, run = 1) {
+async function begin(first) {
   const norm = normName(first); if (!norm) return;
   const shown = first.trim().replace(/\s+/g, ' ');
-  STORE = storeKey(norm, run);
   try { localStorage.setItem('bet3-last', shown); } catch (e) {}
-  S = fresh(shown, norm, run);
-  // The same name comes back to its own answers, even if the page was rebuilt since, as long as its five are the same.
-  try { const kept = JSON.parse(localStorage.getItem(STORE) || 'null'); if (kept && Array.isArray(kept.ex) && kept.ex.length === 5 && kept.ex.every((e, i) => e.title === S.ex[i].title)) S = kept; } catch (e) {}
+  // A set this phone has not finished sending comes back first, even if the page was rebuilt since.
+  const open = localRuns(norm).find(k => Array.isArray(k.ex) && k.ex.length === 5 && (!k.finished || !(k.saves && k.saves.finalOk)));
+  if (open) { STORE = storeKey(norm, open.run || 1); S = open; render(); resend(); return; }
+  // Otherwise the next set: what the server has for the name, with what this phone knows, picks the five (version 15).
+  app.innerHTML = `<div class="card"><p>One moment...</p></div>`;
+  const hist = await serverHistory(norm), seen = seenBy(norm, hist);
+  const run = seen.sets + 1;
+  STORE = storeKey(norm, run);
+  S = fresh(shown, norm, run, pickFive(norm, seen), hist ? 'server' : 'phone');
   render();
-  // A save that failed last time goes again now.
+}
+function resend() {  // a save that failed last time goes again now
   if (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk)) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
 }
 function keep() { try { if (S.tester) localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
@@ -301,6 +328,7 @@ function hello() {
   app.innerHTML = `
     <div class="eyebrow">Five exercises</div>
     <h1>Hi.</h1>
+    ${S.thanks ? `<div class="notice"><p>Thanks, ${esc(S.thanks)}. Your answers are with me. Start again any time for a fresh set.</p></div>` : ''}
     <div class="card">
       <p>This is a short questionnaire. I'll show you five common gym exercises, one at a time, and ask a few plain questions about how you do each one.</p>
       <p>Each name points at one exercise. Describe that one, the way you do it, from memory. If you've never done one, say so. <b>"Not sure"</b> is always a fine answer.</p>
@@ -308,13 +336,11 @@ function hello() {
       <input type="text" id="name" autocomplete="given-name" placeholder="So I know whose answers these are" value="${esc(last)}">
       <button class="primary" id="go" disabled>Start</button>
       <p class="small muted">Your answers save as you go and come to me. Close this and come back in the same browser, type the same name, and it picks up where you left off.</p>
-      <p class="small muted">Done this before? Type your name and <button class="link" id="again">do it again with a fresh set</button>.</p>
     </div>`;
   const gate = () => { $('#go').disabled = !normName($('#name').value); };
   $('#name').oninput = gate; gate();
   $('#name').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); if (!$('#go').disabled) $('#go').click(); } };
-  $('#go').onclick = () => begin($('#name').value);
-  $('#again').onclick = () => { const n = normName($('#name').value); if (!n) { $('#name').focus(); return; } begin($('#name').value, Math.max(2, runsDone(n) + 1)); };
+  $('#go').onclick = () => { begin($('#name').value); };
 }
 function past() {
   app.innerHTML = `
@@ -452,20 +478,22 @@ function how() {
   };
 }
 function done() {
+  if (S.saves.finalOk && !S.sending) {  // version 15: a set that is in sends the page back to the start, with thanks; the set stays kept under its own key
+    const first = S.first; S = { screen: 'hello', saves: {}, thanks: first }; STORE = 'bet3-none';
+    return hello();
+  }
   if (S.sending) { app.innerHTML = `${bar()}<div class="card"><p>Sending your answers to me...</p></div><details><summary class="small muted">Taking a while? Copy your answers instead</summary>${copyPanel('Paste this to me on Discord.')}</details>`; wireCopy(); return; }
   const sent = !!S.saves.finalOk;
   app.innerHTML = `
     ${bar()}
     <h1>Thanks, ${esc(S.first)}.</h1>
-    ${sent ? `<div class="card"><p>Your answers are with me. That's everything.</p><p class="small muted">I may message you with a question or two about them.</p>
-              <div class="row"><button class="ghost" id="again">Do it again, with a fresh set</button></div></div>`
+    ${sent ? `<div class="card"><p>Your answers are with me. That's everything.</p><p class="small muted">I may message you with a question or two about them.</p></div>`
            : `<div class="notice"><p><b>Your answers haven't reached me yet.</b> Tap Copy and paste them to me on Discord. Or, if your signal is back, try sending again.</p></div>
               <div class="row"><button class="primary" id="retry">Try sending again</button></div>`}
     ${sent ? `<details><summary class="small muted">Want to be sure? Copy your answers</summary>${copyPanel('Paste this to me on Discord only if I ask for it.')}</details>` : copyPanel('Your answers:')}
     <div class="status" id="status"></div>`;
   wireCopy(); status();
   if ($('#retry')) $('#retry').onclick = async () => { $('#retry').disabled = true; $('#retry').textContent = 'Sending...'; await save('final'); render(); };
-  if ($('#again')) $('#again').onclick = () => begin(S.first, (S.run || 1) + 1);  // version 14: the next run for the same name
 }
 readLink().then(d => {
   DATA = d; setUp(); render();
