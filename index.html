@@ -75,7 +75,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="wrap" id="app" aria-live="polite"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "16", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "17", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
 // the link the page holds nothing anyone can read. The tester types their first name, and the name picks
@@ -268,7 +268,7 @@ function copyText() {
     if (e.dontRemember) { lines.push(`${i + 1} ${e.title} | ${dur(e.shown, e.done)} | never done`); return; }
     const parts = QUESTIONS.map(q => {
       const a = e.q[q.key]; if (!a) return null;
-      return SHORT[q.key] + ':' + (a.a === 'other' ? 'other' + JSON.stringify(a.other) : a.a === 'varies' ? 'varies[' + (a.all || []).join('+') + ']' : a.a);
+      return SHORT[q.key] + ':' + (a.a === 'other' ? 'other' + JSON.stringify(a.other) : a.a === 'varies' ? 'varies[' + (a.all || []).join('+') + ']' : a.a) + (a.a !== 'other' && a.other ? '+other' + JSON.stringify(a.other) : '');
     }).filter(Boolean).join(' ');
     const changed = QUESTIONS.filter(q => e.q[q.key] && e.q[q.key].changes).map(q => SHORT[q.key] + e.q[q.key].changes).join(',');
     lines.push(`${i + 1} ${e.title} | ${dur(e.shown, e.done)} | ${parts}` + (changed ? ` | changed: ${changed}` : '') + (e.note ? ` | note: ${JSON.stringify(e.note)}` : ''));
@@ -409,27 +409,32 @@ function nextExercise() {
   if (S.cur < 4) { S.cur++; S.screen = 'ex'; } else { S.screen = 'how'; }
   render(); window.scrollTo(0, 0); save('progress');
 }
-function show(q, a) { return a.a === 'unsure' ? 'Not sure' : a.a === 'other' ? 'Something else: ' + a.other : a.a === 'varies' ? (a.all || []).map(c => LABEL[q.key][c] || c).join(' or ') + ' (more than one)' : a.a.split('+').map(c => LABEL[q.key][c] || c).join(', '); }
+function show(q, a) {
+  if (a.a === 'unsure') return 'Not sure';
+  if (a.a === 'other') return 'Something else: ' + a.other;
+  const more = a.other ? ' or Something else: ' + a.other : '';
+  return a.a === 'varies' ? (a.all || []).map(c => LABEL[q.key][c] || c).join(' or ') + more + ' (more than one)' : a.a.split('+').map(c => LABEL[q.key][c] || c).join(', ') + more;
+}
+const ticked = a => !a ? [] : a.a === 'unsure' ? ['unsure'] : a.a === 'other' ? ['other'] : picks(a).concat(a.other ? ['other'] : []);  // what shows as ticked
 // Version 16 (founder, 2026-10-05, "option 1"): every question is a tick list; one tick is the answer as before, more than one is kept as the answer's set ('varies', all).
 const picks = a => !a ? [] : a.a === 'varies' ? (a.all || []) : a.a !== 'unsure' && a.a !== 'other' ? a.a.split('+') : [];
 const has = (a, code) => picks(a).includes(code);                           // the answer, or one of its ticks when it varies
 const only = (a, code) => picks(a).length === 1 && picks(a)[0] === code;    // one way only
 function question(q, a) {
-  const multi = true;  // version 16 (founder, 2026-10-05, "option 1"): every question is a tick list, one answer or more, then Next
+  // Version 17 (founder, 2026-10-05, from their dry run): every answer is a tick, "Not sure" and "Something else" too; "Something else"
+  // shows its words in place; the one Next answers with everything ticked.
+  const t = ticked(a);
+  const tick = (code, label, cls = '') => `<button class="opt${t.includes(code) ? ' picked' : ''}${label.length > 16 ? ' wide' : ''}${cls}" data-t="${code}" aria-pressed="${t.includes(code)}">${esc(label)}</button>`;
   return `
     <div style="display:grid;gap:10px" id="qcard">
       <p class="qtext">${esc(q.text)}</p>
       ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ''}
-      <div class="opts${multi ? ' two' : ''}">
-        ${multi ? q.opts.map(([code, label]) => `<button class="opt${picks(a).includes(code) ? ' picked' : ''}${label.length > 16 ? ' wide' : ''}" data-t="${code}" aria-pressed="${picks(a).includes(code)}">${esc(label)}</button>`).join('')
-          : q.opts.map(([code, label]) => `<button class="opt${a && a.a === code ? ' picked' : ''}" data-a="${code}">${esc(label)}</button>`).join('')}
-        ${multi ? `<button class="primary" id="multiok"${picks(a).length ? '' : ' disabled'}>Next</button>` : ''}
-        <button class="opt aside${a && a.a === 'unsure' ? ' picked' : ''}" data-a="unsure">Not sure</button>
-        <button class="opt aside${a && a.a === 'other' ? ' picked' : ''}" data-a="other">Something else</button>
-      </div>
-      <div id="otherbox" hidden style="display:grid;gap:8px">
-        <input type="text" id="othertext" placeholder="Say it in your own words" value="${a && a.a === 'other' ? esc(a.other) : ''}">
-        <button class="primary" id="otherok">OK</button>
+      <div class="opts two">
+        ${q.opts.map(([code, label]) => tick(code, label)).join('')}
+        ${tick('unsure', 'Not sure', ' aside')}
+        ${tick('other', 'Something else', ' aside')}
+        <input type="text" id="othertext" style="grid-column:1/-1" placeholder="Say it in your own words" value="${a && a.other ? esc(a.other) : ''}"${t.includes('other') ? '' : ' hidden'}>
+        <button class="primary" id="multiok"${t.length && (!t.includes('other') || (a && a.other)) ? '' : ' disabled'}>Next</button>
       </div>
     </div>`;
 }
@@ -439,30 +444,41 @@ function wireQuestion(e, open) {
   if (!e.q[q.key] || !e.q[q.key].shown) { e['shown_' + q.key] = e['shown_' + q.key] || now(); }
   const set = (code, other, all) => {
     const prev = e.q[q.key];
-    const changed = prev && (prev.a !== code || (code === 'other' && prev.other !== other) || (code === 'varies' && (prev.all || []).join('+') !== (all || []).join('+')));
-    e.q[q.key] = { a: code, other: code === 'other' ? other : undefined, all: code === 'varies' ? all : undefined, at: now(), shown: prev ? prev.shown : (e['shown_' + q.key] || now()), changes: (prev ? prev.changes || 0 : 0) + (changed ? 1 : 0) };
+    const changed = prev && (prev.a !== code || (prev.other || '') !== (other || '') || (prev.all || []).join('+') !== (all || []).join('+'));
+    e.q[q.key] = { a: code, other: other || undefined, all: code === 'varies' ? all : undefined, at: now(), shown: prev ? prev.shown : (e['shown_' + q.key] || now()), changes: (prev ? prev.changes || 0 : 0) + (changed ? 1 : 0) };
     delete e['shown_' + q.key];
     keepPlace = e.edit != null;
     delete e.open; delete e.edit;
     render();
     save('progress');
   };
-  document.querySelectorAll('#qcard [data-a]').forEach(b => b.onclick = () => {
-    if (b.dataset.a === 'other') { $('#otherbox').hidden = false; $('#othertext').focus(); return; }
-    set(b.dataset.a);
-  });
-  {  // every question (version 16): taps only mark the answers, with no redraw; Next answers with all of them
-    const sel = new Set(picks(e.q[q.key]));
+  {  // every answer is a tick (version 17): taps only mark them, with no redraw; Next answers with everything ticked
+    const sel = new Set(ticked(e.q[q.key]));
+    const field = $('#othertext'), nextBtn = $('#multiok');
+    const refresh = () => {
+      document.querySelectorAll('#qcard [data-t]').forEach(x => { x.classList.toggle('picked', sel.has(x.dataset.t)); x.setAttribute('aria-pressed', sel.has(x.dataset.t)); });
+      field.hidden = !sel.has('other');
+      nextBtn.disabled = !sel.size || (sel.has('other') && !field.value.trim());
+    };
     document.querySelectorAll('#qcard [data-t]').forEach(b => b.onclick = () => {
       const c = b.dataset.t; if (sel.has(c)) sel.delete(c); else sel.add(c);
-      if (c === 'none' && sel.has('none')) { for (const x of [...sel]) if (x !== 'none') sel.delete(x); } else sel.delete('none');  // "none" stands alone
-      document.querySelectorAll('#qcard [data-t]').forEach(x => { x.classList.toggle('picked', sel.has(x.dataset.t)); x.setAttribute('aria-pressed', sel.has(x.dataset.t)); });
-      $('#multiok').disabled = !sel.size;
+      if ((c === 'none' || c === 'unsure') && sel.has(c)) { for (const x of [...sel]) if (x !== c) sel.delete(x); } else { sel.delete('none'); sel.delete('unsure'); }  // "none" and "Not sure" stand alone
+      refresh();
+      if (c === 'other' && sel.has('other')) field.focus();
     });
-    $('#multiok').onclick = () => { if (!sel.size) return; const chosen = q.opts.map(o => o[0]).filter(c => sel.has(c)); if (q.multi) set(chosen.join('+')); else if (chosen.length === 1) set(chosen[0]); else set('varies', undefined, chosen); };
+    field.oninput = refresh;
+    field.onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); if (!nextBtn.disabled) nextBtn.click(); } };
+    nextBtn.onclick = () => {
+      if (nextBtn.disabled) return;
+      const text = sel.has('other') ? field.value.trim() : undefined;
+      const chosen = q.opts.map(o => o[0]).filter(c => sel.has(c));
+      if (sel.has('unsure')) set('unsure');
+      else if (!chosen.length) set('other', text);
+      else if (q.multi) set(chosen.join('+'), text);
+      else if (chosen.length === 1 && !text) set(chosen[0]);
+      else set('varies', text, chosen);
+    };
   }
-  $('#otherok').onclick = () => { const t = $('#othertext').value.trim(); if (t) set('other', t); else $('#othertext').focus(); };
-  $('#othertext').onkeydown = ev => { if (ev.key === 'Enter') { ev.preventDefault(); $('#otherok').click(); } };
 }
 function how() {
   app.innerHTML = `
