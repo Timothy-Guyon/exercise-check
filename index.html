@@ -77,7 +77,7 @@ textarea:focus, input:focus, button:focus-visible { outline: 2px solid var(--acc
 <div class="ver" id="ver" aria-hidden="true"></div>
 <script>
 // Serves bet 3 (product/BET.md), version 10 of the describing page: one link for everyone.
-const BASE = {"v": "21", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
+const BASE = {"v": "22", "url": "https://hnyvbuvzfyjfffbonngo.supabase.co", "key": "sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW"};
 document.getElementById('ver').textContent = 'v' + BASE.v;  // version 21: shown before the link is read, so a phone shows which copy it serves even on a bad link
 // The link carries the bet's code after '#', which the browser never sends to any server. The code unlocks
 // the pool of twenty exercises and the four groups of five from LOCKED, where they sit encrypted, so without
@@ -220,11 +220,10 @@ async function begin(first) {
   if (open) { STORE = storeKey(norm, open.run || 1); S = open; render(); resend(); return; }
   // Otherwise the next set: what the server has for the name, with what this phone knows, picks the five (version 15).
   app.innerHTML = `<div class="card"><p>One moment...</p></div>`;
-  const hist = await serverHistory(norm), seen = seenBy(norm, hist);
+  const [hist, f] = await Promise.all([serverHistory(norm), followupsFor(norm)]), seen = seenBy(norm, hist);
   const run = seen.sets + 1;
-  STORE = storeKey(norm, run);
-  S = fresh(shown, norm, run, pickFive(norm, seen), hist ? 'server' : 'phone');
-  render();
+  const start = () => { STORE = storeKey(norm, run); S = fresh(shown, norm, run, pickFive(norm, seen), hist ? 'server' : 'phone'); render(); };
+  if (f) { ASK = { norm, first: shown, data: f, afterSet: false, then: start }; render(); } else start();  // version 22: a question from last time comes before a fresh set
 }
 function resend() {  // a save that failed last time goes again now
   if (S.saves.pending || (S.screen === 'done' && !S.saves.finalOk)) { S.sending = false; save(S.screen === 'done' ? 'final' : 'progress').then(() => { if (S.screen === 'done') render(); }); }
@@ -307,6 +306,62 @@ function copyPanel(intro) {
 function wireCopy() { const parts = copyParts(); document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(parts[+b.dataset.copy], b)); }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// ---- version 22 (founder, 2026-10-05): the page's own follow-up. The founder reads each run and decides which answers to ask
+// about ("each one needs to be shown to me first"); the questions they approve wait on the server for the name, and the page shows
+// them on the tester's next visit, or right after a later set, never showing the record's answer. The tester's words go back as a
+// row of kind "followup".
+let ASK = null;  // the follow-up showing: { norm, first, data: { notes }, afterSet, then }
+async function followupsFor(norm) {  // the questions waiting for the name, or null when none or when the server cannot say
+  const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 6000);
+  try {
+    const r = await fetch(DATA.url + '/rest/v1/rpc/bet3_followup', { method: 'POST', headers: { 'apikey': DATA.key, 'Content-Type': 'application/json' },
+                                                                       body: JSON.stringify({ p_tester: norm, p_code: DATA.code }), signal: ac.signal });
+    clearTimeout(timer);
+    if (!r.ok) return null;
+    const f = await r.json();
+    const notes = (f && Array.isArray(f.notes) ? f.notes : []).filter(n => n && n.id && n.text);
+    return notes.length ? { notes } : null;
+  } catch (e) { clearTimeout(timer); return null; }
+}
+async function postRow(kind, answers) {  // one row, like a save, with the same retries
+  const body = JSON.stringify({ tester: answers.tester, code: DATA.code, page_version: DATA.v, kind, answers });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const ac = new AbortController(), timer = setTimeout(() => ac.abort(), 10000);
+    try {
+      const r = await fetch(DATA.url + '/rest/v1/bet3_answers', { method: 'POST', headers: { 'apikey': DATA.key, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body, signal: ac.signal });
+      clearTimeout(timer);
+      if (r.ok) return true;
+    } catch (e) { clearTimeout(timer); }
+    await new Promise(res => setTimeout(res, 800 * (attempt + 1)));
+  }
+  return false;
+}
+function finishUp(first) {  // version 15: a set that is in sends the page back to the start, with thanks; the set stays kept under its own key
+  S = { screen: 'hello', saves: {}, thanks: first }; STORE = 'bet3-none';
+  return hello();
+}
+function ask() {
+  const d = ASK.data;
+  let html = `<div class="eyebrow">One more thing</div>
+    <h1>${ASK.afterSet ? `Thanks, ${esc(ASK.first)}.` : `Hi again, ${esc(ASK.first)}.`}</h1>
+    <div class="card"><p>${ASK.afterSet ? 'Your answers are with me. A few of your earlier answers' : 'A few of your answers from last time'} I'd like to understand better. Not to correct them, just to learn what you were picturing.</p></div>`;
+  for (const n of d.notes) html += `<div class="card"><h2>${esc(n.title || 'From me')}</h2><p>${esc(n.text)}</p><textarea data-note="${esc(String(n.id))}" placeholder="In your own words. Short is fine."></textarea></div>`;
+  html += `<div class="row"><button class="primary" id="sendask" disabled>Send</button><button id="notnow">Not now</button></div><div class="status" id="askstatus"></div>`;
+  app.innerHTML = html;
+  const boxes = [...app.querySelectorAll('textarea')], send = $('#sendask'), notNow = $('#notnow'), st = $('#askstatus');
+  const refresh = () => { send.disabled = !boxes.some(b => b.value.trim()); };
+  boxes.forEach(b => b.oninput = refresh);
+  const go = () => { const then = ASK.then; ASK = null; then(); };
+  notNow.onclick = go;
+  send.onclick = async () => {
+    const noteReplies = {}; for (const b of boxes) if (b.dataset.note && b.value.trim()) noteReplies[b.dataset.note] = b.value.trim();
+    send.disabled = true; notNow.disabled = true; st.textContent = 'Sending...'; st.classList.remove('bad');
+    const ok = await postRow('followup', { v: DATA.v, at: now(), tester: ASK.norm, first: ASK.first, ua: navigator.userAgent, notes: d.notes.map(n => String(n.id)), noteReplies });
+    if (ok) return go();
+    st.textContent = 'Not sent. Check your signal and tap Send again.'; st.classList.add('bad'); send.disabled = false; notNow.disabled = false;
+  };
+}
+
 // ---- screens
 let keepPlace = false;  // true while the review is edited in place: no scrolling then
 function render() {
@@ -315,6 +370,7 @@ function render() {
   app.style.pointerEvents = 'none'; setTimeout(() => { app.style.pointerEvents = ''; }, 350);
   if (!DATA) { app.innerHTML = `<div class="card"><h2>This link looks incomplete.</h2><p>Ask me to send it again.</p></div>`; return; }
   const s = S.screen;
+  if (ASK) { ask(); return; }  // version 22: the page's own follow-up, over any screen
   if (!S.tester) hello(); else if (s === 'past') past(); else if (s === 'ex') exercise(); else if (s === 'how') how(); else if (s === 'done') done(); else past();
 }
 function bar() {
@@ -496,9 +552,15 @@ function how() {
   };
 }
 function done() {
-  if (S.saves.finalOk && !S.sending) {  // version 15: a set that is in sends the page back to the start, with thanks; the set stays kept under its own key
-    const first = S.first; S = { screen: 'hello', saves: {}, thanks: first }; STORE = 'bet3-none';
-    return hello();
+  if (S.saves.finalOk && !S.sending) {
+    if (!S.askChecked) {  // version 22: first, the page's own follow-up on this set, when the server has one
+      S.askChecked = true; keep();
+      const norm = S.tester, first = S.first;
+      app.innerHTML = `<div class="card"><p>One moment...</p></div>`;
+      followupsFor(norm).then(f => { if (f) { ASK = { norm, first, data: f, afterSet: true, then: () => finishUp(first) }; render(); } else finishUp(first); });
+      return;
+    }
+    return finishUp(S.first);
   }
   if (S.sending) { app.innerHTML = `${bar()}<div class="card"><p>Sending your answers to me...</p></div><details><summary class="small muted">Taking a while? Copy your answers instead</summary>${copyPanel('Paste this to me on Discord.')}</details>`; wireCopy(); return; }
   const sent = !!S.saves.finalOk;
@@ -519,7 +581,7 @@ readLink().then(d => {
   let last = ''; try { last = localStorage.getItem('bet3-last') || ''; } catch (e) {}
   const open = last && localRuns(normName(last)).find(k => Array.isArray(k.ex) && k.ex.length === 5 && (!k.finished || !(k.saves && k.saves.finalOk)));
   if (open) begin(last); else render();
-  document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.tester) save(S.screen === 'done' ? 'final' : 'progress'); });
+  document.addEventListener('visibilitychange', () => { if (DATA && document.hidden && S.tester && !ASK) save(S.screen === 'done' ? 'final' : 'progress'); });
 });
 </script>
 </body>
