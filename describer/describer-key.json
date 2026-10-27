@@ -1,0 +1,10952 @@
+{
+ "format": "32ff4e9e88",
+ "version": "10.55",
+ "date": "2026-10-27",
+ "attributes": [
+  {
+   "key": "movement",
+   "ask": "What movement?",
+   "label": "movement",
+   "about": "The lifter's word for a bundle of joint actions; the joint attributes say where and how; a push-up is a press, and a push drives a sled over the floor",
+   "values": [
+    "row",
+    "press",
+    "curl",
+    "extension",
+    "raise",
+    "hinge",
+    "crunch",
+    "abduction",
+    "fly",
+    "reverse fly",
+    "squat",
+    "rotation",
+    "stretch",
+    "dance",
+    "carry",
+    "shrug",
+    "bridge",
+    "dip",
+    "clean",
+    "side bend",
+    "run",
+    "climb",
+    "lunge",
+    "hold",
+    "snatch",
+    "push",
+    "pullover",
+    "walk",
+    "cycle",
+    "ski",
+    "adduction",
+    "throw",
+    "jump"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "modality",
+   "ask": "What kind of activity?",
+   "label": "kind",
+   "about": "What kind of activity it is",
+   "values": [
+    "resistance",
+    "endurance",
+    "recreational",
+    "mobility",
+    "plyometric"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "joints",
+   "ask": "Which joints move?",
+   "label": "joints",
+   "about": "Which joints move; tick every one that moves, as a squat ticks hip and knee and an RDL only the hip",
+   "values": [
+    "hip",
+    "knee",
+    "ankle",
+    "shoulder",
+    "elbow",
+    "spine",
+    "scapula",
+    "wrist",
+    "neck"
+   ],
+   "multi": true,
+   "filled": false
+  },
+  {
+   "key": "hip_action",
+   "ask": "What does the thigh do?",
+   "label": "hip",
+   "about": "What the thigh does on the pelvis",
+   "values": [
+    "flexion",
+    "extension",
+    "abduction",
+    "adduction",
+    "internal rotation",
+    "external rotation"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "knee_action",
+   "ask": "What does the knee do?",
+   "label": "knee",
+   "about": "What the knee does",
+   "values": [
+    "flexion",
+    "extension"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "ankle_action",
+   "ask": "What does the foot do?",
+   "label": "ankle",
+   "about": "What the foot does",
+   "values": [
+    "plantar flexion",
+    "dorsiflexion",
+    "inversion",
+    "eversion"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "shoulder_action",
+   "ask": "What does the upper arm do?",
+   "label": "shoulder",
+   "about": "What the upper arm does",
+   "values": [
+    "flexion",
+    "extension",
+    "abduction",
+    "adduction",
+    "horizontal abduction",
+    "horizontal adduction",
+    "internal rotation",
+    "external rotation"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "elbow_action",
+   "ask": "What does the elbow do?",
+   "label": "elbow",
+   "about": "What the elbow does: one joint, opposite muscles",
+   "values": [
+    "flexion",
+    "extension"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "spine_action",
+   "ask": "What does the trunk do?",
+   "label": "spine",
+   "about": "What the trunk does",
+   "values": [
+    "flexion",
+    "extension",
+    "rotation",
+    "lateral flexion"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "scapula_action",
+   "ask": "What does the shoulder blade do?",
+   "label": "scapula",
+   "about": "What the shoulder blade does on its own",
+   "values": [
+    "retraction",
+    "protraction",
+    "elevation",
+    "depression"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "wrist_action",
+   "ask": "What does the wrist do?",
+   "label": "wrist",
+   "about": "What the wrist does against the load",
+   "values": [
+    "flexion",
+    "extension"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "neck_action",
+   "ask": "What does the head do?",
+   "label": "neck",
+   "about": "What the head does on the trunk",
+   "values": [
+    "flexion",
+    "extension",
+    "lateral flexion",
+    "rotation"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "load_source",
+   "ask": "What resists?",
+   "label": "load",
+   "about": "What resists, several at once when it is so",
+   "values": [
+    "barbell",
+    "dumbbell",
+    "kettlebell",
+    "band",
+    "body weight",
+    "machine",
+    "sled"
+   ],
+   "multi": true,
+   "filled": false
+  },
+  {
+   "key": "machine_type",
+   "ask": "Which kind of machine?",
+   "label": "machine",
+   "about": "Which machine: how a resistance machine loads, or which cardio machine holds you in place",
+   "values": [
+    "cable",
+    "pin-loaded",
+    "plate-loaded",
+    "smith",
+    "treadmill",
+    "stair climber",
+    "stationary bike",
+    "rower",
+    "elliptical"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "machine",
+   "ask": "Which model?",
+   "label": "model",
+   "about": "The model, only when the title names one",
+   "values": [
+    "calf extension machine",
+    "Life Fitness Row/Rear Deltoid",
+    "Body Masters",
+    "Arsenal",
+    "Nautilus",
+    "Body Masters Plate Loaded Squat Press",
+    "Dynamic Fitness and Strength",
+    "Cybex",
+    "Hammer Strength",
+    "Cybex Plate Loaded Squat Press",
+    "Legend Fitness",
+    "Magnum Biangular Lat Row",
+    "Prime Extreme Row",
+    "Matrix",
+    "Megamass",
+    "Panatta Super Rowing Machine Circular",
+    "Hammer Strength Ground Base Squat / High Pull",
+    "Cybex Modular Arm Curl"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "bar_type",
+   "ask": "Which bar?",
+   "label": "bar",
+   "about": "Which bar: its shape sets how the hands face or where the load sits",
+   "values": [
+    "straight",
+    "EZ",
+    "trap",
+    "safety squat",
+    "Swiss",
+    "cambered",
+    "axle"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "cable_attachment",
+   "ask": "What do the hands hold?",
+   "label": "attachment",
+   "about": "What the hands hold on a cable; it fixes the elbow path",
+   "values": [
+    "v-grip",
+    "straight bar",
+    "wide bar",
+    "rope",
+    "d-handle",
+    "cuff",
+    "ez bar",
+    "lat bar"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "load_position",
+   "ask": "Where does the load, or a pad moving with it, meet the body?",
+   "label": "load at",
+   "about": "A hack squat's shoulder pads and back pad both move with the load, so both count as on the shoulders",
+   "values": [
+    "in the hands",
+    "on the back",
+    "on the thighs",
+    "on the feet",
+    "on the shoulders",
+    "on the hips",
+    "on the shins or ankles",
+    "on the upper arms",
+    "front rack",
+    "at the chest",
+    "at the head",
+    "on the forearms"
+   ],
+   "multi": true,
+   "filled": false
+  },
+  {
+   "key": "relative_direction",
+   "ask": "Which way does the load travel?",
+   "label": "direction",
+   "about": "Where the load travels relative to the torso, whatever the bench does; blank where it separates nothing",
+   "values": [
+    "vertical",
+    "horizontal",
+    "lateral",
+    "forward",
+    "incline",
+    "decline"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "mover",
+   "ask": "What travels, the load or the body?",
+   "label": "moves",
+   "about": "What travels, the body or the load: closed or open chain",
+   "values": [
+    "load",
+    "body",
+    "none"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "posture",
+   "ask": "How is the body arranged?",
+   "label": "posture",
+   "about": "How the body is arranged",
+   "values": [
+    "standing",
+    "seated",
+    "lying",
+    "kneeling",
+    "bent over",
+    "side-lying",
+    "hips raised",
+    "upside down",
+    "leaning away",
+    "leaning toward"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "support",
+   "ask": "What is the body on?",
+   "label": "on",
+   "about": "What the body rests on; blank when standing, the floor being what standing means, and one value only, what the raised or supported part rests on",
+   "values": [
+    "bench",
+    "seat",
+    "floor",
+    "pad",
+    "ball",
+    "box",
+    "hanging",
+    "bosu ball",
+    "bars"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "bench_angle",
+   "ask": "What angle is your torso at?",
+   "label": "torso angle",
+   "about": "The line from your hips to your shoulders: flat is level, upright is straight up, 45° is halfway, and shoulders below hips is decline; on an adjustable bench, use the bench's number",
+   "values": [
+    "decline",
+    "flat",
+    "15°",
+    "30°",
+    "45°",
+    "60°",
+    "upright"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "handle_way",
+   "ask": "Which way do the handles go as you push or pull?",
+   "label": "handles",
+   "about": "As a whole, even if they swing on an arm; any rise or fall you can see counts as up or down; if the back pad leans back, read it as if the pad were straight up",
+   "values": [
+    "straight up or nearly",
+    "up at an incline",
+    "level",
+    "down at a decline",
+    "straight down or nearly"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "hands",
+   "ask": "Where are your hands?",
+   "label": "hands at",
+   "about": "Handles, dumbbells or parallettes mean one under each hand; a bench, box, bar, counter, wall or one dumbbell under both hands counts as up on something",
+   "values": [
+    "on the floor",
+    "on handles or dumbbells",
+    "on rings or straps",
+    "one hand up",
+    "up on something"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "feet",
+   "ask": "Where are your feet?",
+   "label": "feet at",
+   "about": "Where your toes rest; a bench, box, step, ball, wall or straps count as up on something",
+   "values": [
+    "on the floor",
+    "up on something"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "which_higher",
+   "ask": "Which are higher?",
+   "label": "higher",
+   "about": "",
+   "values": [
+    "your hands",
+    "your feet",
+    "level"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "braced",
+   "ask": "Which body parts press against something that stays still?",
+   "label": "braced",
+   "about": "Like your chest on a row's pad or your thighs under a pulldown's pad; not against the load or a pad moving with it, as on a hack squat; not feet you stand on; not muscles you tighten to hold still, which are stabilizers",
+   "values": [
+    "back",
+    "hips",
+    "thighs",
+    "feet",
+    "chest",
+    "elbows",
+    "shins",
+    "forearms",
+    "hand"
+   ],
+   "multi": true,
+   "filled": false
+  },
+  {
+   "key": "stance",
+   "ask": "How are the feet placed?",
+   "label": "stance",
+   "about": "How the feet are placed; blank where it separates nothing",
+   "values": [
+    "narrow",
+    "side by side",
+    "staggered",
+    "one foot",
+    "split",
+    "rear foot up",
+    "wide"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "foot_placement",
+   "ask": "How high on the platform are the feet?",
+   "label": "platform",
+   "about": "How high on the platform the feet sit on a leg press, hack squat, V-squat or the like; blank where the feet are on a bar or the floor",
+   "values": [
+    "high",
+    "middle",
+    "low"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "knee_bend",
+   "ask": "How bent are the knees?",
+   "label": "knees",
+   "about": "",
+   "values": [
+    "soft",
+    "bent"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "start_position",
+   "ask": "Where does each rep start?",
+   "label": "start",
+   "about": "From the top if the load is in the air at the bottom of a rep, as on an RDL, a swing or a hang clean; otherwise from where it touches down",
+   "values": [
+    "from the top",
+    "from the floor",
+    "from rack pins or blocks"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "laterality",
+   "ask": "How do the two sides move?",
+   "label": "sides",
+   "about": "How the two sides move",
+   "values": [
+    "bilateral",
+    "independent",
+    "unilateral",
+    "alternating"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "grip",
+   "ask": "How does the hand face?",
+   "label": "grip",
+   "about": "How the hand faces",
+   "values": [
+    "neutral",
+    "underhand",
+    "overhand",
+    "none"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "hand_width",
+   "ask": "How far apart are the hands?",
+   "label": "hands",
+   "about": "",
+   "values": [
+    "shoulder width",
+    "wide",
+    "close"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "elbow_path",
+   "ask": "Where do the elbows go?",
+   "label": "elbows",
+   "about": "Where the elbow travels on a row, as a trainer cues it",
+   "values": [
+    "tucked",
+    "in between",
+    "flared"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "elbow_position",
+   "ask": "Where is the elbow held?",
+   "label": "elbow at",
+   "about": "Where the held elbow sits on a curl or an extension",
+   "values": [
+    "in front",
+    "at the side",
+    "behind",
+    "overhead"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "step",
+   "ask": "Which way does the foot step?",
+   "label": "step",
+   "about": "Lunges only: which way the moving foot steps out from standing",
+   "values": [
+    "forward",
+    "back",
+    "sideways",
+    "across",
+    "at an angle"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "travel",
+   "ask": "In place, or covering ground?",
+   "label": "travel",
+   "about": "Whether you end where you started or cover ground",
+   "values": [
+    "in place",
+    "covering ground"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "activity_type",
+   "ask": "One exercise, or a sequence?",
+   "label": "type",
+   "about": "One exercise, or an ordered sequence done as one",
+   "values": [
+    "single",
+    "complex"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
+   "key": "target",
+   "ask": "Which muscle?",
+   "label": "target",
+   "about": "The muscles the exercise trains, by role",
+   "values": [
+    "quads",
+    "glutes",
+    "lats",
+    "front delts",
+    "back",
+    "biceps",
+    "triceps",
+    "abs",
+    "chest",
+    "hamstrings",
+    "upper chest",
+    "side delts",
+    "calves",
+    "rear delts",
+    "hip flexors",
+    "obliques",
+    "upper back",
+    "brachialis",
+    "tibialis",
+    "lower back",
+    "abductors",
+    "traps",
+    "lower chest",
+    "peroneals",
+    "forearms",
+    "wrist flexors",
+    "rotator cuff",
+    "brachioradialis",
+    "neck",
+    "wrist extensors",
+    "core",
+    "serratus",
+    "adductors"
+   ],
+   "multi": true,
+   "filled": false
+  },
+  {
+   "key": "synergists",
+   "ask": "Which muscles are synergists?",
+   "label": "synergists",
+   "about": "the synergists, muscles that help the leads at the same joint or nearby, e.g. the brachialis on a curl, the glutes on an RDL",
+   "values": [
+    "quads",
+    "glutes",
+    "lats",
+    "front delts",
+    "back",
+    "biceps",
+    "triceps",
+    "abs",
+    "chest",
+    "hamstrings",
+    "upper chest",
+    "side delts",
+    "calves",
+    "rear delts",
+    "hip flexors",
+    "obliques",
+    "upper back",
+    "brachialis",
+    "tibialis",
+    "lower back",
+    "abductors",
+    "traps",
+    "lower chest",
+    "peroneals",
+    "forearms",
+    "wrist flexors",
+    "rotator cuff",
+    "brachioradialis",
+    "neck",
+    "wrist extensors",
+    "core",
+    "serratus",
+    "adductors"
+   ],
+   "multi": true,
+   "filled": true
+  },
+  {
+   "key": "stabilizers",
+   "ask": "Which muscles are stabilizers?",
+   "label": "stabilizers",
+   "about": "muscles that hold a joint still so the others can move, e.g. the erectors and core on a bent-over row",
+   "values": [
+    "quads",
+    "glutes",
+    "lats",
+    "front delts",
+    "back",
+    "biceps",
+    "triceps",
+    "abs",
+    "chest",
+    "hamstrings",
+    "upper chest",
+    "side delts",
+    "calves",
+    "rear delts",
+    "hip flexors",
+    "obliques",
+    "upper back",
+    "brachialis",
+    "tibialis",
+    "lower back",
+    "abductors",
+    "traps",
+    "lower chest",
+    "peroneals",
+    "forearms",
+    "wrist flexors",
+    "rotator cuff",
+    "brachioradialis",
+    "neck",
+    "wrist extensors",
+    "core",
+    "serratus",
+    "adductors"
+   ],
+   "multi": true,
+   "filled": true
+  }
+ ],
+ "after": {
+  "movement": [],
+  "modality": [
+   "movement",
+   "load_source",
+   "machine_type"
+  ],
+  "joints": [
+   "movement",
+   "modality",
+   "load_source",
+   "machine_type"
+  ],
+  "hip_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "stance",
+   "step"
+  ],
+  "knee_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way"
+  ],
+  "ankle_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "shoulder_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "relative_direction",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher",
+   "elbow_path"
+  ],
+  "elbow_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "spine_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "scapula_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "wrist_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "neck_action": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "load_source": [
+   "movement"
+  ],
+  "machine_type": [
+   "movement",
+   "load_source"
+  ],
+  "machine": [
+   "movement",
+   "load_source"
+  ],
+  "bar_type": [
+   "movement",
+   "load_source"
+  ],
+  "cable_attachment": [
+   "movement",
+   "load_source",
+   "machine_type"
+  ],
+  "load_position": [
+   "movement",
+   "load_source"
+  ],
+  "relative_direction": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher"
+  ],
+  "mover": [],
+  "posture": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "support",
+   "bench_angle",
+   "handle_way"
+  ],
+  "support": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "bench_angle": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "support"
+  ],
+  "handle_way": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "hands": [
+   "movement",
+   "load_source"
+  ],
+  "feet": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way"
+  ],
+  "which_higher": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet"
+  ],
+  "braced": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "relative_direction",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher"
+  ],
+  "stance": [],
+  "foot_placement": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "load_position"
+  ],
+  "knee_bend": [],
+  "start_position": [
+   "movement"
+  ],
+  "laterality": [],
+  "grip": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "load_position"
+  ],
+  "hand_width": [],
+  "elbow_path": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "relative_direction",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher"
+  ],
+  "elbow_position": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type"
+  ],
+  "step": [
+   "movement"
+  ],
+  "travel": [
+   "movement",
+   "load_source",
+   "machine_type"
+  ],
+  "activity_type": [],
+  "target": [
+   "movement",
+   "modality",
+   "joints",
+   "hip_action",
+   "knee_action",
+   "ankle_action",
+   "shoulder_action",
+   "elbow_action",
+   "spine_action",
+   "scapula_action",
+   "wrist_action",
+   "neck_action",
+   "load_source",
+   "machine_type",
+   "machine",
+   "bar_type",
+   "cable_attachment",
+   "load_position",
+   "relative_direction",
+   "mover",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher",
+   "braced",
+   "stance",
+   "foot_placement",
+   "knee_bend",
+   "start_position",
+   "laterality",
+   "grip",
+   "hand_width",
+   "elbow_path",
+   "elbow_position",
+   "step",
+   "travel",
+   "activity_type"
+  ],
+  "synergists": [
+   "movement",
+   "modality",
+   "joints",
+   "hip_action",
+   "knee_action",
+   "ankle_action",
+   "shoulder_action",
+   "elbow_action",
+   "spine_action",
+   "wrist_action",
+   "neck_action",
+   "load_source",
+   "machine_type",
+   "load_position",
+   "relative_direction",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher",
+   "stance",
+   "foot_placement",
+   "grip",
+   "elbow_path",
+   "step",
+   "target"
+  ],
+  "stabilizers": [
+   "movement",
+   "modality",
+   "joints",
+   "hip_action",
+   "knee_action",
+   "ankle_action",
+   "shoulder_action",
+   "elbow_action",
+   "spine_action",
+   "wrist_action",
+   "neck_action",
+   "load_source",
+   "machine_type",
+   "cable_attachment",
+   "load_position",
+   "relative_direction",
+   "mover",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher",
+   "braced",
+   "stance",
+   "foot_placement",
+   "grip",
+   "elbow_path",
+   "step",
+   "target"
+  ]
+ },
+ "joints": {
+  "shoulder": "shoulder_action",
+  "elbow": "elbow_action",
+  "hip": "hip_action",
+  "knee": "knee_action",
+  "ankle": "ankle_action",
+  "spine": "spine_action",
+  "scapula": "scapula_action",
+  "wrist": "wrist_action",
+  "neck": "neck_action"
+ },
+ "lines": [
+  {
+   "when": {
+    "movement": {
+     "$exists": false
+    }
+   },
+   "reveal": [
+    "movement"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$exists": false
+    }
+   },
+   "require": [
+    "movement"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$exists": false
+    }
+   },
+   "reveal": [
+    "modality"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$exists": true
+    }
+   },
+   "require": [
+    "modality"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row",
+      "press",
+      "raise",
+      "abduction",
+      "fly",
+      "reverse fly",
+      "rotation",
+      "dance",
+      "carry",
+      "bridge",
+      "run",
+      "climb",
+      "pullover",
+      "walk",
+      "cycle",
+      "ski"
+     ]
+    }
+   },
+   "reveal": [
+    "load_source"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row",
+      "press",
+      "raise",
+      "abduction",
+      "fly",
+      "reverse fly",
+      "rotation",
+      "dance",
+      "carry",
+      "bridge",
+      "run",
+      "climb",
+      "pullover",
+      "walk",
+      "cycle",
+      "ski"
+     ]
+    }
+   },
+   "order": [
+    "load_source",
+    "modality"
+   ]
+  },
+  {
+   "when": {
+    "load_source": {
+     "$in": [
+      "machine"
+     ]
+    }
+   },
+   "reveal": [
+    "machine_type"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "load_position": [
+     "in the hands"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "kettlebell"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "reverse fly"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "abduction"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "rotation"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "bridge"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "pullover"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell",
+      "band"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded",
+      "smith"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded",
+      "smith"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded",
+      "smith"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "reverse fly"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "abduction"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "rotation"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "bridge"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded",
+      "smith"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "pullover"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "require": [
+    "target"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "plyometric"
+     ]
+    }
+   },
+   "require": [
+    "target"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    }
+   },
+   "require": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "require": [
+    "shoulder_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "require": [
+    "elbow_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    }
+   },
+   "require": [
+    "hip_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    }
+   },
+   "require": [
+    "knee_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    }
+   },
+   "require": [
+    "ankle_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "spine"
+     ]
+    }
+   },
+   "require": [
+    "spine_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "scapula"
+     ]
+    }
+   },
+   "require": [
+    "scapula_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "wrist"
+     ]
+    }
+   },
+   "require": [
+    "wrist_action"
+   ]
+  },
+  {
+   "when": {
+    "modality": {
+     "$in": [
+      "mobility"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "neck"
+     ]
+    }
+   },
+   "require": [
+    "neck_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "offer": [
+    "shoulder_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "offer": [
+    "elbow_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    }
+   },
+   "offer": [
+    "hip_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    }
+   },
+   "offer": [
+    "knee_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    }
+   },
+   "offer": [
+    "ankle_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "spine"
+     ]
+    }
+   },
+   "offer": [
+    "spine_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "scapula"
+     ]
+    }
+   },
+   "offer": [
+    "scapula_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "wrist"
+     ]
+    }
+   },
+   "offer": [
+    "wrist_action"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "neck"
+     ]
+    }
+   },
+   "offer": [
+    "neck_action"
+   ]
+  },
+  {
+   "when": {
+    "machine_type": {
+     "$in": [
+      "cable"
+     ]
+    }
+   },
+   "offer": [
+    "cable_attachment"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "offer": [
+    "step"
+   ]
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "load_source": {
+       "$in": [
+        "machine"
+       ]
+      }
+     },
+     {
+      "movement": {
+       "$in": [
+        "walk",
+        "run",
+        "climb",
+        "cycle"
+       ]
+      }
+     }
+    ]
+   },
+   "offer": [
+    "machine_type"
+   ]
+  },
+  {
+   "when": {
+    "load_source": {
+     "$in": [
+      "machine"
+     ]
+    }
+   },
+   "offer": [
+    "machine"
+   ]
+  },
+  {
+   "when": {
+    "load_source": {
+     "$in": [
+      "barbell"
+     ]
+    }
+   },
+   "offer": [
+    "bar_type"
+   ]
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "support": {
+       "$in": [
+        "bench",
+        "seat"
+       ]
+      }
+     },
+     {
+      "movement": {
+       "$in": [
+        "row",
+        "reverse fly"
+       ]
+      },
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "offer": [
+    "bench_angle"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "row",
+      "fly"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "offer": [
+    "handle_way"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "offer": [
+    "hands"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying",
+      "hips raised"
+     ]
+    }
+   },
+   "offer": [
+    "feet"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    }
+   },
+   "offer": [
+    "which_higher"
+   ]
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "movement": {
+       "$in": [
+        "press",
+        "squat"
+       ]
+      },
+      "joints": {
+       "$in": [
+        "hip"
+       ]
+      },
+      "machine_type": {
+       "$in": [
+        "pin-loaded",
+        "plate-loaded"
+       ]
+      },
+      "load_position": {
+       "$in": [
+        "on the feet",
+        "on the shoulders"
+       ]
+      }
+     },
+     {
+      "movement": {
+       "$in": [
+        "press"
+       ]
+      },
+      "joints": {
+       "$in": [
+        "hip"
+       ],
+       "$nin": [
+        "shoulder"
+       ],
+       "$exists": true
+      },
+      "machine_type": {
+       "$in": [
+        "pin-loaded",
+        "plate-loaded"
+       ]
+      }
+     },
+     {
+      "movement": {
+       "$in": [
+        "squat"
+       ]
+      },
+      "machine_type": {
+       "$in": [
+        "pin-loaded",
+        "plate-loaded"
+       ]
+      },
+      "load_position": {
+       "$in": [
+        "on the shoulders"
+       ]
+      }
+     }
+    ]
+   },
+   "offer": [
+    "foot_placement"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge",
+      "walk",
+      "run",
+      "climb",
+      "cycle"
+     ]
+    }
+   },
+   "offer": [
+    "travel"
+   ]
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "shoulder",
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "offer": [
+    "grip"
+   ]
+  },
+  {
+   "when": {
+    "load_position": {
+     "$in": [
+      "in the hands",
+      "front rack"
+     ]
+    }
+   },
+   "offer": [
+    "grip"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline",
+      "decline"
+     ]
+    }
+   },
+   "offer": [
+    "elbow_path"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl",
+      "extension",
+      "press",
+      "row"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "offer": [
+    "elbow_position"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge",
+      "clean",
+      "snatch"
+     ]
+    }
+   },
+   "offer": [
+    "start_position"
+   ]
+  },
+  {
+   "when": {
+    "shoulder_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "elbow_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "elbow"
+    ]
+   }
+  },
+  {
+   "when": {
+    "hip_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "knee_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "ankle_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "spine_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "spine"
+    ]
+   }
+  },
+  {
+   "when": {
+    "scapula_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "scapula"
+    ]
+   }
+  },
+  {
+   "when": {
+    "wrist_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "wrist"
+    ]
+   }
+  },
+  {
+   "when": {
+    "neck_action": {
+     "$exists": true
+    }
+   },
+   "fill": {
+    "joints": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    }
+   },
+   "reveal": [
+    "relative_direction"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "reveal": [
+    "relative_direction"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "forward"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ],
+     "$nin": [
+      "hip"
+     ],
+     "$exists": true
+    },
+    "relative_direction": {
+     "$in": [
+      "forward"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ],
+     "$nin": [
+      "hip"
+     ],
+     "$exists": true
+    }
+   },
+   "reveal": [
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    }
+   },
+   "reveal": [
+    "ankle_action"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "lateral"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated",
+      "kneeling",
+      "leaning away",
+      "leaning toward"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "abduction"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "lateral"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "bent over"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline",
+      "decline"
+     ]
+    }
+   },
+   "reveal": [
+    "elbow_path"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    }
+   },
+   "reveal": [
+    "shoulder_action"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "tucked"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "incline"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "tucked"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "decline"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "tucked"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "flared"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "horizontal abduction"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "reveal": [
+    "relative_direction"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "fly"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "support"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "smith"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "support"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "fly"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "support": {
+     "$in": [
+      "bench",
+      "seat"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "bench_angle"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "support": {
+     "$in": [
+      "bench",
+      "seat"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "smith"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "bench_angle"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "flat"
+     ]
+    }
+   },
+   "fill": {
+    "posture": [
+     "lying"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "seated"
+     ]
+    }
+   },
+   "exclude": {
+    "bench_angle": [
+     "flat",
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "bench_angle": {
+     "$in": [
+      "flat",
+      "decline"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "seated"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "reveal": [
+    "braced"
+   ]
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "bent over"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "band",
+      "machine",
+      "sled"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "reveal": [
+    "braced"
+   ]
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "bent over"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "feet"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "exclude": {
+    "support": [
+     "floor"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "elbows",
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "hand"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "flat"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$exists": true,
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ],
+       "$nin": [
+        "body weight"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "smith"
+       ]
+      },
+      "load_source": {
+       "$exists": true,
+       "$nin": [
+        "body weight"
+       ]
+      }
+     }
+    ],
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°",
+      "45°",
+      "60°"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$exists": true,
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ],
+       "$nin": [
+        "body weight"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "smith"
+       ]
+      },
+      "load_source": {
+       "$exists": true,
+       "$nin": [
+        "body weight"
+       ]
+      }
+     }
+    ],
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "upright"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$exists": true,
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ],
+       "$nin": [
+        "body weight"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "smith"
+       ]
+      },
+      "load_source": {
+       "$exists": true,
+       "$nin": [
+        "body weight"
+       ]
+      }
+     }
+    ],
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "decline"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$exists": true,
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ],
+       "$nin": [
+        "body weight"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "smith"
+       ]
+      },
+      "load_source": {
+       "$exists": true,
+       "$nin": [
+        "body weight"
+       ]
+      }
+     }
+    ],
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "flat"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "kettlebell"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°",
+      "45°",
+      "60°"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "kettlebell"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "decline"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "dumbbell",
+      "kettlebell"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "machine",
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "bent over",
+      "lying"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "machine",
+      "body weight"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "machine",
+      "body weight"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "order": [
+    "relative_direction",
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "row",
+      "fly"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "reveal": [
+    "handle_way"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "handle_way": [
+     "straight down or nearly"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "handle_way": [
+     "straight up or nearly"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "handle_way": [
+     "straight down or nearly"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "straight up or nearly"
+     ]
+    }
+   },
+   "reveal": [
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "straight up or nearly",
+      "up at an incline"
+     ]
+    }
+   },
+   "reveal": [
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "row",
+      "fly"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "level"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "row",
+      "fly"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "down at a decline"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "fly"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "up at an incline"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "up at an incline"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "seated",
+      "standing"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "row"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "straight up or nearly"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "seated",
+      "standing"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "handle_way": {
+     "$in": [
+      "straight down or nearly"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "posture"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "reveal": [
+    "hands"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying",
+      "hips raised"
+     ]
+    }
+   },
+   "reveal": [
+    "feet"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    }
+   },
+   "reveal": [
+    "which_higher"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "seated"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "bent over"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "leaning away"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "leaning toward"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "exclude": {
+    "hands": [
+     "on the floor"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "exclude": {
+    "hands": [
+     "on handles or dumbbells"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "bridge"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "hips raised"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    },
+    "which_higher": {
+     "$in": [
+      "your hands"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    },
+    "which_higher": {
+     "$in": [
+      "your feet"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on handles or dumbbells",
+      "on rings or straps",
+      "one hand up",
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "up on something"
+     ]
+    },
+    "which_higher": {
+     "$in": [
+      "level"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "kneeling"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "up on something",
+      "on rings or straps"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "hips raised"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "upside down"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "incline"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell"
+     ]
+    }
+   },
+   "fill": {
+    "posture": [
+     "lying"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "wrist"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "elbow"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly",
+      "reverse fly"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "elbow"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "push"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "elbow"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "spine"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "exclude": {
+    "joints": [
+     "wrist"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "scapula"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "dip"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "dip"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "side bend"
+     ]
+    }
+   },
+   "fill": {
+    "spine_action": [
+     "lateral flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "pullover"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly",
+      "reverse fly"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "reverse fly"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "horizontal abduction"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "horizontal adduction"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "reveal": [
+    "relative_direction"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "forward"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "lateral"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "crunch"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "spine"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "crunch"
+     ]
+    }
+   },
+   "reveal": [
+    "spine_action"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "clean"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "clean"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "snatch"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "snatch"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "shoulder"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "push"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "push"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "push"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "walk"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "walk"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "walk"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "run"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "run"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "run"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "cycle"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "cycle"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "cycle"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "ankle"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "jump"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "reveal": [
+    "elbow_position"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "reveal": [
+    "grip"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "wrist"
+     ]
+    }
+   },
+   "fill": {
+    "wrist_action": [
+     "flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ],
+     "$nin": [
+      "hip"
+     ],
+     "$exists": true
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "spine"
+     ]
+    }
+   },
+   "fill": {
+    "spine_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "neck"
+     ]
+    }
+   },
+   "fill": {
+    "neck_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "wrist"
+     ]
+    }
+   },
+   "fill": {
+    "wrist_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "fill": {
+    "elbow_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ],
+     "$nin": [
+      "shoulder"
+     ],
+     "$exists": true
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    }
+   },
+   "fill": {
+    "ankle_action": [
+     "plantar flexion"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "reveal": [
+    "step"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "reveal": [
+    "travel"
+   ]
+  },
+  {
+   "when": {
+    "machine_type": {
+     "$in": [
+      "treadmill",
+      "stair climber",
+      "stationary bike",
+      "rower",
+      "elliptical"
+     ]
+    }
+   },
+   "fill": {
+    "travel": [
+     "in place"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "squat"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "on the feet",
+      "on the shoulders"
+     ]
+    }
+   },
+   "reveal": [
+    "foot_placement"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ],
+     "$nin": [
+      "shoulder"
+     ],
+     "$exists": true
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "reveal": [
+    "foot_placement"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "on the shoulders"
+     ]
+    }
+   },
+   "reveal": [
+    "foot_placement"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "adduction"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "rotation"
+     ]
+    }
+   },
+   "reveal": [
+    "joints"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "abduction"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "fill": {
+    "joints": [
+     "hip"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "fill": {
+    "knee_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "adduction"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ],
+     "$nin": [
+      "knee"
+     ],
+     "$exists": true
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "adduction"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    },
+    "stance": {
+     "$nin": [
+      "wide"
+     ],
+     "$exists": true
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    },
+    "step": {
+     "$in": [
+      "forward",
+      "back"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "bridge"
+     ]
+    }
+   },
+   "fill": {
+    "hip_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "adduction"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "push"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "stretch"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "mobility"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "dip"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "clean"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "side bend"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hold"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "snatch"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "throw"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "plyometric"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "jump"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "plyometric"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "lunge"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "crunch"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "wrist_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$nin": [
+      "hip"
+     ],
+     "$exists": true
+    }
+   },
+   "fill": {
+    "target": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "spine_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "wrist_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "neck_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "plantar flexion"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "plantar flexion"
+     ]
+    },
+    "joints": {
+     "$size": 1
+    }
+   },
+   "fill": {
+    "target": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "adduction"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "adduction"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "adductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$exists": true,
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ],
+       "$nin": [
+        "body weight"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "smith"
+       ]
+      },
+      "load_source": {
+       "$exists": true,
+       "$nin": [
+        "body weight"
+       ]
+      }
+     }
+    ]
+   },
+   "fill": {
+    "target": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "incline"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "front delts"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "incline"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "upper chest",
+      "chest"
+     ]
+    },
+    "$or": [
+     {
+      "bench_angle": {
+       "$exists": false
+      }
+     },
+     {
+      "bench_angle": {
+       "$in": [
+        "45°",
+        "60°"
+       ]
+      }
+     }
+    ]
+   },
+   "fill": {
+    "synergists": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "triceps"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated",
+      "kneeling",
+      "leaning away",
+      "side-lying"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "side delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "adduction",
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "side delts"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "side delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "load_position": {
+         "$exists": false
+        }
+       },
+       {
+        "load_position": {
+         "$exists": true,
+         "$nin": [
+          "on the upper arms",
+          "on the forearms"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "relative_direction": {
+         "$in": [
+          "horizontal",
+          "incline",
+          "decline"
+         ]
+        }
+       },
+       {
+        "shoulder_action": {
+         "$in": [
+          "adduction",
+          "extension"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "biceps"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "synergists": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "load_position": {
+         "$exists": false
+        }
+       },
+       {
+        "load_position": {
+         "$exists": true,
+         "$nin": [
+          "on the upper arms",
+          "on the forearms"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "relative_direction": {
+         "$in": [
+          "horizontal",
+          "incline",
+          "decline"
+         ]
+        }
+       },
+       {
+        "shoulder_action": {
+         "$in": [
+          "adduction",
+          "extension"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "brachialis"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "synergists": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "load_position": {
+         "$exists": false
+        }
+       },
+       {
+        "load_position": {
+         "$exists": true,
+         "$nin": [
+          "on the upper arms",
+          "on the forearms"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "relative_direction": {
+         "$in": [
+          "horizontal",
+          "incline",
+          "decline"
+         ]
+        }
+       },
+       {
+        "shoulder_action": {
+         "$in": [
+          "adduction",
+          "extension"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "brachioradialis"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "synergists": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "relative_direction": {
+         "$in": [
+          "horizontal",
+          "incline",
+          "decline"
+         ]
+        },
+        "elbow_path": {
+         "$exists": true
+        }
+       },
+       {
+        "relative_direction": {
+         "$in": [
+          "vertical"
+         ]
+        },
+        "shoulder_action": {
+         "$in": [
+          "adduction",
+          "extension"
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "upper back",
+      "back"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline",
+      "decline"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "in between"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "lats",
+      "back"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline",
+      "decline"
+     ]
+    },
+    "elbow_path": {
+     "$exists": true
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "rear delts"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "load_position": {
+         "$in": [
+          "in the hands"
+         ]
+        }
+       },
+       {
+        "cable_attachment": {
+         "$exists": true,
+         "$nin": [
+          "cuff"
+         ]
+        }
+       },
+       {
+        "load_source": {
+         "$in": [
+          "barbell",
+          "dumbbell",
+          "kettlebell"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "forearms",
+          "wrist flexors",
+          "wrist extensors"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "stabilizers": [
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "bent over"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell",
+      "body weight"
+     ],
+     "$nin": [
+      "band",
+      "machine",
+      "sled"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "spine"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "braced": {
+         "$exists": false
+        }
+       },
+       {
+        "braced": {
+         "$exists": true,
+         "$nin": [
+          "chest",
+          "hand",
+          "forearms"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "core"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "stabilizers": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "spine"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "braced": {
+         "$exists": false
+        }
+       },
+       {
+        "braced": {
+         "$exists": true,
+         "$nin": [
+          "chest",
+          "back"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "core"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "stabilizers": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "machine_type": {
+         "$exists": false
+        }
+       },
+       {
+        "machine_type": {
+         "$exists": true,
+         "$nin": [
+          "rower"
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline",
+      "decline"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "tucked"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "serratus"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "serratus"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "decline"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "decline"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "wrist_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "wrist_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "neck_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "neck_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion",
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "dorsiflexion"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "dorsiflexion"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "dorsiflexion"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "peroneals"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "dorsiflexion"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "peroneals"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion",
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion",
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "load_source": {
+         "$exists": true,
+         "$in": [
+          "barbell",
+          "dumbbell",
+          "kettlebell"
+         ],
+         "$nin": [
+          "body weight"
+         ]
+        }
+       },
+       {
+        "machine_type": {
+         "$in": [
+          "smith"
+         ]
+        },
+        "load_source": {
+         "$exists": true,
+         "$nin": [
+          "body weight"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "braced": {
+         "$exists": false
+        }
+       },
+       {
+        "braced": {
+         "$exists": true,
+         "$nin": [
+          "chest"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "exclude": {
+    "synergists": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "vertical"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "wrist"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "hip flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "hip flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "abs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "abs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "horizontal adduction"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    },
+    "relative_direction": {
+     "$in": [
+      "horizontal",
+      "incline"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge",
+      "squat",
+      "lunge"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "load_position": {
+         "$in": [
+          "in the hands"
+         ]
+        }
+       },
+       {
+        "cable_attachment": {
+         "$exists": true,
+         "$nin": [
+          "cuff"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "target": {
+         "$exists": false
+        }
+       },
+       {
+        "target": {
+         "$exists": true,
+         "$nin": [
+          "forearms",
+          "wrist flexors",
+          "wrist extensors"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "fill": {
+    "stabilizers": [
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "grip": {
+     "$in": [
+      "underhand"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "bridge"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "crunch"
+     ]
+    },
+    "spine_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "abs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "spine_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "glutes",
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise",
+      "press"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "plantar flexion"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "peroneals"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "foot_placement": {
+     "$in": [
+      "high"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "foot_placement": {
+     "$in": [
+      "middle",
+      "low"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "foot_placement": {
+     "$in": [
+      "high"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "foot_placement": {
+     "$in": [
+      "middle",
+      "low"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "knee_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "mover": {
+     "$in": [
+      "body"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "spine"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "glutes"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    },
+    "hip_action": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "knee"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "hamstrings"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "spine"
+     ]
+    },
+    "target": {
+     "$exists": true,
+     "$nin": [
+      "lower back"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "glutes"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "hamstrings"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "adductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "adductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "abductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "knee"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "abductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "hip flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "hip flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "knee",
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "knee",
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "calves"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "tibialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "tibialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "peroneals"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "ankle"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "peroneals"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lower chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper chest"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "side delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "side delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "rotator cuff"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "rotator cuff"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lats"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "serratus"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "serratus"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula",
+      "neck"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula",
+      "neck"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "spine",
+      "scapula"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula",
+      "neck"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "scapula",
+      "neck"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "neck"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "biceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "shoulder",
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "triceps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "elbow",
+      "wrist"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "abs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "abs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "obliques"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "obliques"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "core"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "core"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "target": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "curl",
+      "extension",
+      "hinge",
+      "squat",
+      "adduction",
+      "raise",
+      "rotation"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "hip",
+      "spine"
+     ]
+    }
+   },
+   "exclude": {
+    "synergists": [
+     "lower back"
+    ]
+   }
+  }
+ ],
+ "muscles": [
+  "quads",
+  "glutes",
+  "lats",
+  "front delts",
+  "back",
+  "biceps",
+  "triceps",
+  "abs",
+  "chest",
+  "hamstrings",
+  "upper chest",
+  "side delts",
+  "calves",
+  "rear delts",
+  "hip flexors",
+  "obliques",
+  "upper back",
+  "brachialis",
+  "tibialis",
+  "lower back",
+  "abductors",
+  "traps",
+  "lower chest",
+  "peroneals",
+  "forearms",
+  "wrist flexors",
+  "rotator cuff",
+  "brachioradialis",
+  "neck",
+  "wrist extensors",
+  "core",
+  "serratus",
+  "adductors"
+ ],
+ "one_rule": [
+  [
+   372,
+   373,
+   374,
+   375,
+   376,
+   377,
+   378,
+   379,
+   380,
+   381,
+   382,
+   383,
+   384,
+   385,
+   386,
+   387,
+   388,
+   389,
+   390,
+   391,
+   392,
+   393,
+   394,
+   395,
+   396,
+   397,
+   398,
+   399,
+   400,
+   401,
+   402,
+   403,
+   404,
+   405,
+   406,
+   407,
+   408,
+   409,
+   410,
+   411,
+   412,
+   413,
+   414,
+   415,
+   416,
+   417,
+   418,
+   419,
+   420,
+   421,
+   422,
+   423,
+   424,
+   425,
+   426,
+   427,
+   428,
+   429,
+   430,
+   431,
+   432,
+   433
+  ]
+ ],
+ "renamed": {
+  "travel": {
+   "stationary": "in place"
+  },
+  "load_position": {
+   "on the shins": "on the shins or ankles"
+  },
+  "start_position": {
+   "standing": "from the top",
+   "floor": "from the floor"
+  }
+ },
+ "retired": [
+  {
+   "attr": "cable_attachment",
+   "value": "dumbbell",
+   "ruling": "a dumbbell row has no cable attachment; the question is offered only once the machine is a cable",
+   "reviewed": "the Domain Expert, 2026-10-17 04:10 UTC; the founder, \"Offer it\", 2026-10-17 13:01:53 UTC",
+   "accepted": "the founder, \"Retire it\", 2026-10-17 13:49:29 UTC"
+  },
+  {
+   "attr": "stance",
+   "value": "one foot on the ground the other suspended",
+   "ruling": "the value one foot already says this; unilateral reworded so a single-leg RDL reads as unilateral",
+   "reviewed": "the Domain Expert, 2026-10-17 04:10 UTC; the founder, \"Reword\", 2026-10-17 12:48:45 UTC",
+   "accepted": "the founder, \"Retire it\", 2026-10-17 13:49:29 UTC"
+  },
+  {
+   "attr": "posture",
+   "value": "kind of lying but with shoulders on a bench",
+   "ruling": "the posture is lying, the hip thrust now named on its line",
+   "reviewed": "the Domain Expert, 2026-10-17 04:10 UTC; the founder, \"Add it\", 2026-10-17 12:57:28 UTC",
+   "accepted": "the founder, \"Retire it\", 2026-10-17 13:49:29 UTC"
+  },
+  {
+   "attr": "braced",
+   "value": "upper back",
+   "ruling": "the value back covers it, the upper back on a bench's edge now named on its line",
+   "reviewed": "the Domain Expert, 2026-10-17 04:10 UTC; the founder, \"Add it\", 2026-10-17 12:57:54 UTC",
+   "accepted": "the founder, \"Retire it\", 2026-10-17 13:49:29 UTC"
+  },
+  {
+   "attr": "load_position",
+   "value": "at the ankle",
+   "ruling": "the value on the shins is now on the shins or ankles, a leg curl's pad behind the ankles",
+   "reviewed": "the Domain Expert, 2026-10-17 04:10 UTC; the founder, \"Rename\", 2026-10-17 12:48:14 UTC",
+   "accepted": "the founder, \"Retire it\", 2026-10-17 13:49:29 UTC"
+  },
+  {
+   "attr": "relative_direction",
+   "value": "vertical but in an arcing path?",
+   "ruling": "a machine's arc is its lever; which way the handles go is read as a whole, even if they swing on an arm",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Retire them\", 2026-10-18 23:44:19 UTC"
+  },
+  {
+   "attr": "relative_direction",
+   "value": "is this the attribute on which i would differentiate an overhead tricep extension from a pushdown? does direction need to specify not just the plane (vertical, horizontal, etc.) but the direction as well (vertical from low to high, etc.)?",
+   "ruling": "where the elbow is held tells them apart; away or in is the movement's, toward the head or the feet incline's or decline's",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Retire them\", 2026-10-18 23:44:19 UTC"
+  },
+  {
+   "attr": "relative_direction",
+   "value": "vertical but the axis of rotation is kind of in front of and below me so there is an arcing path to it",
+   "ruling": "a machine's arc is its lever; which way the handles go is read as a whole, even if they swing on an arm",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Retire them\", 2026-10-18 23:44:19 UTC"
+  },
+  {
+   "attr": "relative_direction",
+   "value": "on a circular path around an axis",
+   "ruling": "on a machine, which way the handles go settles it; with a free weight the movement carries the arc (fly, raise, pullover)",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Retire them\", 2026-10-18 23:44:19 UTC"
+  },
+  {
+   "attr": "braced",
+   "value": "shoulders",
+   "ruling": "pads loading the shoulders are the load on the shoulders, and so is a back pad that moves with them; the back is braced only against a pad that stays still",
+   "reworded": "the founder, \"Reword both\", 2026-10-22 15:48:42 UTC, by the Domain Expert's test, whether a pad or a platform moves with the load; it read \"pads loading the shoulders are the load on the shoulders; the upper back against a pad is braced back\"",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "cable_attachment",
+   "value": "handle",
+   "ruling": "the value d-handle covers it",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "cable_attachment",
+   "value": "stabilization bars on the seat",
+   "ruling": "hands steadying the body on a machine's grips are braced hand",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "load_position",
+   "value": "on the elbows",
+   "ruling": "the value on the upper arms covers it",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "load_position",
+   "value": "at the ankles",
+   "ruling": "the value on the shins or ankles covers it, as for the retired at the ankle",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "movement",
+   "value": "pulldown",
+   "ruling": "a pulldown is a row whose direction is vertical",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "support",
+   "value": "machine platform",
+   "ruling": "standing on a platform is standing, so what the body is on stays blank and the feet aren't braced; seated or lying, the body is on the seat or the bench, and feet pushed against a platform that stays still are braced feet",
+   "reworded": "the founder, \"Reword both\", 2026-10-22 15:48:42 UTC, by the Domain Expert's test, whether a pad or a platform moves with the load; it read \"a foot platform pushed against is braced feet; the body rests on the seat or the pad\"",
+   "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
+   "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  }
+ ],
+ "zero_weight": {
+  "load_source": {
+   "$all": [
+    "body weight"
+   ],
+   "$size": 1
+  }
+ }
+}
