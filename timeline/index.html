@@ -1,0 +1,141 @@
+<!doctype html>
+<!--
+  The timeline (the founder's ask of 2026-10-28 23:09:24 UTC, "a page where a person can enter their name and see an
+  infinite scroll timeline of all of their sets ... grouped by day"), a tool for their own use of the Describer, not a bet; then their
+  "a name dropdown and have it not be filtered by names by default ... annotate each set with the name of the person
+  who logged it" (23:13:57 UTC): everyone's sets in one feed, each with its name, and a dropdown to narrow it to one.
+  It reads what the Describer already saves and changes nothing: describer_timeline (describer/describer-records.sql),
+  every name's newest record of each day, with the code the link carries after '#', and the Key the Describer serves
+  beside it for the labels and their order. Served from exercise-check/timeline/, copied there by hand.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timeline</title>
+<style>
+  /* The Describer's palette (App.tsx, version 10.51). */
+  :root { --ink: #1d1d1f; --paper: #fff; --line: #8f8e95; --accent: #5f2d91; --sub: #57565c; --wash: #f2f2f4; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.35 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-text-size-adjust: 100%; }
+  main { max-width: 560px; margin: 0 auto; padding: 16px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 12px; }
+  select { width: 100%; min-height: 48px; font: inherit; padding: 0 12px; color: var(--ink); background: var(--paper); border: 2px solid var(--accent); border-radius: 10px; }
+  .about { color: var(--sub); font-size: 15px; margin: 8px 0 0; }
+  .day { position: sticky; top: 0; background: var(--paper); padding: 16px 0 6px; margin: 0; font-size: 15px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: .6px; border-bottom: 1px solid var(--line); }
+  .exercise { padding: 10px 0; display: grid; gap: 6px; }
+  .exercise + .exercise { border-top: 1px solid var(--wash); }
+  .card { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; }
+  .card span { padding: 2px 8px; background: var(--wash); border-radius: 6px; }
+  .set { font-size: 17px; font-variant-numeric: tabular-nums; }
+  .who { color: var(--sub); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Timeline</h1>
+  <select id="who" aria-label="Whose sets"><option value="">Everyone</option></select>
+  <p class="about" id="status"></p>
+  <div id="feed"></div>
+</main>
+<script>
+const SERVER = { url: 'https://hnyvbuvzfyjfffbonngo.supabase.co', key: 'sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW' };
+const code = (() => { try { return decodeURIComponent(location.hash.slice(1)).trim(); } catch { return ''; } })();
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const pad = (n) => (n < 10 ? '0' : '') + n;
+const clock = (iso) => { const d = new Date(iso); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+// A session is the phone's own date, so it is read as a date, never shifted by a time zone.
+const dayWords = (session) => { const [y, m, d] = session.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }); };
+
+// Names the Describer renamed, read in the new ones as the Describer reads them (App.tsx, RENAMED and the Key's renamed).
+const RENAMED = { primary_muscle: 'target', assists: 'synergists', stabilizes: 'stabilizers' };
+const ROLE_WORDS = { target: 'target', synergists: 'synergist', stabilizers: 'stabilizer' };
+let KEY = null;
+const loadKey = async () => KEY || (KEY = await (await fetch('../describer/describer-key.json', { cache: 'no-cache' })).json());
+
+// A card's lines as the Describer's Workout log draws them (App.tsx, cardLines): every answer in the Key's attribute
+// order, then the lifter's own questions, "label: values"; of the muscles, the target only, as "muscles: … as target".
+function cardLines(coords, added) {
+  const renamedValue = (k, v) => (KEY.renamed && KEY.renamed[k] && KEY.renamed[k][v]) || v;
+  const c = {};
+  for (const [k, vs] of Object.entries(coords || {})) { const key = RENAMED[k] || k; if (Array.isArray(vs)) c[key] = vs.map((v) => renamedValue(key, v)); }
+  const keys = [...KEY.attributes.map((a) => a.key), ...added.map((a) => a.key)];
+  const label = (k) => (KEY.attributes.find((a) => a.key === k) || {}).label || k;
+  return keys.filter((k, i) => keys.indexOf(k) === i && c[k] && c[k].length && k !== 'synergists' && k !== 'stabilizers' && k !== 'activity_type')
+    .map((k) => (k === 'target' ? `muscles: ${c[k].join(', ')} as ${c[k].length === 1 ? ROLE_WORDS[k] : label(k)}` : `${label(k)}: ${c[k].join(', ')}`));
+}
+
+// Each name's newest record of each day, as describer_record gives one name's.
+async function readAll() {
+  const r = await fetch(`${SERVER.url}/rest/v1/rpc/describer_timeline`, { method: 'POST', headers: { apikey: SERVER.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: code }) });
+  if (!r.ok) throw new Error(`the server answered ${r.status}`);
+  const rows = await r.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
+let ALL = null;
+async function load() {
+  $('status').textContent = 'Reading…';
+  try {
+    const [, rows] = await Promise.all([loadKey(), readAll()]);
+    // Oldest first, so a later copy of an Exercise wins.
+    const docs = rows.map((x) => ({ ...x.doc, who: x.tester })).sort((a, b) => String(a.savedAt).localeCompare(String(b.savedAt)));
+    const exercises = new Map(); const sets = new Map(); const added = [];
+    for (const d of docs) {
+      for (const e of d.exercises || []) exercises.set(`${d.who}\u0000${e.id}`, e);
+      for (const a of d.attributes || []) if (!added.some((b) => b.key === a.key)) added.push(a);
+      for (const s of d.sets || []) { const k = `${d.who}\u0000${s.id}`; const had = sets.get(k); sets.set(k, { ...s, who: d.who, deleted: (had && had.deleted) || s.deleted }); }
+    }
+    // An Exercise merged into another reads as the one it was merged into (App.tsx, survivorOf).
+    const survivor = (who, id) => { for (let i = 0; i < 20; i++) { const e = exercises.get(`${who}\u0000${id}`); if (!e || !e.mergedInto) return id; id = e.mergedInto; } return id; };
+    // Newest first, down to the set (the founder's "Last set first", 23:14:27 UTC).
+    const live = [...sets.values()].filter((s) => !s.deleted).sort((a, b) => b.t.localeCompare(a.t));
+    ALL = { exercises, added, survivor, live };
+    const names = [...new Set(live.map((s) => s.who))].sort();
+    for (const n of names) $('who').append(new Option(n, n));
+    $('who').value = names.includes(store.get()) ? store.get() : '';
+    show();
+  } catch (err) {
+    $('status').textContent = `Couldn't read the sets: ${err.message}. Try again in a moment.`;
+  }
+}
+
+function show() {
+  const { exercises, added, survivor } = ALL; const who = $('who').value;
+  const live = ALL.live.filter((s) => !who || s.who === who);
+  const feed = $('feed'); feed.replaceChildren();
+  {
+    const days = new Map();
+    for (const s of live) (days.get(s.session) || days.set(s.session, []).get(s.session)).push(s);
+    const order = [...days.keys()].sort().reverse();
+    $('status').textContent = live.length ? `${live.length} sets over ${order.length} days.` : 'No sets saved yet.';
+    for (const day of order) {
+      const section = el('section');
+      section.append(el('h2', 'day', dayWords(day)));
+      // Within the day, last set first; a run of sets of one Exercise sits under its card.
+      let block = null; let last = null;
+      for (const s of days.get(day)) {
+        const id = `${s.who}\u0000${survivor(s.who, s.exerciseId)}`;
+        if (id !== last) {
+          block = el('div', 'exercise');
+          const card = el('div', 'card'); const e = exercises.get(id);
+          for (const l of e ? cardLines(e.coords, added) : ['(exercise missing)']) card.append(el('span', '', l));
+          block.append(card); section.append(block); last = id;
+        }
+        const row = el('div', 'set', `${clock(s.t)}  ${s.weight || '–'} × ${s.reps || '–'}`);
+        row.append(el('span', 'who', `  ${s.who}`));
+        block.append(row);
+      }
+      feed.append(section);
+    }
+  }
+}
+
+const store = { get: () => { try { return localStorage.getItem('timeline-who') || ''; } catch { return ''; } }, set: (v) => { try { localStorage.setItem('timeline-who', v); } catch {} } };
+$('who').addEventListener('change', () => { store.set($('who').value); window.scrollTo(0, 0); show(); });
+if (!code) { $('status').textContent = 'Open this page with the link you were given: the part after # lets it read the sets.'; $('who').hidden = true; }
+else void load();
+</script>
+</body>
+</html>
