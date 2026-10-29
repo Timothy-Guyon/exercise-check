@@ -113,14 +113,19 @@ function show() {
     for (const day of order) {
       const section = el('section');
       section.append(el('h2', 'day', dayWords(day)));
-      // Within the day, last set first; a run of sets of one Exercise sits under its card.
+      // Within the day, last set first. Sets next to each other with the same description, by the same name, sit under
+      // one card; the same description with another set between stays apart (the founder, 2026-10-29 00:09:03 UTC:
+      // "Two sets of the same exercise description that are adjacent can have their descriptions joined but two that
+      // aren't can't"). The same description is the same card, whichever Exercise holds it.
       let block = null; let last = null;
       for (const s of days.get(day)) {
-        const id = `${s.who}\u0000${survivor(s.who, s.exerciseId)}`;
+        const e = exercises.get(`${s.who}\u0000${survivor(s.who, s.exerciseId)}`);
+        const lines = e ? cardLines(e.coords, added) : ['(exercise missing)'];
+        const id = `${s.who}\u0000${lines.join('\u0000')}`;
         if (id !== last) {
           block = el('div', 'exercise');
-          const card = el('div', 'card'); const e = exercises.get(id);
-          for (const l of e ? cardLines(e.coords, added) : ['(exercise missing)']) card.append(el('span', '', l));
+          const card = el('div', 'card');
+          for (const l of lines) card.append(el('span', '', l));
           block.append(card); section.append(block); last = id;
         }
         const row = el('div', 'set', `${clock(s.t)}  ${s.weight || '–'} × ${s.reps || '–'}`);
