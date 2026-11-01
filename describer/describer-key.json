@@ -1,7 +1,7 @@
 {
  "format": "32ff4e9e88",
- "version": "10.68",
- "date": "2026-10-31",
+ "version": "10.69",
+ "date": "2026-11-01",
  "attributes": [
   {
    "key": "movement",
@@ -291,7 +291,7 @@
    "key": "cable_attachment",
    "ask": "What do the hands hold?",
    "label": "attachment",
-   "about": "What the hands hold on a cable; it fixes the elbow path",
+   "about": "What the hands hold on a cable",
    "values": [
     "v-grip",
     "straight bar",
@@ -586,7 +586,7 @@
    "key": "elbow_path",
    "ask": "Where do the elbows go?",
    "label": "elbows",
-   "about": "Where the elbow travels on a row, as a trainer cues it",
+   "about": "Tucked is in at the ribs, flared is out at about shoulder height, in between is anywhere between",
    "values": [
     "tucked",
     "in between",
@@ -797,6 +797,10 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
    "stance",
    "step"
   ],
@@ -983,7 +987,17 @@
    "feet",
    "which_higher"
   ],
-  "stance": [],
+  "stance": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way"
+  ],
   "foot_placement": [
    "movement",
    "modality",
@@ -992,7 +1006,17 @@
    "machine_type",
    "load_position"
   ],
-  "knee_bend": [],
+  "knee_bend": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way"
+  ],
   "start_position": [
    "movement"
   ],
@@ -1005,7 +1029,13 @@
    "machine_type",
    "load_position"
   ],
-  "hand_width": [],
+  "hand_width": [
+   "movement",
+   "load_source",
+   "machine_type",
+   "cable_attachment",
+   "laterality"
+  ],
   "elbow_path": [
    "movement",
    "modality",
@@ -1089,6 +1119,7 @@
    "shoulder_action",
    "elbow_action",
    "spine_action",
+   "scapula_action",
    "wrist_action",
    "neck_action",
    "load_source",
@@ -1119,6 +1150,7 @@
    "shoulder_action",
    "elbow_action",
    "spine_action",
+   "scapula_action",
    "wrist_action",
    "neck_action",
    "load_source",
@@ -10708,6 +10740,186 @@
    "exclude": {
     "synergists": [
      "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "joints": {
+       "$exists": false
+      }
+     },
+     {
+      "joints": {
+       "$in": [
+        "hip",
+        "knee",
+        "ankle"
+       ]
+      }
+     },
+     {
+      "posture": {
+       "$exists": false
+      }
+     },
+     {
+      "posture": {
+       "$exists": true,
+       "$nin": [
+        "seated",
+        "lying"
+       ]
+      }
+     },
+     {
+      "posture": {
+       "$in": [
+        "lying"
+       ]
+      },
+      "support": {
+       "$exists": false
+      }
+     },
+     {
+      "posture": {
+       "$in": [
+        "lying"
+       ]
+      },
+      "support": {
+       "$exists": true,
+       "$nin": [
+        "bench"
+       ]
+      }
+     }
+    ]
+   },
+   "offer": [
+    "stance"
+   ]
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "cable_attachment": {
+       "$exists": false
+      }
+     },
+     {
+      "cable_attachment": {
+       "$exists": true,
+       "$nin": [
+        "rope",
+        "d-handle"
+       ]
+      }
+     },
+     {
+      "cable_attachment": {
+       "$in": [
+        "d-handle"
+       ]
+      },
+      "laterality": {
+       "$exists": false
+      }
+     },
+     {
+      "cable_attachment": {
+       "$in": [
+        "d-handle"
+       ]
+      },
+      "laterality": {
+       "$exists": true,
+       "$nin": [
+        "unilateral"
+       ]
+      }
+     }
+    ]
+   },
+   "offer": [
+    "hand_width"
+   ]
+  },
+  {
+   "when": {
+    "$or": [
+     {
+      "posture": {
+       "$exists": false
+      }
+     },
+     {
+      "posture": {
+       "$exists": true,
+       "$nin": [
+        "kneeling"
+       ]
+      }
+     }
+    ]
+   },
+   "offer": [
+    "knee_bend"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    }
+   },
+   "exclude": {
+    "stabilizers": [
+     "brachioradialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    },
+    "scapula_action": {
+     "$in": [
+      "elevation"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "reverse fly"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "rear delts"
     ]
    }
   }
