@@ -1,6 +1,6 @@
 {
- "format": "32ff4e9e88",
- "version": "10.69",
+ "format": "9c1da030a4",
+ "version": "10.70",
  "date": "2026-11-01",
  "attributes": [
   {
@@ -654,39 +654,50 @@
    "label": "target",
    "about": "The muscles the exercise trains, by role",
    "values": [
-    "quads",
-    "glutes",
-    "lats",
-    "front delts",
-    "back",
-    "biceps",
-    "triceps",
-    "abs",
-    "chest",
-    "hamstrings",
-    "upper chest",
-    "side delts",
-    "calves",
-    "rear delts",
-    "hip flexors",
-    "obliques",
-    "upper back",
-    "brachialis",
-    "tibialis",
-    "lower back",
-    "abductors",
-    "traps",
-    "lower chest",
-    "peroneals",
-    "forearms",
-    "wrist flexors",
-    "rotator cuff",
-    "brachioradialis",
+    "upper body",
     "neck",
+    "neck flexors",
+    "neck extensors",
+    "shoulders",
+    "delts",
+    "front delts",
+    "side delts",
+    "rear delts",
+    "rotator cuff",
+    "arms",
+    "upper arms",
+    "biceps",
+    "brachialis",
+    "triceps",
+    "forearms",
+    "brachioradialis",
+    "wrist flexors",
     "wrist extensors",
-    "core",
+    "chest",
+    "upper chest",
+    "lower chest",
     "serratus",
-    "adductors"
+    "back",
+    "traps",
+    "upper back",
+    "lats",
+    "lower back",
+    "core",
+    "abs",
+    "obliques",
+    "lower body",
+    "hips",
+    "hip flexors",
+    "abductors",
+    "glutes",
+    "thighs",
+    "quads",
+    "adductors",
+    "hamstrings",
+    "lower legs",
+    "tibialis",
+    "peroneals",
+    "calves"
    ],
    "multi": true,
    "filled": false
@@ -697,39 +708,50 @@
    "label": "synergists",
    "about": "the synergists, muscles that help the leads at the same joint or nearby, e.g. the brachialis on a curl, the glutes on an RDL",
    "values": [
-    "quads",
-    "glutes",
-    "lats",
-    "front delts",
-    "back",
-    "biceps",
-    "triceps",
-    "abs",
-    "chest",
-    "hamstrings",
-    "upper chest",
-    "side delts",
-    "calves",
-    "rear delts",
-    "hip flexors",
-    "obliques",
-    "upper back",
-    "brachialis",
-    "tibialis",
-    "lower back",
-    "abductors",
-    "traps",
-    "lower chest",
-    "peroneals",
-    "forearms",
-    "wrist flexors",
-    "rotator cuff",
-    "brachioradialis",
+    "upper body",
     "neck",
+    "neck flexors",
+    "neck extensors",
+    "shoulders",
+    "delts",
+    "front delts",
+    "side delts",
+    "rear delts",
+    "rotator cuff",
+    "arms",
+    "upper arms",
+    "biceps",
+    "brachialis",
+    "triceps",
+    "forearms",
+    "brachioradialis",
+    "wrist flexors",
     "wrist extensors",
-    "core",
+    "chest",
+    "upper chest",
+    "lower chest",
     "serratus",
-    "adductors"
+    "back",
+    "traps",
+    "upper back",
+    "lats",
+    "lower back",
+    "core",
+    "abs",
+    "obliques",
+    "lower body",
+    "hips",
+    "hip flexors",
+    "abductors",
+    "glutes",
+    "thighs",
+    "quads",
+    "adductors",
+    "hamstrings",
+    "lower legs",
+    "tibialis",
+    "peroneals",
+    "calves"
    ],
    "multi": true,
    "filled": true
@@ -740,39 +762,50 @@
    "label": "stabilizers",
    "about": "muscles that hold a joint still so the others can move, e.g. the erectors and core on a bent-over row",
    "values": [
-    "quads",
-    "glutes",
-    "lats",
-    "front delts",
-    "back",
-    "biceps",
-    "triceps",
-    "abs",
-    "chest",
-    "hamstrings",
-    "upper chest",
-    "side delts",
-    "calves",
-    "rear delts",
-    "hip flexors",
-    "obliques",
-    "upper back",
-    "brachialis",
-    "tibialis",
-    "lower back",
-    "abductors",
-    "traps",
-    "lower chest",
-    "peroneals",
-    "forearms",
-    "wrist flexors",
-    "rotator cuff",
-    "brachioradialis",
+    "upper body",
     "neck",
+    "neck flexors",
+    "neck extensors",
+    "shoulders",
+    "delts",
+    "front delts",
+    "side delts",
+    "rear delts",
+    "rotator cuff",
+    "arms",
+    "upper arms",
+    "biceps",
+    "brachialis",
+    "triceps",
+    "forearms",
+    "brachioradialis",
+    "wrist flexors",
     "wrist extensors",
-    "core",
+    "chest",
+    "upper chest",
+    "lower chest",
     "serratus",
-    "adductors"
+    "back",
+    "traps",
+    "upper back",
+    "lats",
+    "lower back",
+    "core",
+    "abs",
+    "obliques",
+    "lower body",
+    "hips",
+    "hip flexors",
+    "abductors",
+    "glutes",
+    "thighs",
+    "quads",
+    "adductors",
+    "hamstrings",
+    "lower legs",
+    "tibialis",
+    "peroneals",
+    "calves"
    ],
    "multi": true,
    "filled": true
@@ -1155,7 +1188,6 @@
    "neck_action",
    "load_source",
    "machine_type",
-   "cable_attachment",
    "load_position",
    "relative_direction",
    "mover",
@@ -1346,6 +1378,31 @@
     "movement": {
      "$in": [
       "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "load_position": [
+     "in the hands"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
      ]
     },
     "load_source": {
@@ -6514,13 +6571,6 @@
       "incline"
      ]
     },
-    "target": {
-     "$exists": true,
-     "$nin": [
-      "upper chest",
-      "chest"
-     ]
-    },
     "$or": [
      {
       "bench_angle": {
@@ -6529,9 +6579,10 @@
      },
      {
       "bench_angle": {
-       "$in": [
-        "45°",
-        "60°"
+       "$exists": true,
+       "$nin": [
+        "15°",
+        "30°"
        ]
       }
      }
@@ -6940,61 +6991,31 @@
       "row"
      ]
     },
-    "$and": [
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    },
+    "$or": [
      {
-      "$or": [
-       {
-        "machine_type": {
-         "$exists": false
-        }
-       },
-       {
-        "machine_type": {
-         "$exists": true,
-         "$nin": [
-          "rower"
-         ]
-        }
-       }
-      ]
+      "elbow_path": {
+       "$exists": true
+      }
      },
      {
-      "$or": [
-       {
-        "relative_direction": {
-         "$in": [
-          "horizontal",
-          "incline",
-          "decline"
-         ]
-        },
-        "elbow_path": {
-         "$exists": true
-        }
-       },
-       {
-        "relative_direction": {
-         "$in": [
-          "vertical"
-         ]
-        },
-        "shoulder_action": {
-         "$in": [
-          "adduction",
-          "extension"
-         ]
-        }
-       }
-      ]
+      "relative_direction": {
+       "$in": [
+        "vertical"
+       ]
+      },
+      "shoulder_action": {
+       "$in": [
+        "adduction",
+        "extension"
+       ]
+      }
      }
-    ],
-    "target": {
-     "$exists": true,
-     "$nin": [
-      "upper back",
-      "back"
-     ]
-    }
+    ]
    },
    "fill": {
     "synergists": [
@@ -7004,47 +7025,14 @@
   },
   {
    "when": {
-    "movement": {
+    "modality": {
      "$in": [
-      "row"
-     ]
-    },
-    "$and": [
-     {
-      "$or": [
-       {
-        "machine_type": {
-         "$exists": false
-        }
-       },
-       {
-        "machine_type": {
-         "$exists": true,
-         "$nin": [
-          "rower"
-         ]
-        }
-       }
-      ]
-     }
-    ],
-    "relative_direction": {
-     "$in": [
-      "horizontal",
-      "incline",
-      "decline"
+      "resistance"
      ]
     },
     "elbow_path": {
      "$in": [
       "in between"
-     ]
-    },
-    "target": {
-     "$exists": true,
-     "$nin": [
-      "lats",
-      "back"
      ]
     }
    },
@@ -7105,69 +7093,6 @@
   },
   {
    "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "$and": [
-     {
-      "$or": [
-       {
-        "load_position": {
-         "$in": [
-          "in the hands"
-         ]
-        }
-       },
-       {
-        "cable_attachment": {
-         "$exists": true,
-         "$nin": [
-          "cuff"
-         ]
-        }
-       },
-       {
-        "load_source": {
-         "$in": [
-          "barbell",
-          "dumbbell",
-          "kettlebell"
-         ]
-        }
-       }
-      ]
-     },
-     {
-      "$or": [
-       {
-        "target": {
-         "$exists": false
-        }
-       },
-       {
-        "target": {
-         "$exists": true,
-         "$nin": [
-          "forearms",
-          "wrist flexors",
-          "wrist extensors"
-         ]
-        }
-       }
-      ]
-     }
-    ]
-   },
-   "fill": {
-    "stabilizers": [
-     "forearms"
-    ]
-   }
-  },
-  {
-   "when": {
     "posture": {
      "$in": [
       "bent over"
@@ -7198,42 +7123,21 @@
       "resistance"
      ]
     },
-    "$and": [
+    "$or": [
      {
-      "$or": [
-       {
-        "braced": {
-         "$exists": false
-        }
-       },
-       {
-        "braced": {
-         "$exists": true,
-         "$nin": [
-          "chest",
-          "hand",
-          "forearms"
-         ]
-        }
-       }
-      ]
+      "braced": {
+       "$exists": false
+      }
      },
      {
-      "$or": [
-       {
-        "target": {
-         "$exists": false
-        }
-       },
-       {
-        "target": {
-         "$exists": true,
-         "$nin": [
-          "core"
-         ]
-        }
-       }
-      ]
+      "braced": {
+       "$exists": true,
+       "$nin": [
+        "chest",
+        "hand",
+        "forearms"
+       ]
+      }
      }
     ]
    },
@@ -7267,41 +7171,20 @@
       "resistance"
      ]
     },
-    "$and": [
+    "$or": [
      {
-      "$or": [
-       {
-        "braced": {
-         "$exists": false
-        }
-       },
-       {
-        "braced": {
-         "$exists": true,
-         "$nin": [
-          "chest",
-          "back"
-         ]
-        }
-       }
-      ]
+      "braced": {
+       "$exists": false
+      }
      },
      {
-      "$or": [
-       {
-        "target": {
-         "$exists": false
-        }
-       },
-       {
-        "target": {
-         "$exists": true,
-         "$nin": [
-          "core"
-         ]
-        }
-       }
-      ]
+      "braced": {
+       "$exists": true,
+       "$nin": [
+        "chest",
+        "back"
+       ]
+      }
      }
     ]
    },
@@ -8634,50 +8517,15 @@
       "lunge"
      ]
     },
-    "$and": [
-     {
-      "$or": [
-       {
-        "load_position": {
-         "$in": [
-          "in the hands"
-         ]
-        }
-       },
-       {
-        "cable_attachment": {
-         "$exists": true,
-         "$nin": [
-          "cuff"
-         ]
-        }
-       }
-      ]
-     },
-     {
-      "$or": [
-       {
-        "target": {
-         "$exists": false
-        }
-       },
-       {
-        "target": {
-         "$exists": true,
-         "$nin": [
-          "forearms",
-          "wrist flexors",
-          "wrist extensors"
-         ]
-        }
-       }
-      ]
-     }
-    ]
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    }
    },
    "fill": {
     "stabilizers": [
-     "forearms"
+     "wrist flexors"
     ]
    }
   },
@@ -10925,40 +10773,123 @@
   }
  ],
  "muscles": [
-  "quads",
-  "glutes",
-  "lats",
-  "front delts",
-  "back",
-  "biceps",
-  "triceps",
-  "abs",
-  "chest",
-  "hamstrings",
-  "upper chest",
-  "side delts",
-  "calves",
-  "rear delts",
-  "hip flexors",
-  "obliques",
-  "upper back",
-  "brachialis",
-  "tibialis",
-  "lower back",
-  "abductors",
-  "traps",
-  "lower chest",
-  "peroneals",
-  "forearms",
-  "wrist flexors",
-  "rotator cuff",
-  "brachioradialis",
+  "upper body",
   "neck",
+  "neck flexors",
+  "neck extensors",
+  "shoulders",
+  "delts",
+  "front delts",
+  "side delts",
+  "rear delts",
+  "rotator cuff",
+  "arms",
+  "upper arms",
+  "biceps",
+  "brachialis",
+  "triceps",
+  "forearms",
+  "brachioradialis",
+  "wrist flexors",
   "wrist extensors",
-  "core",
+  "chest",
+  "upper chest",
+  "lower chest",
   "serratus",
-  "adductors"
+  "back",
+  "traps",
+  "upper back",
+  "lats",
+  "lower back",
+  "core",
+  "abs",
+  "obliques",
+  "lower body",
+  "hips",
+  "hip flexors",
+  "abductors",
+  "glutes",
+  "thighs",
+  "quads",
+  "adductors",
+  "hamstrings",
+  "lower legs",
+  "tibialis",
+  "peroneals",
+  "calves"
  ],
+ "parts": {
+  "upper body": [
+   "neck",
+   "shoulders",
+   "arms",
+   "chest",
+   "serratus",
+   "back"
+  ],
+  "neck": [
+   "neck flexors",
+   "neck extensors"
+  ],
+  "shoulders": [
+   "delts",
+   "rotator cuff"
+  ],
+  "delts": [
+   "front delts",
+   "side delts",
+   "rear delts"
+  ],
+  "arms": [
+   "upper arms",
+   "forearms"
+  ],
+  "upper arms": [
+   "biceps",
+   "brachialis",
+   "triceps"
+  ],
+  "forearms": [
+   "brachioradialis",
+   "wrist flexors",
+   "wrist extensors"
+  ],
+  "chest": [
+   "upper chest",
+   "lower chest"
+  ],
+  "back": [
+   "traps",
+   "upper back",
+   "lats",
+   "lower back"
+  ],
+  "core": [
+   "abs",
+   "obliques",
+   "lower back"
+  ],
+  "lower body": [
+   "hips",
+   "thighs",
+   "lower legs"
+  ],
+  "hips": [
+   "hip flexors",
+   "abductors",
+   "glutes"
+  ],
+  "thighs": [
+   "quads",
+   "adductors",
+   "hamstrings"
+  ],
+  "lower legs": [
+   "tibialis",
+   "peroneals",
+   "calves"
+  ]
+ },
  "one_rule": [
   [
    372,
