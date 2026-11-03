@@ -1,6 +1,6 @@
 {
  "format": "1847044c84",
- "version": "10.76",
+ "version": "10.77",
  "date": "2026-11-03",
  "attributes": [
   {
@@ -6707,7 +6707,10 @@
     "$or": [
      {
       "elbow_path": {
-       "$exists": true
+       "$exists": true,
+       "$nin": [
+        "in between"
+       ]
       }
      },
      {
@@ -6728,25 +6731,6 @@
    "fill": {
     "synergists": [
      "upper back"
-    ]
-   }
-  },
-  {
-   "when": {
-    "modality": {
-     "$in": [
-      "resistance"
-     ]
-    },
-    "elbow_path": {
-     "$in": [
-      "in between"
-     ]
-    }
-   },
-   "fill": {
-    "synergists": [
-     "lats"
     ]
    }
   },
@@ -10839,7 +10823,38 @@
    }
   }
  ],
- "defaults": [],
+ "defaults": [
+  {
+   "when": {
+    "$or": [
+     {
+      "machine_type": {
+       "$exists": false
+      }
+     },
+     {
+      "machine_type": {
+       "$exists": true,
+       "$nin": [
+        "rower"
+       ]
+      }
+     }
+    ],
+    "elbow_path": {
+     "$in": [
+      "in between"
+     ]
+    }
+   },
+   "default": {
+    "target": [
+     "lats",
+     "upper back"
+    ]
+   }
+  }
+ ],
  "muscles": [
   "upper body",
   "neck",
@@ -10960,6 +10975,7 @@
  },
  "one_rule": [
   [
+   362,
    363,
    364,
    365,
@@ -11020,8 +11036,7 @@
    420,
    421,
    422,
-   423,
-   424
+   423
   ]
  ],
  "renamed": {
