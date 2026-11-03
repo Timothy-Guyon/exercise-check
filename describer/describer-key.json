@@ -1,7 +1,7 @@
 {
  "format": "9c1da030a4",
- "version": "10.72",
- "date": "2026-11-01",
+ "version": "10.75",
+ "date": "2026-11-03",
  "attributes": [
   {
    "key": "movement",
@@ -928,7 +928,12 @@
   ],
   "load_position": [
    "movement",
-   "load_source"
+   "modality",
+   "joints",
+   "elbow_action",
+   "load_source",
+   "machine_type",
+   "cable_attachment"
   ],
   "relative_direction": [
    "movement",
@@ -944,7 +949,16 @@
    "feet",
    "which_higher"
   ],
-  "mover": [],
+  "mover": [
+   "movement",
+   "modality",
+   "joints",
+   "elbow_action",
+   "load_source",
+   "machine_type",
+   "cable_attachment",
+   "load_position"
+  ],
   "posture": [
    "movement",
    "modality",
@@ -1035,8 +1049,10 @@
    "movement",
    "modality",
    "joints",
+   "elbow_action",
    "load_source",
    "machine_type",
+   "cable_attachment",
    "load_position"
   ],
   "knee_bend": [
@@ -1058,8 +1074,10 @@
    "movement",
    "modality",
    "joints",
+   "elbow_action",
    "load_source",
    "machine_type",
+   "cable_attachment",
    "load_position"
   ],
   "hand_width": [
@@ -1157,6 +1175,7 @@
    "neck_action",
    "load_source",
    "machine_type",
+   "cable_attachment",
    "load_position",
    "relative_direction",
    "posture",
@@ -1188,6 +1207,7 @@
    "neck_action",
    "load_source",
    "machine_type",
+   "cable_attachment",
    "load_position",
    "relative_direction",
    "mover",
@@ -1337,53 +1357,6 @@
      "$exists": true,
      "$in": [
       "barbell",
-      "dumbbell"
-     ],
-     "$nin": [
-      "body weight"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$exists": true,
-     "$in": [
-      "kettlebell"
-     ],
-     "$nin": [
-      "body weight"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$exists": true,
-     "$in": [
-      "barbell",
       "dumbbell",
       "kettlebell"
      ],
@@ -1414,6 +1387,31 @@
      ],
      "$nin": [
       "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "load_position": [
+     "in the hands"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "cable_attachment": {
+     "$in": [
+      "v-grip",
+      "straight bar",
+      "wide bar",
+      "rope",
+      "d-handle",
+      "ez bar",
+      "lat bar"
      ]
     }
    },
@@ -1601,34 +1599,6 @@
       "dumbbell",
       "kettlebell",
       "band"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded",
-      "plate-loaded",
-      "smith"
-     ]
-    },
-    "load_source": {
-     "$exists": true,
-     "$nin": [
-      "body weight"
      ]
     }
    },
@@ -2657,20 +2627,6 @@
    },
    "exclude": {
     "relative_direction": [
-     "horizontal"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "raise"
-     ]
-    }
-   },
-   "exclude": {
-    "relative_direction": [
      "incline"
     ]
    }
@@ -2809,7 +2765,6 @@
      "$in": [
       "standing",
       "seated",
-      "kneeling",
       "leaning away",
       "leaning toward"
      ]
@@ -2880,78 +2835,6 @@
    "reveal": [
     "shoulder_action"
    ]
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "relative_direction": {
-     "$in": [
-      "horizontal"
-     ]
-    },
-    "elbow_path": {
-     "$in": [
-      "tucked"
-     ]
-    }
-   },
-   "fill": {
-    "shoulder_action": [
-     "extension"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "relative_direction": {
-     "$in": [
-      "incline"
-     ]
-    },
-    "elbow_path": {
-     "$in": [
-      "tucked"
-     ]
-    }
-   },
-   "fill": {
-    "shoulder_action": [
-     "extension"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "relative_direction": {
-     "$in": [
-      "decline"
-     ]
-    },
-    "elbow_path": {
-     "$in": [
-      "tucked"
-     ]
-    }
-   },
-   "fill": {
-    "shoulder_action": [
-     "extension"
-    ]
-   }
   },
   {
    "when": {
@@ -4178,30 +4061,6 @@
    "when": {
     "movement": {
      "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "standing"
-     ]
-    }
-   },
-   "exclude": {
-    "hands": [
-     "on handles or dumbbells"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
       "bridge"
      ]
     }
@@ -4246,46 +4105,6 @@
    "fill": {
     "relative_direction": [
      "horizontal"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "lying"
-     ]
-    },
-    "hands": {
-     "$in": [
-      "on handles or dumbbells",
-      "on rings or straps",
-      "one hand up",
-      "up on something"
-     ]
-    },
-    "feet": {
-     "$in": [
-      "on the floor"
-     ]
-    },
-    "handle_way": {
-     "$exists": false
-    }
-   },
-   "fill": {
-    "relative_direction": [
-     "decline"
     ]
    }
   },
@@ -4502,76 +4321,6 @@
     },
     "posture": {
      "$in": [
-      "standing"
-     ]
-    },
-    "hands": {
-     "$in": [
-      "up on something",
-      "on rings or straps"
-     ]
-    },
-    "handle_way": {
-     "$exists": false
-    }
-   },
-   "fill": {
-    "relative_direction": [
-     "decline"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "hips raised"
-     ]
-    },
-    "hands": {
-     "$in": [
-      "on the floor"
-     ]
-    },
-    "feet": {
-     "$in": [
-      "on the floor"
-     ]
-    },
-    "handle_way": {
-     "$exists": false
-    }
-   },
-   "fill": {
-    "relative_direction": [
-     "incline"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
       "upside down"
      ]
     },
@@ -4606,32 +4355,6 @@
    "fill": {
     "shoulder_action": [
      "flexion"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "bench_angle": {
-     "$in": [
-      "15°",
-      "30°"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "barbell",
-      "dumbbell"
-     ]
-    }
-   },
-   "fill": {
-    "posture": [
-     "lying"
     ]
    }
   },
@@ -4897,21 +4620,6 @@
    "fill": {
     "shoulder_action": [
      "extension"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "fly",
-      "reverse fly"
-     ]
-    }
-   },
-   "fill": {
-    "joints": [
-     "shoulder"
     ]
    }
   },
@@ -7093,6 +6801,44 @@
   },
   {
    "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "wrist extensors"
+    ]
+   }
+  },
+  {
+   "when": {
     "posture": {
      "$in": [
       "bent over"
@@ -8526,6 +8272,25 @@
    "fill": {
     "stabilizers": [
      "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "wrist extensors"
     ]
    }
   },
@@ -10770,6 +10535,308 @@
      "rear delts"
     ]
    }
+  },
+  {
+   "when": {
+    "cable_attachment": {
+     "$in": [
+      "d-handle"
+     ]
+    }
+   },
+   "fill": {
+    "load_position": [
+     "in the hands"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "load_position": [
+     "in the hands"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    }
+   },
+   "fill": {
+    "mover": [
+     "load"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "leaning away",
+      "leaning toward"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "feet"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "on the feet"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "feet"
+    ]
+   }
+  },
+  {
+   "when": {
+    "relative_direction": {
+     "$in": [
+      "horizontal"
+     ]
+    },
+    "elbow_path": {
+     "$in": [
+      "flared"
+     ]
+    },
+    "$or": [
+     {
+      "bench_angle": {
+       "$in": [
+        "flat"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "cable",
+        "pin-loaded",
+        "plate-loaded"
+       ]
+      }
+     }
+    ],
+    "target": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "target": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "bench_angle": {
+     "$in": [
+      "15°",
+      "30°"
+     ]
+    },
+    "support": {
+     "$in": [
+      "bench"
+     ]
+    }
+   },
+   "fill": {
+    "posture": [
+     "lying"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "hips raised"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "lying"
+     ]
+    },
+    "hands": {
+     "$in": [
+      "up on something"
+     ]
+    },
+    "feet": {
+     "$in": [
+      "on the floor"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "horizontal"
+    ]
+   }
+  },
+  {
+   "when": {
+    "elbow_path": {
+     "$in": [
+      "tucked"
+     ]
+    }
+   },
+   "fill": {
+    "shoulder_action": [
+     "extension"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "body weight"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    },
+    "handle_way": {
+     "$exists": false
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "decline"
+    ]
+   }
   }
  ],
  "muscles": [
@@ -10892,6 +10959,15 @@
  },
  "one_rule": [
   [
+   363,
+   364,
+   365,
+   366,
+   367,
+   368,
+   369,
+   370,
+   371,
    372,
    373,
    374,
@@ -10944,16 +11020,7 @@
    421,
    422,
    423,
-   424,
-   425,
-   426,
-   427,
-   428,
-   429,
-   430,
-   431,
-   432,
-   433
+   424
   ]
  ],
  "renamed": {
