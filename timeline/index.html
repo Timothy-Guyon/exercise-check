@@ -43,33 +43,22 @@
   <p class="about" id="status"></p>
 </main>
 <div class="bar"><select id="who" aria-label="Whose sets"><option value="">Everyone</option></select></div>
-<script>
+<script type="module">
+// How the Key runs, a card's lines, the day's cards and their words are the Describer's own (describer/typescript-move.md).
+import { holdKey, readKey, cardLines, survivorOf, daysOf, dayWords, clock, renamedCoords, placedBy } from '../describer/engine.js';
 const SERVER = { url: 'https://hnyvbuvzfyjfffbonngo.supabase.co', key: 'sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW' };
 const code = (() => { try { return decodeURIComponent(location.hash.slice(1)).trim(); } catch { return ''; } })();
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
-const pad = (n) => (n < 10 ? '0' : '') + n;
-const clock = (iso) => { const d = new Date(iso); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
-// A session is the phone's own date, so it is read as a date, never shifted by a time zone.
-const dayWords = (session) => { const [y, m, d] = session.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }); };
-
-// Names the Describer renamed, read in the new ones as the Describer reads them (App.tsx, RENAMED and the Key's renamed).
-const RENAMED = { primary_muscle: 'target', assists: 'synergists', stabilizes: 'stabilizers' };
-const ROLE_WORDS = { target: 'target', synergists: 'synergist', stabilizers: 'stabilizer' };
 let KEY = null;
-const loadKey = async () => KEY || (KEY = await (await fetch('../describer/describer-key.json', { cache: 'no-cache' })).json());
-
-// A card's lines as the Describer's Workout log draws them (App.tsx, cardLines): every answer in the Key's attribute
-// order, then the lifter's own questions, "label: values"; of the muscles, the target only, as "muscles: … as target".
-function cardLines(coords, added) {
-  const renamedValue = (k, v) => (KEY.renamed && KEY.renamed[k] && KEY.renamed[k][v]) || v;
-  const c = {};
-  for (const [k, vs] of Object.entries(coords || {})) { const key = RENAMED[k] || k; if (Array.isArray(vs)) c[key] = vs.map((v) => renamedValue(key, v)); }
-  const keys = [...KEY.attributes.map((a) => a.key), ...added.map((a) => a.key)];
-  const label = (k) => (KEY.attributes.find((a) => a.key === k) || {}).label || k;
-  return keys.filter((k, i) => keys.indexOf(k) === i && c[k] && c[k].length && k !== 'synergists' && k !== 'stabilizers' && k !== 'activity_type')
-    .map((k) => (k === 'target' ? `muscles: ${c[k].join(', ')} as ${c[k].length === 1 ? ROLE_WORDS[k] : label(k)}` : `${label(k)}: ${c[k].join(', ')}`));
-}
+// The Key as the Describer serves it, checked as the phone checks it (readKey) and held, so the cards below read it
+// through the Describer's own engine (describer/engine.ts, served as engine.js beside describer-key.json).
+const loadKey = async () => {
+  if (KEY) return KEY;
+  const k = readKey(await (await fetch('../describer/describer-key.json', { cache: 'no-cache' })).json());
+  if (!k) throw new Error("the Describer's Key doesn't read");
+  holdKey(k); return (KEY = k);
+};
 
 // Each name's newest record of each day, as describer_record gives one name's.
 async function readAll() {
@@ -86,19 +75,22 @@ async function load() {
     const [, rows] = await Promise.all([loadKey(), readAll()]);
     // Oldest first, so a later copy of an Exercise wins.
     const docs = rows.map((x) => ({ ...x.doc, who: x.tester })).sort((a, b) => String(a.savedAt).localeCompare(String(b.savedAt)));
-    const exercises = new Map(); const sets = new Map(); const added = [];
+    const exercises = new Map(); const sets = new Map(); const added = []; const moves = new Map();
     for (const d of docs) {
+      for (const m of d.moves || []) moves.set(`${d.who}\u0000${m.id}`, { ...m, sets: (m.sets || []).map((id) => `${d.who}\u0000${id}`), to: `${d.who}\u0000${m.to}` });
       for (const e of d.exercises || []) exercises.set(`${d.who}\u0000${e.id}`, e);
       for (const a of d.attributes || []) if (!added.some((b) => b.key === a.key)) added.push(a);
       for (const s of d.sets || []) { const k = `${d.who}\u0000${s.id}`; const had = sets.get(k); sets.set(k, { ...s, who: d.who, deleted: (had && had.deleted) || s.deleted }); }
     }
-    // An Exercise merged into another reads as the one it was merged into (App.tsx, survivorOf).
-    const survivor = (who, id) => { for (let i = 0; i < 20; i++) { const e = exercises.get(`${who}\u0000${id}`); if (!e || !e.mergedInto) return id; id = e.mergedInto; } return id; };
+    // An Exercise merged into another reads as the one it was merged into (the engine's survivorOf), by its name's record.
+    const survivor = (who, id) => survivorOf((x) => exercises.get(`${who}\u0000${x}`), id);
     // Read like a text message thread, the newest at the bottom (the founder, 2026-10-29 01:44:21 UTC: "I want it to
     // read like a text message thread, with the newest ones at the bottom. And the leading edge of the feed at the
     // bottom of the screen"; until then the newest first, their "Last set first", 23:14:27 UTC 2026-10-28).
     const live = [...sets.values()].filter((s) => !s.deleted).sort((a, b) => a.t.localeCompare(b.t));
-    ALL = { exercises, added, survivor, live };
+    // A set an Edit moved stands on the card it was moved to (version 10.81, the Describer's placedBy).
+    const placed = placedBy([...moves.values()]);
+    ALL = { exercises, added, survivor, live, placed };
     const names = [...new Set(live.map((s) => s.who))].sort();
     for (const n of names) $('who').append(new Option(n, n));
     $('who').value = names.includes(store.get()) ? store.get() : '';
@@ -109,33 +101,31 @@ async function load() {
 }
 
 function show() {
-  const { exercises, added, survivor } = ALL; const who = $('who').value;
+  const { exercises, added, survivor, placed } = ALL; const who = $('who').value;
   const live = ALL.live.filter((s) => !who || s.who === who);
   const feed = $('feed'); feed.replaceChildren();
   {
-    const days = new Map();
-    for (const s of live) (days.get(s.session) || days.set(s.session, []).get(s.session)).push(s);
-    const order = [...days.keys()].sort();
-    $('status').textContent = live.length ? `${live.length} ${live.length === 1 ? 'set' : 'sets'} over ${order.length} ${order.length === 1 ? 'day' : 'days'}.` : 'No sets saved yet.';
-    for (const day of order) {
+    // Each day oldest first, the sets in the order lifted. A set joins the card before it only when it is on the same
+    // Exercise, read through merges, by the same name, with no other set that stands between them (the founder, 2026-10-29
+    // 00:09:03 UTC: "Two sets of the same exercise description that are adjacent can have their descriptions joined but two
+    // that aren't can't"; the Design Advisor's one view, section 9): the Describer's daysOf, on sets keyed by name and id.
+    const keyed = live.map((s) => ({ ...s, exerciseId: placed.get(`${s.who}\u0000${s.id}`) || `${s.who}\u0000${s.exerciseId}` }));
+    const { earlier } = daysOf(keyed, (jid) => { const [who, id] = jid.split('\u0000'); return `${who}\u0000${survivor(who, id)}`; }, [], '');
+    $('status').textContent = live.length ? `${live.length} ${live.length === 1 ? 'set' : 'sets'} over ${earlier.length} ${earlier.length === 1 ? 'day' : 'days'}.` : 'No sets saved yet.';
+    for (const { session, cards } of earlier) {
       const section = el('section');
-      section.append(el('h2', 'day', dayWords(day)));
-      // Within the day, in the order lifted. A set joins the card before it only when it is on the same Exercise, read
-      // through merges, by the same name, with no other set that stands between them (the founder, 2026-10-29 00:09:03 UTC:
-      // "Two sets of the same exercise description that are adjacent can have their descriptions joined but two that
-      // aren't can't"; the Design Advisor's one view, section 9: two Exercises whose cards read alike stay two cards).
-      let block = null; let last = null;
-      for (const s of days.get(day)) {
-        const id = `${s.who}\u0000${survivor(s.who, s.exerciseId)}`;
-        if (id !== last) {
-          block = el('div', 'exercise');
-          const card = el('div', 'card'); const e = exercises.get(id);
-          for (const l of e ? cardLines(e.coords, added) : ['(exercise missing)']) card.append(el('span', '', l));
-          block.append(card); section.append(block); last = id;
+      section.append(el('h2', 'day', dayWords(session)));
+      for (const { exerciseId, sets } of cards) {
+        const block = el('div', 'exercise');
+        const card = el('div', 'card'); const e = exercises.get(exerciseId);
+        for (const l of e ? cardLines(renamedCoords(e.coords || {}), added) : ['(exercise missing)']) card.append(el('span', '', l));
+        block.append(card);
+        for (const s of sets) {
+          const row = el('div', 'set', `${clock(s.t)}  ${s.weight || '–'} × ${s.reps || '–'}`);
+          row.append(el('span', 'who', `  ${s.who}`));
+          block.append(row);
         }
-        const row = el('div', 'set', `${clock(s.t)}  ${s.weight || '–'} × ${s.reps || '–'}`);
-        row.append(el('span', 'who', `  ${s.who}`));
-        block.append(row);
+        section.append(block);
       }
       feed.append(section);
     }
