@@ -1,6 +1,6 @@
 {
  "format": "1847044c84",
- "version": "10.81",
+ "version": "10.82",
  "date": "2026-11-04",
  "attributes": [
   {
@@ -955,7 +955,9 @@
    "joints",
    "elbow_action",
    "load_source",
-   "machine_type"
+   "machine_type",
+   "cable_attachment",
+   "load_position"
   ],
   "posture": [
    "movement",
@@ -1065,7 +1067,23 @@
    "handle_way"
   ],
   "start_position": [
-   "movement"
+   "movement",
+   "modality",
+   "joints",
+   "elbow_action",
+   "load_source",
+   "machine_type",
+   "cable_attachment",
+   "load_position",
+   "relative_direction",
+   "mover",
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way",
+   "hands",
+   "feet",
+   "which_higher"
   ],
   "laterality": [],
   "grip": [
@@ -3162,26 +3180,6 @@
     "braced": [
      "elbows",
      "forearms"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "laterality": {
-     "$in": [
-      "bilateral",
-      "independent"
-     ]
-    }
-   },
-   "exclude": {
-    "braced": [
-     "hand"
     ]
    }
   },
@@ -6247,36 +6245,6 @@
       "incline"
      ]
     },
-    "target": {
-     "$exists": true,
-     "$nin": [
-      "front delts"
-     ]
-    }
-   },
-   "fill": {
-    "synergists": [
-     "front delts"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "shoulder_action": {
-     "$in": [
-      "flexion"
-     ]
-    },
-    "relative_direction": {
-     "$in": [
-      "incline"
-     ]
-    },
     "$or": [
      {
       "bench_angle": {
@@ -8552,37 +8520,6 @@
    "fill": {
     "synergists": [
      "glutes"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "hinge"
-     ]
-    },
-    "hip_action": {
-     "$in": [
-      "extension"
-     ]
-    },
-    "joints": {
-     "$exists": true,
-     "$nin": [
-      "knee"
-     ]
-    },
-    "target": {
-     "$exists": true,
-     "$nin": [
-      "hamstrings"
-     ]
-    }
-   },
-   "fill": {
-    "synergists": [
-     "hamstrings"
     ]
    }
   },
@@ -10871,6 +10808,189 @@
      "feet"
     ]
    }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row"
+     ]
+    },
+    "load_source": {
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ]
+    },
+    "mover": {
+     "$in": [
+      "load"
+     ]
+    },
+    "relative_direction": {
+     "$exists": true,
+     "$nin": [
+      "vertical"
+     ]
+    }
+   },
+   "offer": [
+    "start_position"
+   ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion",
+      "horizontal adduction"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "in the hands"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "wrist"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "wrist flexors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "row",
+      "press",
+      "curl",
+      "extension",
+      "raise",
+      "hinge",
+      "crunch",
+      "fly",
+      "reverse fly",
+      "squat",
+      "rotation",
+      "shrug",
+      "bridge",
+      "dip",
+      "clean",
+      "side bend",
+      "snatch",
+      "pullover",
+      "throw"
+     ]
+    }
+   },
+   "exclude": {
+    "machine_type": [
+     "treadmill",
+     "stair climber",
+     "stationary bike",
+     "elliptical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    }
+   },
+   "exclude": {
+    "support": [
+     "bars"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl",
+      "extension"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "on the shins or ankles"
+     ]
+    }
+   },
+   "fill": {
+    "mover": [
+     "load"
+    ]
+   }
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "hand"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "hamstrings"
+    ]
+   }
   }
  ],
  "defaults": [
@@ -10901,6 +11021,35 @@
     "target": [
      "lats",
      "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$in": [
+      "knee"
+     ],
+     "$nin": [
+      "hip"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "default": {
+    "load_position": [
+     "on the shins or ankles"
     ]
    }
   }
@@ -11025,6 +11174,9 @@
  },
  "one_rule": [
   [
+   359,
+   360,
+   361,
    362,
    363,
    364,
@@ -11083,10 +11235,7 @@
    417,
    418,
    419,
-   420,
-   421,
-   422,
-   423
+   420
   ]
  ],
  "renamed": {
