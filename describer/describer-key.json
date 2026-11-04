@@ -1,7 +1,7 @@
 {
  "format": "1847044c84",
- "version": "10.78",
- "date": "2026-11-03",
+ "version": "10.80",
+ "date": "2026-11-04",
  "attributes": [
   {
    "key": "movement",
@@ -530,13 +530,13 @@
   },
   {
    "key": "start_position",
-   "ask": "Where does each rep start?",
+   "ask": "Where does the weight start on each rep?",
    "label": "start",
-   "about": "From the top if the load is in the air at the bottom of a rep, as on an RDL, a swing or a hang clean; otherwise from where it touches down",
+   "about": "Where the weight is as each rep begins, not where you set it down between reps: on the floor, or on rack pins, blocks or a machine's stop, if it touches there at the bottom of every rep, even for a moment; otherwise on your body, in your hands or on your back, as on an RDL, a swing or a hang clean",
    "values": [
-    "from the top",
-    "from the floor",
-    "from rack pins or blocks"
+    "on your body",
+    "on the floor",
+    "on rack pins or blocks"
    ],
    "multi": false,
    "filled": false
@@ -955,9 +955,7 @@
    "joints",
    "elbow_action",
    "load_source",
-   "machine_type",
-   "cable_attachment",
-   "load_position"
+   "machine_type"
   ],
   "posture": [
    "movement",
@@ -10576,9 +10574,10 @@
       "flexion"
      ]
     },
-    "load_position": {
-     "$in": [
-      "in the hands"
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
      ]
     }
    },
@@ -10821,6 +10820,57 @@
      "decline"
     ]
    }
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "elbow"
+     ]
+    },
+    "mover": {
+     "$in": [
+      "load"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "forearms"
+    ]
+   }
+  },
+  {
+   "when": {
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    },
+    "mover": {
+     "$in": [
+      "load"
+     ]
+    },
+    "laterality": {
+     "$in": [
+      "bilateral",
+      "independent"
+     ]
+    }
+   },
+   "exclude": {
+    "braced": [
+     "shins",
+     "feet"
+    ]
+   }
   }
  ],
  "defaults": [
@@ -11047,8 +11097,11 @@
    "on the shins": "on the shins or ankles"
   },
   "start_position": {
-   "standing": "from the top",
-   "floor": "from the floor"
+   "standing": "on your body",
+   "floor": "on the floor",
+   "from the top": "on your body",
+   "from the floor": "on the floor",
+   "from rack pins or blocks": "on rack pins or blocks"
   }
  },
  "retired": [
