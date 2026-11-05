@@ -714,7 +714,11 @@ export function fieldsOf(c, byValue = false) {
 // yet nothing is picked, so the description's first question never is. A vote is a saved description's answer as at
 // Save whose last writing tap was the lifter's own answer or typed value: never a rule's, a card's or a taken default,
 // so it never learns from its own guesses. On a question of several answers the set ticked is one answer. Each past description's answers,
-// fills and votes are read once, when made; the counts on each call. It names no question (law 8).
+// fills and votes are read once, when made; the counts on each call. A past description that contradicts this one gets
+// no vote (version 10.85, the founder's "Fix it now", 2026-11-05 02:07 UTC, learned-no-contradiction.md): where both
+// answer a question but the one asked, tapped or filled, with different sets (e.g. joints ankle on a calf raise against
+// joints shoulder on a lateral raise); an answer it lacks is no contradiction. The back-off then only ranks voters that
+// hold more of the given answers ahead of those that never gave them. It names no question (law 8).
 export function learned(descriptions) {
     const past = descriptions.filter((d) => d.landedAt).map((d) => {
         const own = answersAt(d);
@@ -725,6 +729,7 @@ export function learned(descriptions) {
         return { own, view: withFills(own).coords, votes };
     });
     const same = (a, b) => JSON.stringify([...(a || [])].sort()) === JSON.stringify([...(b || [])].sort());
+    const contradicts = (pv, view, q) => Object.keys(view).some((a) => a !== q && answeredIn(view, a) && answeredIn(pv, a) && !same(pv[a], view[a]));
     // The question a blank description opens on is never pre-picked: it is a description's root, and a past answer to it
     // says nothing about this one (the founder, 3 Nov 2026 03:23 UTC: it "would need a much cleverer policy").
     const root = queueOf({}, [], KEY.attributes.map((a) => a.key), []).asked[0];
@@ -735,7 +740,8 @@ export function learned(descriptions) {
             return null;
         // On a question of several answers the whole set ticked is one vote (version 10.74, the founder's "the default would
         // be that hips, knees, and ankles were the default", 2026-11-03 14:13 UTC): the set ticked most often wins, whole.
-        const voters = past.filter((p) => p.votes.has(q) && (p.own[q]?.length === 1 || (isMulti(q) && (p.own[q]?.length ?? 0) > 1)));
+        const voters = past.filter((p) => p.votes.has(q) && (p.own[q]?.length === 1 || (isMulti(q) && (p.own[q]?.length ?? 0) > 1))
+            && !contradicts(p.view, view, q));
         for (let k = given.length; k >= 1; k--) {
             const keys = given.slice(0, k);
             const counts = new Map();
