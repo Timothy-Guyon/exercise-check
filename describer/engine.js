@@ -627,6 +627,7 @@ export function answersAt(d) {
             const ks = answersOf(q);
             reopened[ks[0]] = Object.fromEntries(ks.filter((x) => x in coords).map((x) => [x, coords[x]]));
         }
+        // `back` takes off (10.48 to 10.86); `back_to` (10.87, back-goes-back.md) only brings a question up, so no answer moves.
         else if (kind === 'back') {
             const ks = answersOf(q);
             const was = reopened[ks[0]];
