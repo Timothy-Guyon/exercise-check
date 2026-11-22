@@ -1816,18 +1816,6 @@
    "when": {
     "modality": {
      "$in": [
-      "plyometric"
-     ]
-    }
-   },
-   "require": [
-    "target"
-   ]
-  },
-  {
-   "when": {
-    "modality": {
-     "$in": [
       "mobility"
      ]
     }
@@ -5774,20 +5762,6 @@
    "when": {
     "movement": {
      "$in": [
-      "clean"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
       "side bend"
      ]
     }
@@ -5816,13 +5790,27 @@
    "when": {
     "movement": {
      "$in": [
+      "clean"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "plyometric"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
       "snatch"
      ]
     }
    },
    "fill": {
     "modality": [
-     "resistance"
+     "plyometric"
     ]
    }
   },
@@ -13833,6 +13821,7 @@
  },
  "one_rule": [
   [
+   356,
    357,
    358,
    359,
@@ -13893,8 +13882,7 @@
    414,
    415,
    416,
-   417,
-   418
+   417
   ]
  ],
  "renamed": {
