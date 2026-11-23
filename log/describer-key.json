@@ -1324,7 +1324,8 @@
       "walk",
       "cycle",
       "ski",
-      "hinge"
+      "hinge",
+      "dip"
      ]
     }
    },
@@ -1352,7 +1353,8 @@
       "walk",
       "cycle",
       "ski",
-      "hinge"
+      "hinge",
+      "dip"
      ]
     }
    },
@@ -5750,20 +5752,6 @@
    "when": {
     "movement": {
      "$in": [
-      "dip"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
       "side bend"
      ]
     }
@@ -5911,7 +5899,8 @@
      "$exists": true,
      "$nin": [
       "kettlebell",
-      "dumbbell"
+      "dumbbell",
+      "barbell"
      ]
     }
    },
@@ -13856,6 +13845,7 @@
  },
  "one_rule": [
   [
+   355,
    356,
    357,
    358,
@@ -13916,8 +13906,7 @@
    413,
    414,
    415,
-   416,
-   417
+   416
   ]
  ],
  "renamed": {
