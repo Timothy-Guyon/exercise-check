@@ -457,10 +457,17 @@ export function cardValues(coords, added) {
 // of the app (the founder's "App word", 16:21:36 UTC), then the muscles and the role, its word for one muscle and the
 // Key's own label for several, which for the target is "target" itself.
 export const lineParts = (k, n, added) => MUSCLE_ROLES.includes(k) ? { label: 'muscles', role: ` as ${n === 1 ? ROLE_WORDS[k] : labelOf(k, added)}` } : { label: labelOf(k, added), role: '' };
+// An option is a filter and its value, its words from the Key each time (version 10.90, log-finder-feed.md, the
+// Technical Advisor's shape): labelled, the card's line, "load: machine", "muscles: biceps as synergist"; unlabelled,
+// the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
+export function optionWords(k, values, added, labelled = true) {
+    const { label, role } = lineParts(k, values.length, added);
+    return labelled ? `${label}: ${values.join(', ')}${role}` : `${values.join(', ')}${role}`;
+}
 export function cardLines(coords, added) {
     // The Key's labels, the words the Description uses, not its keys (version 10.48, the Design Advisor: one name per thing),
     // in the Description's form since version 10.64, "load: machine".
-    return cardValues(coords, added).map(([k, vs]) => { const { label, role } = lineParts(k, vs.length, added); return `${label}: ${vs.join(', ')}${role}`; });
+    return cardValues(coords, added).map(([k, vs]) => optionWords(k, vs, added));
 }
 // Every day this phone holds, oldest first, each in the order lifted (the store keeps its sets in time order: merged()
 // sorts them, saveSet appends). A set joins the card before it when it is on the same Exercise and no other set sits
