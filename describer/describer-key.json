@@ -1,6 +1,6 @@
 {
  "format": "1847044c84",
- "version": "10.90",
+ "version": "10.91",
  "date": "2026-11-23",
  "attributes": [
   {
@@ -1318,13 +1318,14 @@
       "dance",
       "carry",
       "bridge",
+      "pullover",
+      "hinge",
+      "dip",
+      "walk",
       "run",
       "climb",
-      "pullover",
-      "walk",
       "cycle",
-      "ski",
-      "hinge"
+      "ski"
      ]
     }
    },
@@ -1346,13 +1347,9 @@
       "dance",
       "carry",
       "bridge",
-      "run",
-      "climb",
       "pullover",
-      "walk",
-      "cycle",
-      "ski",
-      "hinge"
+      "hinge",
+      "dip"
      ]
     }
    },
@@ -1457,27 +1454,6 @@
     },
     "load_source": {
      "$in": [
-      "dumbbell",
-      "kettlebell"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "row"
-     ]
-    },
-    "load_source": {
-     "$in": [
-      "barbell",
       "dumbbell",
       "kettlebell"
      ]
@@ -5750,20 +5726,6 @@
    "when": {
     "movement": {
      "$in": [
-      "dip"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
       "side bend"
      ]
     }
@@ -5785,6 +5747,24 @@
    "fill": {
     "modality": [
      "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "walk",
+      "run",
+      "climb",
+      "cycle",
+      "ski"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "endurance"
     ]
    }
   },
@@ -5911,7 +5891,8 @@
      "$exists": true,
      "$nin": [
       "kettlebell",
-      "dumbbell"
+      "dumbbell",
+      "barbell"
      ]
     }
    },
@@ -13632,7 +13613,8 @@
     "movement": {
      "$in": [
       "hinge",
-      "press"
+      "press",
+      "row"
      ]
     },
     "load_source": {
@@ -13641,6 +13623,20 @@
       "barbell",
       "dumbbell",
       "kettlebell"
+     ]
+    }
+   },
+   "default": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "dip"
      ]
     }
    },
@@ -13856,6 +13852,7 @@
  },
  "one_rule": [
   [
+   355,
    356,
    357,
    358,
@@ -13916,8 +13913,7 @@
    413,
    414,
    415,
-   416,
-   417
+   416
   ]
  ],
  "renamed": {
