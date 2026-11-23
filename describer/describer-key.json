@@ -1,7 +1,7 @@
 {
  "format": "1847044c84",
- "version": "10.89",
- "date": "2026-11-19",
+ "version": "10.90",
+ "date": "2026-11-23",
  "attributes": [
   {
    "key": "movement",
@@ -1323,7 +1323,8 @@
       "pullover",
       "walk",
       "cycle",
-      "ski"
+      "ski",
+      "hinge"
      ]
     }
    },
@@ -1350,7 +1351,8 @@
       "pullover",
       "walk",
       "cycle",
-      "ski"
+      "ski",
+      "hinge"
      ]
     }
    },
@@ -1805,18 +1807,6 @@
     "modality": {
      "$in": [
       "resistance"
-     ]
-    }
-   },
-   "require": [
-    "target"
-   ]
-  },
-  {
-   "when": {
-    "modality": {
-     "$in": [
-      "plyometric"
      ]
     }
    },
@@ -5774,20 +5764,6 @@
    "when": {
     "movement": {
      "$in": [
-      "clean"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
       "side bend"
      ]
     }
@@ -5816,13 +5792,27 @@
    "when": {
     "movement": {
      "$in": [
+      "clean"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "plyometric"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
       "snatch"
      ]
     }
    },
    "fill": {
     "modality": [
-     "resistance"
+     "plyometric"
     ]
    }
   },
@@ -5900,7 +5890,7 @@
    "when": {
     "movement": {
      "$in": [
-      "hinge"
+      "shrug"
      ]
     }
    },
@@ -5914,7 +5904,14 @@
    "when": {
     "movement": {
      "$in": [
-      "shrug"
+      "hinge"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "kettlebell",
+      "dumbbell"
      ]
     }
    },
@@ -10629,7 +10626,10 @@
     "load_source": {
      "$exists": true,
      "$nin": [
-      "body weight"
+      "body weight",
+      "barbell",
+      "dumbbell",
+      "kettlebell"
      ]
     }
    },
@@ -13395,9 +13395,261 @@
      "front delts"
     ]
    }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "curl"
+     ]
+    },
+    "elbow_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "elbow_position": {
+     "$in": [
+      "at the side"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "traps"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "extension"
+     ]
+    },
+    "elbow_position": {
+     "$in": [
+      "at the side",
+      "behind"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "rear delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "abduction"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "upper back",
+     "serratus"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "ankle_action": {
+     "$in": [
+      "dorsiflexion"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "tibialis"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ],
+     "$exists": true
+    }
+   },
+   "exclude": {
+    "support": [
+     "bars"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    },
+    "mover": {
+     "$in": [
+      "load"
+     ]
+    }
+   },
+   "exclude": {
+    "load_position": [
+     "at the head",
+     "on the hips",
+     "on the shins or ankles",
+     "on the thighs"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "shrug"
+     ]
+    },
+    "scapula_action": {
+     "$in": [
+      "retraction"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "upper back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "lower back"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "fill": {
+    "stabilizers": [
+     "obliques"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "carry"
+     ]
+    }
+   },
+   "exclude": {
+    "support": [
+     "bench",
+     "seat",
+     "pad",
+     "ball",
+     "hanging",
+     "bosu ball",
+     "bars"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "clean",
+      "snatch"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "hamstrings"
+    ]
+   }
   }
  ],
  "defaults": [
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge",
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ]
+    }
+   },
+   "default": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
   {
    "when": {
     "$or": [
@@ -13604,6 +13856,7 @@
  },
  "one_rule": [
   [
+   356,
    357,
    358,
    359,
@@ -13664,8 +13917,7 @@
    414,
    415,
    416,
-   417,
-   418
+   417
   ]
  ],
  "renamed": {

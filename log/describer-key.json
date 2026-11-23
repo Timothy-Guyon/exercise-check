@@ -1,7 +1,7 @@
 {
  "format": "1847044c84",
- "version": "10.89",
- "date": "2026-11-19",
+ "version": "10.90",
+ "date": "2026-11-23",
  "attributes": [
   {
    "key": "movement",
@@ -5911,7 +5911,6 @@
      "$exists": true,
      "$nin": [
       "kettlebell",
-      "barbell",
       "dumbbell"
      ]
     }
@@ -13628,6 +13627,29 @@
   }
  ],
  "defaults": [
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "hinge",
+      "press"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ]
+    }
+   },
+   "default": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
   {
    "when": {
     "$or": [
