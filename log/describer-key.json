@@ -1,7 +1,7 @@
 {
  "format": "1847044c84",
- "version": "10.90",
- "date": "2026-11-22",
+ "version": "11.0",
+ "date": "2026-11-23",
  "attributes": [
   {
    "key": "movement",
@@ -5910,7 +5910,9 @@
     "load_source": {
      "$exists": true,
      "$nin": [
-      "kettlebell"
+      "kettlebell",
+      "barbell",
+      "dumbbell"
      ]
     }
    },
