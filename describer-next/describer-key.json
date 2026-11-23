@@ -1323,7 +1323,8 @@
       "pullover",
       "walk",
       "cycle",
-      "ski"
+      "ski",
+      "hinge"
      ]
     }
    },
@@ -1350,7 +1351,8 @@
       "pullover",
       "walk",
       "cycle",
-      "ski"
+      "ski",
+      "hinge"
      ]
     }
    },
@@ -5888,7 +5890,7 @@
    "when": {
     "movement": {
      "$in": [
-      "hinge"
+      "shrug"
      ]
     }
    },
@@ -5902,7 +5904,13 @@
    "when": {
     "movement": {
      "$in": [
-      "shrug"
+      "hinge"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "kettlebell"
      ]
     }
    },
@@ -10617,7 +10625,10 @@
     "load_source": {
      "$exists": true,
      "$nin": [
-      "body weight"
+      "body weight",
+      "barbell",
+      "dumbbell",
+      "kettlebell"
      ]
     }
    },
