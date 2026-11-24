@@ -12085,6 +12085,20 @@
      ]
     }
    },
+   "exclude": {
+    "load_source": [
+     "sled"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "dip"
+     ]
+    }
+   },
    "fill": {
     "synergists": [
      "triceps"
@@ -12406,6 +12420,24 @@
    "when": {
     "movement": {
      "$in": [
+      "press",
+      "fly",
+      "reverse fly",
+      "dip",
+      "pullover"
+     ]
+    }
+   },
+   "exclude": {
+    "machine_type": [
+     "rower"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
       "push"
      ]
     }
@@ -12625,6 +12657,23 @@
    "exclude": {
     "target": [
      "abductors"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "adduction",
+      "jump",
+      "cycle",
+      "ski"
+     ]
+    }
+   },
+   "exclude": {
+    "machine_type": [
+     "stair climber"
     ]
    }
   },
@@ -13154,6 +13203,21 @@
     "movement": {
      "$in": [
       "squat",
+      "bridge"
+     ]
+    }
+   },
+   "exclude": {
+    "load_source": [
+     "sled"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat",
       "hinge"
      ]
     }
@@ -13539,327 +13603,6 @@
    "fill": {
     "synergists": [
      "hamstrings"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "dance"
-     ]
-    }
-   },
-   "exclude": {
-    "load_source": [
-     "machine"
-    ]
-   }
-  },
-  {
-   "when": {
-    "load_source": {
-     "$exists": true,
-     "$nin": [
-      "machine"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "stationary bike",
-     "rower",
-     "elliptical"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "walk",
-      "run",
-      "climb",
-      "cycle"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "elliptical"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "row",
-      "curl",
-      "raise"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "rower"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "climb"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "stair climber"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "cycle"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "stationary bike"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "walk",
-      "run",
-      "push",
-      "lunge",
-      "carry"
-     ]
-    }
-   },
-   "exclude": {
-    "machine_type": [
-     "treadmill"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$exists": true,
-     "$nin": [
-      "push",
-      "walk",
-      "run",
-      "row",
-      "press",
-      "extension",
-      "reverse fly",
-      "lunge",
-      "jump",
-      "carry",
-      "hinge",
-      "curl",
-      "fly",
-      "raise"
-     ]
-    }
-   },
-   "exclude": {
-    "load_source": [
-     "sled"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$in": [
-      "smith"
-     ]
-    }
-   },
-   "exclude": {
-    "load_position": [
-     "on the upper arms"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$in": [
-      "smith"
-     ]
-    }
-   },
-   "exclude": {
-    "load_position": [
-     "at the chest"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$in": [
-      "smith"
-     ]
-    }
-   },
-   "exclude": {
-    "load_position": [
-     "at the head"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "pin-loaded",
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "calf extension machine"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Hammer Strength Ground Base Squat / High Pull"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Panatta Super Rowing Machine Circular"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Prime Extreme Row"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Cybex Plate Loaded Squat Press"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "plate-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Body Masters Plate Loaded Squat Press"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "pin-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Cybex Modular Arm Curl"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "pin-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Magnum Biangular Lat Row"
-    ]
-   }
-  },
-  {
-   "when": {
-    "machine_type": {
-     "$exists": true,
-     "$nin": [
-      "pin-loaded"
-     ]
-    }
-   },
-   "exclude": {
-    "machine": [
-     "Life Fitness Row/Rear Deltoid"
     ]
    }
   }
