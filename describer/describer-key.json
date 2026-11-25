@@ -1,6 +1,6 @@
 {
- "format": "43115c7358",
- "version": "10.95",
+ "format": "cd7cbd443a",
+ "version": "10.96",
  "date": "2026-11-25",
  "attributes": [
   {
@@ -14766,6 +14766,7 @@
    "your feet": "feet"
   }
  },
+ "reread": [],
  "retired": [
   {
    "attr": "cable_attachment",

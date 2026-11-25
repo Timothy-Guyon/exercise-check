@@ -45,7 +45,7 @@
 <div class="bar"><select id="who" aria-label="Whose sets"><option value="">Everyone</option></select></div>
 <script type="module">
 // How the Key runs, a card's lines, the day's cards and their words are the Describer's own (describer/typescript-move.md).
-import { holdKey, readKey, cardLines, survivorOf, daysOf, dayWords, clock, renamedCoords, placedBy } from '../describer/engine.js';
+import { holdKey, readKey, cardLines, survivorOf, daysOf, dayWords, clock, readAnswers, placedBy } from '../describer/engine.js';
 const SERVER = { url: 'https://hnyvbuvzfyjfffbonngo.supabase.co', key: 'sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW' };
 const code = (() => { try { return decodeURIComponent(location.hash.slice(1)).trim(); } catch { return ''; } })();
 const $ = (id) => document.getElementById(id);
@@ -118,7 +118,7 @@ function show() {
       for (const { exerciseId, sets } of cards) {
         const block = el('div', 'exercise');
         const card = el('div', 'card'); const e = exercises.get(exerciseId);
-        for (const l of e ? cardLines(renamedCoords(e.coords || {}), added) : ['(exercise missing)']) card.append(el('span', '', l));
+        for (const l of e ? cardLines(readAnswers(e.coords || {}).answers, added) : ['(exercise missing)']) card.append(el('span', '', l));
         block.append(card);
         for (const s of sets) {
           const row = el('div', 'set', `${clock(s.t)}  ${s.weight || '–'} × ${s.reps || '–'}`);
