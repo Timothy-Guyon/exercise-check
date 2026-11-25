@@ -1,6 +1,6 @@
 {
  "format": "43115c7358",
- "version": "10.92",
+ "version": "10.93",
  "date": "2026-11-25",
  "attributes": [
   {
@@ -357,6 +357,26 @@
    "filled": false
   },
   {
+   "key": "posture",
+   "ask": "How are you positioned?",
+   "label": "posture",
+   "about": "How the body is arranged",
+   "values": [
+    "standing",
+    "seated",
+    "lying",
+    "kneeling",
+    "bent over",
+    "side-lying",
+    "hips raised",
+    "upside down",
+    "leaning away",
+    "leaning toward"
+   ],
+   "multi": false,
+   "filled": false
+  },
+  {
    "key": "support",
    "ask": "What is the body on?",
    "label": "on",
@@ -388,26 +408,6 @@
     "45°",
     "60°",
     "upright"
-   ],
-   "multi": false,
-   "filled": false
-  },
-  {
-   "key": "posture",
-   "ask": "How is the body arranged?",
-   "label": "posture",
-   "about": "How the body is arranged",
-   "values": [
-    "standing",
-    "seated",
-    "lying",
-    "kneeling",
-    "bent over",
-    "side-lying",
-    "hips raised",
-    "upside down",
-    "leaning away",
-    "leaning toward"
    ],
    "multi": false,
    "filled": false
@@ -831,9 +831,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "stance",
    "step"
@@ -844,9 +844,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "ankle_action": [
@@ -855,9 +855,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "shoulder_action": [
@@ -867,9 +867,9 @@
    "load_source",
    "machine_type",
    "relative_direction",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -945,9 +945,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -961,22 +961,10 @@
    "machine_type",
    "cable_attachment",
    "load_position",
-   "support"
-  ],
-  "support": [
-   "movement",
-   "modality",
-   "joints",
-   "load_source",
-   "machine_type"
-  ],
-  "bench_angle": [
-   "movement",
-   "modality",
-   "joints",
-   "load_source",
-   "machine_type",
-   "support"
+   "posture",
+   "support",
+   "bench_angle",
+   "handle_way"
   ],
   "posture": [
    "movement",
@@ -984,8 +972,25 @@
    "joints",
    "load_source",
    "machine_type",
+   "handle_way"
+  ],
+  "support": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
+   "handle_way"
+  ],
+  "bench_angle": [
+   "movement",
+   "modality",
+   "joints",
+   "load_source",
+   "machine_type",
+   "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "handle_way": [
@@ -1005,9 +1010,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "which_higher": [
@@ -1016,9 +1021,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet"
@@ -1030,9 +1035,9 @@
    "load_source",
    "machine_type",
    "relative_direction",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -1044,9 +1049,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "foot_placement": [
@@ -1064,9 +1069,9 @@
    "joints",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "start_position": [
@@ -1079,9 +1084,9 @@
    "load_position",
    "relative_direction",
    "mover",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -1114,9 +1119,9 @@
    "load_source",
    "machine_type",
    "relative_direction",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -1129,9 +1134,9 @@
    "elbow_action",
    "load_source",
    "machine_type",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way"
   ],
   "step": [
@@ -1164,9 +1169,9 @@
    "load_position",
    "relative_direction",
    "mover",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -1204,9 +1209,9 @@
    "cable_attachment",
    "load_position",
    "relative_direction",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -1232,9 +1237,9 @@
    "load_position",
    "relative_direction",
    "mover",
+   "posture",
    "support",
    "bench_angle",
-   "posture",
    "handle_way",
    "hands",
    "feet",
@@ -14266,6 +14271,68 @@
      "Life Fitness Row/Rear Deltoid"
     ]
    }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "forward"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "lateral"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "seated"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    },
+    "load_source": {
+     "$all": [
+      "machine"
+     ],
+     "$size": 1
+    },
+    "movement": {
+     "$exists": true,
+     "$nin": [
+      "bridge",
+      "carry",
+      "squat"
+     ]
+    }
+   },
+   "fill": {
+    "support": [
+     "seat"
+    ]
+   }
   }
  ],
  "defaults": [
@@ -18037,6 +18104,86 @@
     {
      "value": "lateral",
      "words": "in, from your side"
+    }
+   ]
+  },
+  {
+   "of": "relative_direction",
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    }
+   },
+   "ask": "Which way do you press?",
+   "answers": [
+    {
+     "value": "vertical",
+     "words": "straight overhead"
+    },
+    {
+     "value": "incline",
+     "words": "angled up toward your head"
+    },
+    {
+     "value": "horizontal",
+     "words": "straight out from your chest"
+    },
+    {
+     "value": "decline",
+     "words": "angled down toward your hips"
+    }
+   ]
+  },
+  {
+   "of": "relative_direction",
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    }
+   },
+   "ask": "Which way do you raise your arms?",
+   "answers": [
+    {
+     "value": "lateral",
+     "words": "out to your sides"
+    },
+    {
+     "value": "forward",
+     "words": "out in front of you"
+    }
+   ]
+  },
+  {
+   "of": "relative_direction",
+   "when": {
+    "movement": {
+     "$in": [
+      "fly"
+     ]
+    }
+   },
+   "ask": "Which way do you bring your arms in?",
+   "answers": [
+    {
+     "value": "incline",
+     "words": "angled up"
+    },
+    {
+     "value": "horizontal",
+     "words": "straight"
+    },
+    {
+     "value": "decline",
+     "words": "angled down"
     }
    ]
   }
