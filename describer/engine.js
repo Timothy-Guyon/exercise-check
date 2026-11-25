@@ -457,10 +457,126 @@ export function cardValues(coords, added) {
 // of the app (the founder's "App word", 16:21:36 UTC), then the muscles and the role, its word for one muscle and the
 // Key's own label for several, which for the target is "target" itself.
 export const lineParts = (k, n, added) => MUSCLE_ROLES.includes(k) ? { label: 'muscles', role: ` as ${n === 1 ? ROLE_WORDS[k] : labelOf(k, added)}` } : { label: labelOf(k, added), role: '' };
+// An option is a filter and its value, its words from the Key each time (version 10.90, log-finder-feed.md, the
+// Technical Advisor's shape): labelled, the card's line, "load: machine", "muscles: biceps as synergist"; unlabelled,
+// the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
+// An exercise's given answers (aliases-spec.md): its coordinates, the muscle roles and a rule's fills left out.
+export const givenAnswers = (ex) => Object.fromEntries(Object.entries(ex.coords).filter(([k, vs]) => vs.length && !MUSCLE_ROLES.includes(k) && !(ex.derived || []).includes(k)));
+// Its expert name: the Key's `named` entry whose answers equal its given answers exactly, else ''.
+let NAMED_AT = new Map();
+export const expertName = (ex) => NAMED_AT.get(coordKey(givenAnswers(ex))) ?? '';
+// A said line's terms (aliases-spec.md): its condition's, one per question, and its answers; a line is narrower than
+// another when its terms hold all of the other's.
+export const saidTerms = (l) => new Set([
+    ...Object.entries(l.when).map(([q, x]) => `${q} ${JSON.stringify(x)}`),
+    ...Object.entries(l.for).flatMap(([q, vs]) => (vs || []).map((v) => `${q} = ${v}`))
+]);
+export const narrower = (a, b) => { const ta = saidTerms(a); return [...saidTerms(b)].every((t) => ta.has(t)); };
+export const saidApplies = (l, coords) => matches(coords, l.when) && Object.entries(l.for).every(([q, vs]) => (vs || []).every((v) => (coords[q] || []).includes(v)));
+// The built name (aliases-spec.md, the Technical Advisor's 1a): of the lines that apply, the narrowest speaks for each
+// answer; their words in place order, then the Key's question order; an answer no line speaks for is not said; the first
+// letter upper case. All the coordinates, fills included. No tie-break.
+export function builtName(coords) {
+    const said = KEY.said || { order: [], lines: [] };
+    const on = said.lines.filter((l) => saidApplies(l, coords));
+    const speaking = new Set();
+    for (const [q, vs] of Object.entries(coords))
+        for (const v of vs) {
+            const by = on.filter((l) => (l.for[q] || []).includes(v));
+            if (!by.length)
+                continue;
+            const most = by.find((l) => by.every((o) => narrower(l, o))) ?? by.sort((a, b) => saidTerms(b).size - saidTerms(a).size)[0];
+            speaking.add(most);
+        }
+    const keys = KEY.attributes.map((a) => a.key);
+    const firstQ = (l) => Math.min(...Object.keys(l.for).map((q) => keys.indexOf(q)).filter((i) => i >= 0), keys.length);
+    const words = [...speaking].filter((l) => l.says)
+        .sort((a, b) => said.order.indexOf(a.at || '') - said.order.indexOf(b.at || '') || firstQ(a) - firstQ(b)).map((l) => l.says);
+    const text = words.join(' ');
+    return text ? text[0].toUpperCase() + text.slice(1) : '';
+}
+// Every live exercise's alias by id: its own name (typed or borrowed, nameFor), else its expert name, else its built
+// name. Among those not own, a group sharing one alias is told apart: each adds the plain word (the broadest said line
+// with words) of the first answer, in the Key's order, it holds and the others don't and that has one; with none,
+// numbered by createdAt (never a stored value, which reads as a note, not a name).
+export function aliases(live, ownOf) {
+    const out = {};
+    for (const e of live) {
+        const own = ownOf(e);
+        const expert = own ? '' : expertName(e);
+        out[e.id] = own ? { text: own, from: 'own' } : expert ? { text: expert, from: 'expert' } : { text: builtName(e.coords), from: 'built' };
+    }
+    const groups = new Map();
+    for (const e of live)
+        if (out[e.id].from !== 'own' && out[e.id].text) {
+            const k = out[e.id].text.toLowerCase();
+            (groups.get(k) || groups.set(k, []).get(k)).push(e);
+        }
+    const keys = KEY.attributes.map((a) => a.key);
+    const plain = (q, v) => {
+        const by = (KEY.said?.lines || []).filter((l) => l.says && (l.for[q] || []).includes(v));
+        return by.find((l) => by.every((o) => narrower(o, l)))?.says || '';
+    };
+    for (const group of groups.values()) {
+        if (group.length < 2)
+            continue;
+        const told = new Map();
+        for (const e of group) {
+            const others = group.filter((o) => o !== e);
+            found: for (const q of keys)
+                for (const v of e.coords[q] || []) {
+                    if (MUSCLE_ROLES.includes(q) || others.some((o) => (o.coords[q] || []).includes(v)) || !plain(q, v))
+                        continue;
+                    told.set(e.id, plain(q, v));
+                    break found;
+                }
+        }
+        const left = group.filter((e) => !told.has(e.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+        for (const e of group) {
+            const w = told.get(e.id);
+            if (w) {
+                const t = `${w} ${out[e.id].text[0].toLowerCase()}${out[e.id].text.slice(1)}`;
+                out[e.id] = { ...out[e.id], text: t[0].toUpperCase() + t.slice(1) };
+            }
+        }
+        left.forEach((e, i) => { if (i)
+            out[e.id] = { ...out[e.id], text: `${out[e.id].text} ${i + 1}` }; });
+    }
+    return out;
+}
+// An answer as a screen shows it (wordings-spec.md): the words of the wording that holds on the description's answers,
+// else the stored value. A wording holds only when every question its condition reads is answered, so an unanswered
+// one falls back to the question's own line.
+let WORDINGS_OF = new Map();
+export function wordingOn(k, coords) {
+    return (WORDINGS_OF.get(k) || []).find((w) => Object.keys(w.when).every((q) => (coords[q] || []).length) && matches(coords, w.when));
+}
+// Each reader takes the description's coordinates, fills included (wordings-spec.md), so a question can be worded by
+// the answers before it; `coords` is required, so tsc finds every place an answer is read back.
+export const answerWords = (k, v, coords) => wordingOn(k, coords)?.answers?.find((a) => a.value === v)?.words ?? v;
+// A question as asked on these answers (wordings-spec.md): its line, and its values in the order shown.
+export function askedOn(k, coords) {
+    const a = (KEY.attributes || []).find((x) => x.key === k);
+    const own = a?.values ?? [];
+    const w = wordingOn(k, coords);
+    const worded = (w?.answers || []).map((x) => x.value);
+    return { ask: w?.ask ?? a?.ask ?? '', values: [...worded, ...own.filter((v) => !worded.includes(v))] };
+}
+// Values in the order askedOn shows them; a value it does not list keeps its place after them.
+export function inAskedOrder(k, values, coords) {
+    const order = askedOn(k, coords).values;
+    const rank = (v) => (order.includes(v) ? order.indexOf(v) : order.length);
+    return values.map((v, i) => [v, i]).sort((x, y) => rank(x[0]) - rank(y[0]) || x[1] - y[1]).map(([v]) => v);
+}
+export function optionWords(k, values, coords, added, labelled = true) {
+    const { label, role } = lineParts(k, values.length, added);
+    const said = values.map((v) => answerWords(k, v, coords)).join(', ');
+    return labelled ? `${label}: ${said}${role}` : `${said}${role}`;
+}
 export function cardLines(coords, added) {
     // The Key's labels, the words the Description uses, not its keys (version 10.48, the Design Advisor: one name per thing),
     // in the Description's form since version 10.64, "load: machine".
-    return cardValues(coords, added).map(([k, vs]) => { const { label, role } = lineParts(k, vs.length, added); return `${label}: ${vs.join(', ')}${role}`; });
+    return cardValues(coords, added).map(([k, vs]) => optionWords(k, vs, coords, added));
 }
 // Every day this phone holds, oldest first, each in the order lifted (the store keeps its sets in time order: merged()
 // sorts them, saveSet appends). A set joins the card before it when it is on the same Exercise and no other set sits
@@ -654,6 +770,10 @@ export function answersAt(d) {
 export function holdKey(k) {
     KEY = k;
     VERSION = `${k.version} (${k.date})`;
+    NAMED_AT = new Map((k.named || []).map((e) => [coordKey(e.answers), e.name]));
+    WORDINGS_OF = new Map();
+    for (const w of k.wordings || [])
+        WORDINGS_OF.set(w.of, [...(WORDINGS_OF.get(w.of) || []), w]);
     VALUE_RENAMED = new Map(Object.entries(k.renamed).map(([q, vs]) => [q, new Map(Object.entries(vs))]));
     offered = new Set(k.lines.flatMap((l) => l.offer || []));
     RULE_OF = new Map(k.one_rule.flatMap((ats, r) => ats.map((at) => [at, r])));
@@ -683,6 +803,11 @@ export const KEY_SHAPE = {
     muscles: listOf(isString), parts: mapOf(listOf(isString)), one_rule: listOf(listOf((n) => Number.isInteger(n) && n >= 0)),
     retired: listOf(shaped({ attr: isString, value: isString })), renamed: mapOf(mapOf(isString)),
     zero_weight: isObject,
+    named: listOf(shaped({ name: isString, answers: mapOf(listOf(isString)) })),
+    said: shaped({ order: listOf(isString), lines: listOf((l) => isObject(l) && isObject(l.when) && mapOf(listOf(isString))(l.for)
+            && isString(l.says) && (l.at === undefined || isString(l.at))) }),
+    wordings: listOf((w) => isObject(w) && isString(w.of) && isObject(w.when) && (w.ask === undefined || isString(w.ask))
+        && (w.answers === undefined || listOf((a) => isObject(a) && isString(a.value) && isString(a.words))(w.answers))),
 };
 // queueOf reads every attribute's `after`, and the chain every line one_rule names. The format is checked as a string
 // here; App.tsx's servedKey takes only its own format, and the timeline reads any.
