@@ -915,7 +915,7 @@ export function learned(descriptions) {
         // Read as today's answers (reread.md): the taps keep their words, so without this a past description saved under an
         // old word would contradict one in today's answers and lose its vote on every later question. A question a line
         // decided keeps its vote, since the answer began as the lifter's own tap, so a guess line's answer can be learned.
-        const own = readAnswers(answersAt(d)).answers;
+        const own = readAnswers(d.answers ?? answersAt(d)).answers;
         const votes = new Set(Object.keys(own).filter((q) => {
             const last = [...d.taps].reverse().find((t) => t.attr === q && !t.mark && ['answer', 'other', 'card_answer', 'back', 'left'].includes(t.kind));
             return !!last && (last.kind === 'answer' || last.kind === 'other') && !last.by;
