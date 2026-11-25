@@ -8,6 +8,14 @@ export const ANSWER_PARTS = ['fill', 'skip', 'exclude'];
 export const QUESTION_PARTS = ['reveal', 'require', 'order', 'offer'];
 const sameTerms = [true, true, true, true];
 void sameTerms;
+// A re-read line (reread.md; the founder's "Build it now", 2026-11-25 19:18:15 UTC, decision 62): where `when` holds on
+// a saved exercise's answers, read after `renamed`, each question in `set` reads as its answer there and each question
+// in `clear` reads as unanswered. `when` holds only "is one of" terms (REREAD_OPS), on any number of questions: the
+// order of the lines does the work of "not" and "unanswered", the narrower line written above the wider one.
+export const REREAD_PARTS = ['when', 'set', 'clear'];
+export const REREAD_OPS = ['$in', '$all'];
+const sameRereadParts = true;
+void sameRereadParts;
 // The Key held, and its version and date as the record and the foot read them (version 10.55): one Key at a time, bound
 // with everything worked out from it by holdKey, below, and nowhere else.
 export let KEY;
@@ -56,8 +64,48 @@ export const renamedTap = (t) => {
     return { ...t, kind: t.kind === 'find' ? 'describe' : t.kind, ...(attr ? { attr } : {}), ...(t.matched ? { matched: t.matched.map(renamedKey) } : {}),
         ...(attr && v !== undefined && VALUE_RENAMED.has(attr) ? { value: Array.isArray(v) ? v.map((x) => renamedValue(attr, x)) : renamedValue(attr, v) } : {}) };
 };
-export const renamedExercise = (e) => renamedId({ ...e, coords: renamedCoords(e.coords), derived: (e.derived || []).map(renamedKey),
-    ...(e.edits && { edits: e.edits.map((x) => renamedId({ ...x, before: renamedCoords(x.before), after: renamedCoords(x.after), taps: (x.taps || []).map(renamedTap) })) }) });
+// A re-read (reread.md): a saved exercise's whole answers read as today's, where the Key's `reread` lines say one old
+// word has become several, so a rename can't carry it. The answers are read through `renamed` first; then every line is
+// tested against those answers, never against another line's result, top to bottom, and for each question the first
+// matching line that names it decides it: `set` gives its answer, `clear` leaves it unanswered. `decided` lists the
+// questions a line decided. A record is read, never refused: an answer that isn't a list is kept as it is and matches
+// no line. One pass is final, the build's refusals see to it, so reading the result again changes nothing.
+// Bound by holdKey from the held Key's reread.
+let REREAD = [];
+export function readAnswers(c) {
+    const answers = renamedCoords(c);
+    if (!answers || !REREAD.length)
+        return { answers, decided: [] };
+    const saved = Object.fromEntries(Object.entries(answers).filter(([, vs]) => Array.isArray(vs)));
+    const read = { ...answers };
+    const decided = [];
+    for (const l of REREAD) {
+        if (!matches(saved, l.when))
+            continue;
+        for (const [q, vs] of Object.entries(l.set || {}))
+            if (!decided.includes(q)) {
+                decided.push(q);
+                read[q] = [...vs];
+            }
+        for (const q of l.clear || [])
+            if (!decided.includes(q)) {
+                decided.push(q);
+                delete read[q];
+            }
+    }
+    return { answers: read, decided };
+}
+// An exercise read from this phone or from the server copy: its answers, and each edit's before and after, through
+// readAnswers. A question a re-read line decided counts as given, so it leaves `derived`; and the first time a line
+// changes an exercise, the exercise keeps `was`, its answers as they were stored, never written over and never read by
+// the app: both apps save the state back after reading it, so without it a wrong guess line could be put right only
+// from the server's old rows (reread.md, the marked compromise). Taps, marks and typed words keep their words.
+export const renamedExercise = (e) => {
+    const read = readAnswers(e.coords);
+    return renamedId({ ...e, coords: read.answers, derived: (e.derived || []).map(renamedKey).filter((k) => !read.decided.includes(k)),
+        ...(read.decided.length && !e.was && { was: e.coords }),
+        ...(e.edits && { edits: e.edits.map((x) => renamedId({ ...x, before: readAnswers(x.before).answers, after: readAnswers(x.after).answers, taps: (x.taps || []).map(renamedTap) })) }) });
+};
 export function renamedDescription(f) {
     const g = { ...f, taps: (f.taps || []).map(renamedTap) };
     if (f.filled)
@@ -462,9 +510,22 @@ export const lineParts = (k, n, added) => MUSCLE_ROLES.includes(k) ? { label: 'm
 // the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
 // An exercise's given answers (aliases-spec.md): its coordinates, the muscle roles and a rule's fills left out.
 export const givenAnswers = (ex) => Object.fromEntries(Object.entries(ex.coords).filter(([k, vs]) => vs.length && !MUSCLE_ROLES.includes(k) && !(ex.derived || []).includes(k)));
-// Its expert name: the Key's `named` entry whose answers equal its given answers exactly, else ''.
-let NAMED_AT = new Map();
-export const expertName = (ex) => NAMED_AT.get(coordKey(givenAnswers(ex))) ?? '';
+// Its expert name (aliases-spec.md, the correction of 2026-11-25): the Key's `named` entry whose answers, read with the
+// fills of the Key held, equal its given answers read the same way, the muscle roles left out; else ''. Both sides go
+// through the Key held, so a rule that fills an answer an entry holds takes no name away: until then the match was on
+// the given answers alone, and each new fill took the name off every fresh description it reached.
+export const namedKey = (given) => coordKey(Object.fromEntries(Object.entries(stored(given).coords).filter(([k]) => !MUSCLE_ROLES.includes(k))));
+// The map is made at the first name asked for after a Key is held, not in holdKey: it reads each entry through `stored`,
+// which needs the whole Key bound, and the build and the desk tools hold Keys without ever asking for a name.
+let NAMED_AT = null;
+let NAME_OF = new Map();
+export function expertName(ex) {
+    NAMED_AT ??= new Map((KEY.named || []).map((e) => [namedKey(e.answers), e.name]));
+    const given = coordKey(givenAnswers(ex));
+    if (!NAME_OF.has(given))
+        NAME_OF.set(given, NAMED_AT.get(namedKey(givenAnswers(ex))) ?? '');
+    return NAME_OF.get(given);
+}
 // A said line's terms (aliases-spec.md): its condition's, one per question, and its answers; a line is narrower than
 // another when its terms hold all of the other's.
 export const saidTerms = (l) => new Set([
@@ -770,17 +831,19 @@ export function answersAt(d) {
 export function holdKey(k) {
     KEY = k;
     VERSION = `${k.version} (${k.date})`;
-    NAMED_AT = new Map((k.named || []).map((e) => [coordKey(e.answers), e.name]));
     WORDINGS_OF = new Map();
     for (const w of k.wordings || [])
         WORDINGS_OF.set(w.of, [...(WORDINGS_OF.get(w.of) || []), w]);
     VALUE_RENAMED = new Map(Object.entries(k.renamed).map(([q, vs]) => [q, new Map(Object.entries(vs))]));
+    REREAD = k.reread || [];
     offered = new Set(k.lines.flatMap((l) => l.offer || []));
     RULE_OF = new Map(k.one_rule.flatMap((ats, r) => ats.map((at) => [at, r])));
     const down = (m) => [m, ...(k.parts[m] || []).flatMap(down)];
     const up = (m) => k.muscles.filter((p) => (k.parts[p] || []).includes(m)).flatMap((p) => [p, ...up(p)]);
     WITHIN = new Map(k.muscles.map((m) => [m, new Set(down(m))]));
     ABOVE = new Map(k.muscles.map((m) => [m, new Set(up(m))]));
+    NAMED_AT = null;
+    NAME_OF = new Map();
 }
 export const isObject = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
 export const isString = (v) => typeof v === 'string';
@@ -802,6 +865,8 @@ export const KEY_SHAPE = {
     attributes: listOf(shaped(ATTRIBUTE_SHAPE)), after: mapOf(listOf(isString)), joints: mapOf(isString), lines: listOf(isLine), defaults: listOf(isDefaultLine),
     muscles: listOf(isString), parts: mapOf(listOf(isString)), one_rule: listOf(listOf((n) => Number.isInteger(n) && n >= 0)),
     retired: listOf(shaped({ attr: isString, value: isString })), renamed: mapOf(mapOf(isString)),
+    reread: listOf((l) => isObject(l) && isObject(l.when) && (l.set !== undefined || l.clear !== undefined)
+        && (l.set === undefined || mapOf(listOf(isString))(l.set)) && (l.clear === undefined || listOf(isString)(l.clear))),
     zero_weight: isObject,
     named: listOf(shaped({ name: isString, answers: mapOf(listOf(isString)) })),
     said: shaped({ order: listOf(isString), lines: listOf((l) => isObject(l) && isObject(l.when) && mapOf(listOf(isString))(l.for)
@@ -847,7 +912,10 @@ export function fieldsOf(c, byValue = false) {
 // hold more of the given answers ahead of those that never gave them. It names no question (law 8).
 export function learned(descriptions) {
     const past = descriptions.filter((d) => d.landedAt).map((d) => {
-        const own = answersAt(d);
+        // Read as today's answers (reread.md): the taps keep their words, so without this a past description saved under an
+        // old word would contradict one in today's answers and lose its vote on every later question. A question a line
+        // decided keeps its vote, since the answer began as the lifter's own tap, so a guess line's answer can be learned.
+        const own = readAnswers(answersAt(d)).answers;
         const votes = new Set(Object.keys(own).filter((q) => {
             const last = [...d.taps].reverse().find((t) => t.attr === q && !t.mark && ['answer', 'other', 'card_answer', 'back', 'left'].includes(t.kind));
             return !!last && (last.kind === 'answer' || last.kind === 'other') && !last.by;
