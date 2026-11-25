@@ -1,6 +1,6 @@
 {
  "format": "43115c7358",
- "version": "10.93",
+ "version": "10.94",
  "date": "2026-11-25",
  "attributes": [
   {
@@ -311,18 +311,18 @@
    "label": "load at",
    "about": "A hack squat's shoulder pads and back pad both move with the load, so both count as on the shoulders",
    "values": [
-    "in the hands",
-    "on the back",
-    "on the thighs",
-    "on the feet",
-    "on the shoulders",
-    "on the hips",
-    "on the shins or ankles",
-    "on the upper arms",
+    "hands",
+    "back",
+    "thighs",
+    "feet",
+    "shoulders",
+    "hips",
+    "shins or ankles",
+    "upper arms",
     "front rack",
-    "at the chest",
-    "at the head",
-    "on the forearms"
+    "chest",
+    "head",
+    "forearms"
    ],
    "multi": true,
    "filled": false
@@ -460,8 +460,8 @@
    "label": "higher",
    "about": "",
    "values": [
-    "your hands",
-    "your feet",
+    "hands",
+    "feet",
     "level"
    ],
    "multi": false,
@@ -602,7 +602,7 @@
    "about": "Where the held elbow sits on a curl or an extension",
    "values": [
     "in front",
-    "at the side",
+    "by your side",
     "behind",
     "overhead",
     "out to the side"
@@ -2223,8 +2223,8 @@
       },
       "load_position": {
        "$in": [
-        "on the feet",
-        "on the shoulders"
+        "feet",
+        "shoulders"
        ]
       }
      },
@@ -2264,7 +2264,7 @@
       },
       "load_position": {
        "$in": [
-        "on the shoulders"
+        "shoulders"
        ]
       }
      }
@@ -2308,7 +2308,7 @@
    "when": {
     "load_position": {
      "$in": [
-      "in the hands",
+      "hands",
       "front rack"
      ]
     }
@@ -4051,7 +4051,7 @@
     },
     "which_higher": {
      "$in": [
-      "your hands"
+      "hands"
      ]
     },
     "handle_way": {
@@ -4096,7 +4096,7 @@
     },
     "which_higher": {
      "$in": [
-      "your feet"
+      "feet"
      ]
     },
     "handle_way": {
@@ -5261,8 +5261,8 @@
     },
     "load_position": {
      "$in": [
-      "on the feet",
-      "on the shoulders"
+      "feet",
+      "shoulders"
      ]
     }
    },
@@ -5312,7 +5312,7 @@
     },
     "load_position": {
      "$in": [
-      "on the shoulders"
+      "shoulders"
      ]
     }
    },
@@ -6311,7 +6311,7 @@
     },
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     }
    },
@@ -7550,7 +7550,7 @@
     },
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     }
    },
@@ -9744,7 +9744,7 @@
     },
     "load_position": {
      "$in": [
-      "on the feet"
+      "feet"
      ]
     },
     "laterality": {
@@ -10096,7 +10096,7 @@
     },
     "load_position": {
      "$in": [
-      "on the shins or ankles"
+      "shins or ankles"
      ]
     }
    },
@@ -10149,7 +10149,7 @@
     },
     "elbow_position": {
      "$in": [
-      "at the side",
+      "by your side",
       "behind"
      ]
     }
@@ -10169,7 +10169,7 @@
     },
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     }
    },
@@ -10243,7 +10243,7 @@
    "when": {
     "load_position": {
      "$in": [
-      "on the shins or ankles"
+      "shins or ankles"
      ]
     },
     "mover": {
@@ -10355,7 +10355,7 @@
     },
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     }
    },
@@ -10521,8 +10521,8 @@
    },
    "exclude": {
     "load_position": [
-     "on the shoulders",
-     "on the back",
+     "shoulders",
+     "back",
      "front rack"
     ]
    }
@@ -10618,7 +10618,7 @@
     },
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     }
    },
@@ -10643,15 +10643,15 @@
    },
    "exclude": {
     "load_position": [
-     "at the chest",
-     "at the head",
+     "chest",
+     "head",
      "front rack",
-     "on the back",
-     "on the feet",
-     "on the hips",
-     "on the shins or ankles",
-     "on the shoulders",
-     "on the thighs"
+     "back",
+     "feet",
+     "hips",
+     "shins or ankles",
+     "shoulders",
+     "thighs"
     ]
    }
   },
@@ -10669,7 +10669,7 @@
     },
     "elbow_position": {
      "$in": [
-      "at the side"
+      "by your side"
      ]
     },
     "posture": {
@@ -10957,7 +10957,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -11368,13 +11368,13 @@
    },
    "exclude": {
     "load_position": [
-     "on the back",
-     "on the shoulders",
-     "on the upper arms",
+     "back",
+     "shoulders",
+     "upper arms",
      "front rack",
-     "at the chest",
-     "at the head",
-     "on the forearms"
+     "chest",
+     "head",
+     "forearms"
     ]
    }
   },
@@ -11488,14 +11488,14 @@
    },
    "exclude": {
     "load_position": [
-     "on the back",
-     "on the feet",
-     "on the shoulders",
-     "on the shins or ankles",
-     "on the upper arms",
+     "back",
+     "feet",
+     "shoulders",
+     "shins or ankles",
+     "upper arms",
      "front rack",
-     "at the head",
-     "on the forearms"
+     "head",
+     "forearms"
     ]
    }
   },
@@ -12118,7 +12118,7 @@
     },
     "elbow_position": {
      "$in": [
-      "at the side"
+      "by your side"
      ]
     },
     "posture": {
@@ -12159,7 +12159,7 @@
     },
     "elbow_position": {
      "$in": [
-      "at the side"
+      "by your side"
      ]
     },
     "posture": {
@@ -12195,7 +12195,7 @@
     },
     "elbow_position": {
      "$in": [
-      "at the side",
+      "by your side",
       "behind"
      ]
     }
@@ -12285,10 +12285,10 @@
    },
    "exclude": {
     "load_position": [
-     "at the head",
-     "on the hips",
-     "on the shins or ankles",
-     "on the thighs"
+     "head",
+     "hips",
+     "shins or ankles",
+     "thighs"
     ]
    }
   },
@@ -12618,7 +12618,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -12632,7 +12632,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -12898,7 +12898,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -13539,8 +13539,8 @@
         "load_position": {
          "$exists": true,
          "$nin": [
-          "on the upper arms",
-          "on the forearms"
+          "upper arms",
+          "forearms"
          ]
         }
        },
@@ -13553,7 +13553,7 @@
         "load_position": {
          "$exists": true,
          "$nin": [
-          "on the upper arms"
+          "upper arms"
          ]
         }
        }
@@ -13607,8 +13607,8 @@
         "load_position": {
          "$exists": true,
          "$nin": [
-          "on the upper arms",
-          "on the forearms"
+          "upper arms",
+          "forearms"
          ]
         }
        },
@@ -13621,7 +13621,7 @@
         "load_position": {
          "$exists": true,
          "$nin": [
-          "on the upper arms"
+          "upper arms"
          ]
         }
        }
@@ -13791,7 +13791,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -13799,7 +13799,7 @@
    "when": {
     "load_position": {
      "$in": [
-      "in the hands"
+      "hands"
      ]
     },
     "$or": [
@@ -13869,7 +13869,7 @@
    },
    "fill": {
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -14039,7 +14039,7 @@
    },
    "exclude": {
     "load_position": [
-     "at the head"
+     "head"
     ]
    }
   },
@@ -14061,7 +14061,7 @@
    },
    "exclude": {
     "load_position": [
-     "on the upper arms"
+     "upper arms"
     ]
    }
   },
@@ -14090,7 +14090,7 @@
    },
    "exclude": {
     "load_position": [
-     "at the chest"
+     "chest"
     ]
    }
   },
@@ -14104,7 +14104,7 @@
    },
    "exclude": {
     "load_position": [
-     "on the upper arms"
+     "upper arms"
     ]
    }
   },
@@ -14118,7 +14118,7 @@
    },
    "exclude": {
     "load_position": [
-     "at the chest"
+     "chest"
     ]
    }
   },
@@ -14132,7 +14132,7 @@
    },
    "exclude": {
     "load_position": [
-     "at the head"
+     "head"
     ]
    }
   },
@@ -14302,6 +14302,29 @@
   },
   {
    "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ],
+     "$nin": [
+      "shoulder"
+     ],
+     "$exists": true
+    }
+   },
+   "exclude": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
     "posture": {
      "$in": [
       "seated"
@@ -14429,7 +14452,7 @@
    },
    "default": {
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ]
    }
   },
@@ -14684,7 +14707,18 @@
    "stationary": "in place"
   },
   "load_position": {
-   "on the shins": "on the shins or ankles"
+   "on the shins": "shins or ankles",
+   "in the hands": "hands",
+   "on the back": "back",
+   "on the thighs": "thighs",
+   "on the feet": "feet",
+   "on the shoulders": "shoulders",
+   "on the hips": "hips",
+   "on the shins or ankles": "shins or ankles",
+   "on the upper arms": "upper arms",
+   "at the chest": "chest",
+   "at the head": "head",
+   "on the forearms": "forearms"
   },
   "start_position": {
    "standing": "on your body",
@@ -14692,6 +14726,13 @@
    "from the top": "on your body",
    "from the floor": "on the floor",
    "from rack pins or blocks": "on rack pins or blocks"
+  },
+  "elbow_position": {
+   "at the side": "by your side"
+  },
+  "which_higher": {
+   "your hands": "hands",
+   "your feet": "feet"
   }
  },
  "retired": [
@@ -14853,7 +14894,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "scapula_action": [
      "elevation"
@@ -14911,7 +14952,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "scapula_action": [
      "retraction"
@@ -14965,7 +15006,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "shoulder_action": [
      "horizontal adduction"
@@ -15056,7 +15097,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "horizontal"
@@ -15110,7 +15151,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -15154,7 +15195,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -15209,7 +15250,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -15259,7 +15300,7 @@
      "single"
     ],
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ],
     "relative_direction": [
      "vertical"
@@ -15297,7 +15338,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "incline"
@@ -15399,7 +15440,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "incline"
@@ -15434,7 +15475,7 @@
      "pin-loaded"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -15470,7 +15511,7 @@
      "pin-loaded"
     ],
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ]
    }
   },
@@ -15580,7 +15621,7 @@
      "body weight"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "vertical"
@@ -15648,7 +15689,7 @@
      "plate-loaded"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "scapula_action": [
      "elevation"
@@ -15711,7 +15752,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "cable_attachment": [
      "handles"
@@ -15764,10 +15805,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "start_position": [
      "hanging at my sides"
@@ -15835,16 +15876,16 @@
      "barbell"
     ],
     "which_higher": [
-     "your hands"
+     "hands"
     ],
     "activity_type": [
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "foot_placement": [
      "middle"
@@ -15903,10 +15944,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ]
    }
   },
@@ -15956,7 +15997,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -16007,7 +16048,7 @@
      "single"
     ],
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ]
    }
   },
@@ -16048,7 +16089,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "start_position": [
      "on your body"
@@ -16112,7 +16153,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "start_position": [
      "bottom"
@@ -16159,7 +16200,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "in front"
@@ -16212,10 +16253,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "start_position": [
      "bottom"
@@ -16259,7 +16300,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "start_position": [
      "top"
@@ -16312,7 +16353,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "start_position": [
      "on your body"
@@ -16395,7 +16436,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "cable_attachment": [
      "d-handle"
@@ -16456,7 +16497,7 @@
      "single"
     ],
     "load_position": [
-     "on the hips"
+     "hips"
     ],
     "relative_direction": [
      "vertical"
@@ -16501,7 +16542,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "cable_attachment": [
      "d-handle"
@@ -16552,7 +16593,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "cable_attachment": [
      "d-handle"
@@ -16606,7 +16647,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "in front"
@@ -16659,7 +16700,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "in front"
@@ -16715,7 +16756,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -16756,10 +16797,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "relative_direction": [
      "vertical"
@@ -16810,10 +16851,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "shoulder_action": [
      "extension"
@@ -16857,7 +16898,7 @@
      "treadmill"
     ],
     "load_position": [
-     "on the feet"
+     "feet"
     ],
     "relative_direction": [
      "vertical"
@@ -16892,7 +16933,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "cable_attachment": [
      "rope"
@@ -16933,10 +16974,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ]
    }
   },
@@ -16983,7 +17024,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -17034,7 +17075,7 @@
      "single"
     ],
     "load_position": [
-     "on the feet"
+     "feet"
     ]
    }
   },
@@ -17083,7 +17124,7 @@
      "single"
     ],
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ]
    }
   },
@@ -17118,10 +17159,10 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
-     "at the side"
+     "by your side"
     ],
     "relative_direction": [
      "vertical"
@@ -17179,7 +17220,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17217,7 +17258,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "in front"
@@ -17274,7 +17315,7 @@
      "single"
     ],
     "load_position": [
-     "on the upper arms"
+     "upper arms"
     ],
     "relative_direction": [
      "lateral"
@@ -17316,7 +17357,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17370,7 +17411,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17414,7 +17455,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "horizontal"
@@ -17462,7 +17503,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "in front"
@@ -17500,7 +17541,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "vertical"
@@ -17550,7 +17591,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "relative_direction": [
      "vertical"
@@ -17596,7 +17637,7 @@
      "single"
     ],
     "load_position": [
-     "on the shoulders"
+     "shoulders"
     ],
     "foot_placement": [
      "low"
@@ -17644,7 +17685,7 @@
      "single"
     ],
     "load_position": [
-     "on the shins or ankles"
+     "shins or ankles"
     ]
    }
   },
@@ -17699,7 +17740,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17740,7 +17781,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands",
+     "hands",
      "on the wrists"
     ],
     "relative_direction": [
@@ -17761,7 +17802,7 @@
      "pin-loaded"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17826,7 +17867,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ]
    }
   },
@@ -17876,7 +17917,7 @@
      "single"
     ],
     "load_position": [
-     "on the thighs"
+     "thighs"
     ]
    }
   },
@@ -17922,7 +17963,7 @@
      "single"
     ],
     "load_position": [
-     "on the feet"
+     "feet"
     ],
     "foot_placement": [
      "low"
@@ -17974,7 +18015,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "relative_direction": [
      "vertical"
@@ -18018,7 +18059,7 @@
      "single"
     ],
     "load_position": [
-     "in the hands"
+     "hands"
     ],
     "elbow_position": [
      "overhead"
@@ -18184,6 +18225,40 @@
     {
      "value": "decline",
      "words": "angled down"
+    }
+   ]
+  },
+  {
+   "of": "relative_direction",
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ],
+     "$nin": [
+      "shoulder"
+     ],
+     "$exists": true
+    }
+   },
+   "ask": "Which way do you raise your legs?",
+   "answers": [
+    {
+     "value": "lateral",
+     "words": "out to your side"
+    },
+    {
+     "value": "forward",
+     "words": "out in front of you"
+    },
+    {
+     "value": "horizontal",
+     "words": "out behind you"
     }
    ]
   }
