@@ -1,6 +1,6 @@
 {
  "format": "43115c7358",
- "version": "10.94",
+ "version": "10.95",
  "date": "2026-11-25",
  "attributes": [
   {
@@ -2511,18 +2511,6 @@
     "movement": {
      "$in": [
       "row"
-     ]
-    }
-   },
-   "reveal": [
-    "relative_direction"
-   ]
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "raise"
      ]
     }
    },
@@ -14325,6 +14313,49 @@
   },
   {
    "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ],
+     "$size": 1
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "fill": {
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$exists": true,
+     "$nin": [
+      "ankle"
+     ]
+    }
+   },
+   "reveal": [
+    "relative_direction"
+   ]
+  },
+  {
+   "when": {
     "posture": {
      "$in": [
       "seated"
@@ -14638,6 +14669,7 @@
  },
  "one_rule": [
   [
+   330,
    331,
    332,
    333,
@@ -14698,8 +14730,7 @@
    388,
    389,
    390,
-   391,
-   392
+   391
   ]
  ],
  "renamed": {
@@ -18154,6 +18185,12 @@
     "movement": {
      "$in": [
       "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder",
+      "elbow"
      ]
     }
    },
