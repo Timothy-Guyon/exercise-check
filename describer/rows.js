@@ -337,3 +337,40 @@ export function stateOf(rows, blank, partial = false) {
 }
 // Rows in batches for the door in, in the order made, so a row's references are in its batch or an earlier one.
 export const batchesOf = (rows, size = 1000) => Array.from({ length: Math.ceil(rows.length / size) }, (_, i) => rows.slice(i * size, (i + 1) * size));
+// Name rulings (name-rulings.md, names step 2a): the shared tables no lifter owns, their keys in the order rows are
+// sent. A ruled set's id is the hash of its answers, each question's values sorted, so the same answers are the same set
+// whoever writes them; its answers are all key, so a set never changes. `rulingRows` and `rulingsOf` are the only maker
+// and the only reader of these rows.
+export const RULING_TABLES = { ruled_sets: ['id'], ruled_set_answers: ['ruled_set', 'question', 'value'], name_rulings: ['ruled_set', 'name', 'ruled_at'] };
+export const ruledSetId = (answers) => hashOf(Object.fromEntries(Object.entries(answers).filter(([, vs]) => vs.length).map(([q, vs]) => [q, [...new Set(vs)].sort()])));
+export function rulingRows(rulings) {
+    const rows = [];
+    const seen = new Set();
+    for (const r of rulings) {
+        const id = ruledSetId(r.answers);
+        if (!seen.has(id)) {
+            seen.add(id);
+            rows.push({ table: 'ruled_sets', id });
+            for (const question of Object.keys(r.answers).sort())
+                for (const value of [...new Set(r.answers[question])].sort())
+                    rows.push({ table: 'ruled_set_answers', ruled_set: id, question, value });
+        }
+        rows.push({ table: 'name_rulings', ruled_set: id, name: r.name, ruled_at: r.t, verdict: r.verdict, review: r.review, why: orNull(r.why) });
+    }
+    const order = Object.keys(RULING_TABLES);
+    return rows.map((r, i) => ({ r, i })).sort((x, y) => order.indexOf(x.r.table) - order.indexOf(y.r.table) || x.i - y.i).map((x) => x.r);
+}
+export function rulingsOf(rows) {
+    const answers = new Map();
+    for (const r of rows)
+        if (r.table === 'ruled_sets')
+            answers.set(String(r.id), {});
+    for (const r of rows)
+        if (r.table === 'ruled_set_answers') {
+            const c = answers.get(String(r.ruled_set));
+            if (c)
+                (c[String(r.question)] ||= []).push(String(r.value));
+        }
+    return rows.filter((r) => r.table === 'name_rulings' && answers.has(String(r.ruled_set))).map((r) => ({ answers: answers.get(String(r.ruled_set)), name: String(r.name), verdict: r.verdict,
+        t: String(r.ruled_at), review: String(r.review), ...(r.why === null || r.why === undefined ? {} : { why: String(r.why) }) }));
+}
