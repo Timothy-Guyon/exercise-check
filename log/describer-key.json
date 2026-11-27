@@ -1,6 +1,6 @@
 {
  "format": "cd7cbd443a",
- "version": "10.97",
+ "version": "10.98",
  "date": "2026-11-27",
  "attributes": [
   {
@@ -522,9 +522,9 @@
    "key": "knee_bend",
    "ask": "How bent are the knees?",
    "label": "knees",
-   "about": "",
+   "about": "How bent the knees are held through the rep.",
    "values": [
-    "soft",
+    "straight",
     "bent"
    ],
    "multi": false,
@@ -1534,151 +1534,6 @@
       "pin-loaded",
       "plate-loaded",
       "smith"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "raise"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded",
-      "plate-loaded",
-      "smith"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "fly"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "reverse fly"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded",
-      "plate-loaded"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "abduction"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "rotation"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "bridge"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "pin-loaded",
-      "plate-loaded",
-      "smith"
-     ]
-    }
-   },
-   "fill": {
-    "modality": [
-     "resistance"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "pullover"
-     ]
-    },
-    "machine_type": {
-     "$in": [
-      "cable",
-      "pin-loaded",
-      "plate-loaded"
      ]
     }
    },
@@ -2896,6 +2751,30 @@
    "reveal": [
     "support"
    ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "shoulders"
+     ]
+    }
+   },
+   "exclude": {
+    "posture": [
+     "seated upright"
+    ]
+   }
   },
   {
    "when": {
@@ -14097,6 +13976,34 @@
   },
   {
    "when": {
+    "machine_type": {
+     "$in": [
+      "cable",
+      "pin-loaded",
+      "plate-loaded",
+      "smith"
+     ]
+    },
+    "movement": {
+     "$in": [
+      "raise",
+      "fly",
+      "reverse fly",
+      "abduction",
+      "rotation",
+      "bridge",
+      "pullover"
+     ]
+    }
+   },
+   "fill": {
+    "modality": [
+     "resistance"
+    ]
+   }
+  },
+  {
+   "when": {
     "movement": {
      "$in": [
       "press"
@@ -14296,6 +14203,94 @@
    "default": {
     "support": [
      "bench or seat"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "seated upright"
+     ]
+    },
+    "$or": [
+     {
+      "load_source": {
+       "$in": [
+        "barbell",
+        "dumbbell",
+        "kettlebell"
+       ]
+      }
+     },
+     {
+      "machine_type": {
+       "$in": [
+        "cable",
+        "smith"
+       ]
+      }
+     }
+    ],
+    "movement": {
+     "$exists": true,
+     "$nin": [
+      "rotation",
+      "stretch"
+     ]
+    }
+   },
+   "default": {
+    "support": [
+     "bench or seat"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    },
+    "load_position": {
+     "$in": [
+      "shoulders"
+     ]
+    }
+   },
+   "default": {
+    "posture": [
+     "standing"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "ankle"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    }
+   },
+   "default": {
+    "knee_bend": [
+     "straight"
     ]
    }
   },
@@ -14634,6 +14629,12 @@
  },
  "one_rule": [
   [
+   324,
+   325,
+   326,
+   327,
+   328,
+   329,
    330,
    331,
    332,
@@ -14689,13 +14690,7 @@
    382,
    383,
    384,
-   385,
-   386,
-   387,
-   388,
-   389,
-   390,
-   391
+   385
   ]
  ],
  "renamed": {
@@ -16010,7 +16005,7 @@
      "row"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "elbow_path": [
      "tucked"
@@ -16093,7 +16088,7 @@
      "row"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "elbow_path": [
      "tucked"
@@ -16161,7 +16156,7 @@
      "row"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "elbow_path": [
      "tucked"
@@ -16217,7 +16212,7 @@
      "row"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "elbow_path": [
      "tucked"
@@ -16529,7 +16524,7 @@
      "raise"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "laterality": [
      "independent"
@@ -16626,7 +16621,7 @@
      "hinge"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "hand_width": [
      "shoulder width"
@@ -16679,7 +16674,7 @@
      "hinge"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "hand_width": [
      "shoulder width"
@@ -17156,7 +17151,7 @@
      "curl"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "hand_width": [
      "shoulder width"
@@ -17431,7 +17426,7 @@
      "press"
     ],
     "knee_bend": [
-     "soft"
+     "straight"
     ],
     "laterality": [
      "bilateral"
