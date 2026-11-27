@@ -4,7 +4,7 @@
   infinite scroll timeline of all of their sets ... grouped by day"), a tool for their own use of the Describer, not a bet; then their
   "a name dropdown and have it not be filtered by names by default ... annotate each set with the name of the person
   who logged it" (23:13:57 UTC): everyone's sets in one feed, each with its name, and a dropdown to narrow it to one.
-  It reads what the Describer already saves and changes nothing: describer_timeline (describer/describer-records.sql),
+  It reads what the Describer already saves and changes nothing: describer_group (describer/describer-rows.sql),
   every name's newest record of each day, with the code the link carries after '#', and the Key the Describer serves
   beside it for the labels and their order. Served from exercise-check/timeline/, copied there by hand.
 -->
@@ -46,6 +46,7 @@
 <script type="module">
 // How the Key runs, a card's lines, the day's cards and their words are the Describer's own (describer/typescript-move.md).
 import { holdKey, readKey, cardLines, survivorOf, daysOf, dayWords, clock, readAnswers, placedBy } from '../describer/engine.js';
+import { stateOf } from '../describer/rows.js';
 const SERVER = { url: 'https://hnyvbuvzfyjfffbonngo.supabase.co', key: 'sb_publishable_Lz-SVsTTyPr0GVf7bLfQ-Q_V3FLRyIW' };
 const code = (() => { try { return decodeURIComponent(location.hash.slice(1)).trim(); } catch { return ''; } })();
 const $ = (id) => document.getElementById(id);
@@ -60,12 +61,17 @@ const loadKey = async () => {
   holdKey(k); return (KEY = k);
 };
 
-// Each name's newest record of each day, as describer_record gives one name's.
+// Each name's record, read from its rows (describer_group, describer/describer-rows.sql) by the same reader the apps
+// use (describer/rows.ts, served as rows.js), in the shape the documents had.
 async function readAll() {
-  const r = await fetch(`${SERVER.url}/rest/v1/rpc/describer_timeline`, { method: 'POST', headers: { apikey: SERVER.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: code }) });
+  const r = await fetch(`${SERVER.url}/rest/v1/rpc/describer_group`, { method: 'POST', headers: { apikey: SERVER.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_code: code }) });
   if (!r.ok) throw new Error(`the server answered ${r.status}`);
-  const rows = await r.json();
-  return Array.isArray(rows) ? rows : [];
+  const group = await r.json();
+  const blank = { name: '', phone: '', exercises: [], descriptions: [], sets: [], values: {}, attributes: [], additions: [], moves: [], offers: [] };
+  return (Array.isArray(group) ? group : []).map((g) => {
+    const s = stateOf(g.rows || [], blank, true);
+    return { tester: g.tester, doc: { savedAt: '', sets: s.sets, exercises: s.exercises, attributes: s.attributes, moves: s.moves } };
+  });
 }
 
 let ALL = null;
