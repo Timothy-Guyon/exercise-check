@@ -509,23 +509,14 @@ export const lineParts = (k, n, added) => MUSCLE_ROLES.includes(k) ? { label: 'm
 // An option is a filter and its value, its words from the Key each time (version 10.90, log-finder-feed.md, the
 // Technical Advisor's shape): labelled, the card's line, "load: machine", "muscles: biceps as synergist"; unlabelled,
 // the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
-// An exercise's given answers (aliases-spec.md): its coordinates, the muscle roles and a rule's fills left out.
-export const givenAnswers = (ex) => Object.fromEntries(Object.entries(ex.coords).filter(([k, vs]) => vs.length && !MUSCLE_ROLES.includes(k) && !(ex.derived || []).includes(k)));
-// Its expert name (aliases-spec.md, the correction of 2026-11-25): the Key's `named` entry whose answers, read with the
-// fills of the Key held, equal its given answers read the same way, the muscle roles left out; else ''. Both sides go
-// through the Key held, so a rule that fills an answer an entry holds takes no name away: until then the match was on
-// the given answers alone, and each new fill took the name off every fresh description it reached.
+// The key the build checks the Key's frozen `named` entries by (describer-key.ts) until they leave the Key (step 2c).
 export const namedKey = (given) => coordKey(Object.fromEntries(Object.entries(stored(given).coords).filter(([k]) => !MUSCLE_ROLES.includes(k))));
-// The map is made at the first name asked for after a Key is held, not in holdKey: it reads each entry through `stored`,
-// which needs the whole Key bound, and the build and the desk tools hold Keys without ever asking for a name.
-let NAMED_AT = null;
-let NAME_OF = new Map();
+// Since names step 2b (name-rulings.md) the name is the expert's list's: the one name of the smallest passed sets that
+// hold the Exercise's stored answers, fills included. Several names among them give none, so the built name shows and
+// the review queue holds the item. No list held is an empty list. Hoisted, since the rulings sit below.
 export function expertName(ex) {
-    NAMED_AT ??= new Map((KEY.named || []).map((e) => [namedKey(e.answers), e.name]));
-    const given = coordKey(givenAnswers(ex));
-    if (!NAME_OF.has(given))
-        NAME_OF.set(given, NAMED_AT.get(namedKey(givenAnswers(ex))) ?? '');
-    return NAME_OF.get(given);
+    const names = [...new Set(namedIn(ex.coords, passedSets()).map((s) => s.name))];
+    return names.length === 1 ? names[0] : '';
 }
 // A said line's terms (aliases-spec.md): its condition's, one per question, and its answers; a line is narrower than
 // another when its terms hold all of the other's.
@@ -704,6 +695,29 @@ const valuesOf = (c) => Object.entries(c || {}).filter(([k]) => !MUSCLE_ROLES.in
 export const holdsAll = (coords, answers) => valuesOf(answers).every(([k, v]) => (coords[k] || []).includes(v));
 // Inside: holds every non-muscle answer of `outer`, and at least one more.
 export const inside = (inner, outer) => holdsAll(inner, outer) && valuesOf(inner).length > valuesOf(outer).length;
+export const ruledKey = (answers) => coordKey(Object.fromEntries(Object.entries(readAnswers(answers).answers).filter(([k, vs]) => !MUSCLE_ROLES.includes(k) && Array.isArray(vs))));
+export const nameKey = (name) => name.trim().toLowerCase().replace(/\s+/g, ' ');
+let HELD = [];
+let RULINGS = null;
+let PASSED = null;
+export function holdRulings(all) { HELD = all; RULINGS = null; PASSED = null; }
+const standing = () => {
+    if (!RULINGS) {
+        RULINGS = new Map();
+        for (const r of [...HELD].sort((x, y) => x.t.localeCompare(y.t)))
+            RULINGS.set(`${ruledKey(r.answers)}|${nameKey(r.name)}`, r);
+    }
+    return RULINGS;
+};
+// Every standing ruling, and the one on exactly these answers and this name.
+export const standingRulings = () => [...standing().values()];
+export const rulingOn = (answers, name) => standing().get(`${ruledKey(answers)}|${nameKey(name)}`);
+export function namedIn(answers, sets) {
+    const holding = sets.filter((s) => valuesOf(s.answers).length && holdsAll(answers, s.answers));
+    return holding.filter((s) => !holding.some((o) => o !== s && inside(o.answers, s.answers)));
+}
+// The expert's list: the standing rulings that passed, each set read in the held Key's words.
+const passedSets = () => PASSED ??= standingRulings().filter((r) => r.verdict === 'passed').map((r) => ({ answers: readAnswers(r.answers).answers, name: r.name, from: 'expert' }));
 // An Exercise's own name, else the name of the nearest named Exercise it sits inside (the one with the most answers) with
 // the answers beyond it; two or more equally near with different names are a tie (his "Ask for a name", 01:29 UTC); equally
 // near with one name lend it from the one named last.
@@ -921,8 +935,8 @@ export function holdKey(k) {
     const up = (m) => k.muscles.filter((p) => (k.parts[p] || []).includes(m)).flatMap((p) => [p, ...up(p)]);
     WITHIN = new Map(k.muscles.map((m) => [m, new Set(down(m))]));
     ABOVE = new Map(k.muscles.map((m) => [m, new Set(up(m))]));
-    NAMED_AT = null;
-    NAME_OF = new Map();
+    RULINGS = null;
+    PASSED = null;
 }
 export const isObject = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
 export const isString = (v) => typeof v === 'string';
