@@ -1,7 +1,7 @@
 {
  "format": "cd7cbd443a",
- "version": "10.96",
- "date": "2026-11-25",
+ "version": "10.97",
+ "date": "2026-11-27",
  "attributes": [
   {
    "key": "movement",
@@ -363,10 +363,14 @@
    "about": "How the body is arranged",
    "values": [
     "standing",
-    "seated",
-    "lying",
+    "seated upright",
     "kneeling",
     "bent over",
+    "lying flat face-up",
+    "lying flat face-down",
+    "incline face-up",
+    "incline face-down",
+    "decline face-up",
     "side-lying",
     "hips raised",
     "upside down",
@@ -380,13 +384,13 @@
    "key": "support",
    "ask": "What is the body on?",
    "label": "on",
-   "about": "What the body rests on; blank when standing, the floor being what standing means, and one value only, what the raised or supported part rests on",
+   "about": "What the body rests on, the floor when standing on it; one value only, what the raised or supported part rests on",
    "values": [
-    "bench",
-    "seat",
+    "bench or seat",
     "floor",
     "pad",
     "ball",
+    "wedge",
     "box",
     "hanging",
     "bosu ball",
@@ -399,15 +403,13 @@
    "key": "bench_angle",
    "ask": "What angle is your torso at?",
    "label": "torso angle",
-   "about": "The line from your hips to your shoulders: flat is level, upright is straight up, 45° is halfway, and shoulders below hips is decline; on an adjustable bench, use the bench's number",
+   "about": "The line from your hips to your shoulders: flat is level and 45° is halfway to upright; on an adjustable bench, use the bench's number",
    "values": [
-    "decline",
     "flat",
     "15°",
     "30°",
     "45°",
-    "60°",
-    "upright"
+    "60°"
    ],
    "multi": false,
    "filled": false
@@ -833,7 +835,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "stance",
    "step"
@@ -846,7 +847,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "ankle_action": [
@@ -857,7 +857,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "shoulder_action": [
@@ -869,7 +868,6 @@
    "relative_direction",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -947,7 +945,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -963,7 +960,6 @@
    "load_position",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "posture": [
@@ -1012,7 +1008,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "which_higher": [
@@ -1023,7 +1018,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet"
@@ -1037,7 +1031,6 @@
    "relative_direction",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -1051,7 +1044,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "foot_placement": [
@@ -1071,7 +1063,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "start_position": [
@@ -1086,7 +1077,6 @@
    "mover",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -1121,7 +1111,6 @@
    "relative_direction",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -1136,7 +1125,6 @@
    "machine_type",
    "posture",
    "support",
-   "bench_angle",
    "handle_way"
   ],
   "step": [
@@ -1239,7 +1227,6 @@
    "mover",
    "posture",
    "support",
-   "bench_angle",
    "handle_way",
    "hands",
    "feet",
@@ -2064,10 +2051,10 @@
    "when": {
     "$or": [
      {
-      "support": {
+      "posture": {
        "$in": [
-        "bench",
-        "seat"
+        "incline face-up",
+        "incline face-down"
        ]
       }
      },
@@ -2076,6 +2063,11 @@
        "$in": [
         "row",
         "reverse fly"
+       ]
+      },
+      "posture": {
+       "$in": [
+        "bent over"
        ]
       },
       "$or": [
@@ -2156,7 +2148,7 @@
     },
     "posture": {
      "$in": [
-      "lying",
+      "lying flat face-down",
       "hips raised"
      ]
     }
@@ -2179,7 +2171,7 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-down"
      ]
     },
     "hands": {
@@ -2665,7 +2657,8 @@
     "posture": {
      "$in": [
       "standing",
-      "seated",
+      "seated upright",
+      "incline face-up",
       "leaning away",
       "leaning toward"
      ]
@@ -2804,7 +2797,7 @@
     }
    },
    "reveal": [
-    "support"
+    "posture"
    ]
   },
   {
@@ -2832,7 +2825,7 @@
     }
    },
    "reveal": [
-    "support"
+    "posture"
    ]
   },
   {
@@ -2848,10 +2841,10 @@
       "shoulder"
      ]
     },
-    "support": {
+    "posture": {
      "$in": [
-      "bench",
-      "seat"
+      "lying flat face-up",
+      "seated upright"
      ]
     },
     "load_source": {
@@ -2867,7 +2860,7 @@
     }
    },
    "reveal": [
-    "bench_angle"
+    "support"
    ]
   },
   {
@@ -2882,10 +2875,10 @@
       "shoulder"
      ]
     },
-    "support": {
+    "posture": {
      "$in": [
-      "bench",
-      "seat"
+      "lying flat face-up",
+      "seated upright"
      ]
     },
     "machine_type": {
@@ -2901,25 +2894,34 @@
     }
    },
    "reveal": [
+    "support"
+   ]
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "incline face-up"
+     ]
+    }
+   },
+   "reveal": [
     "bench_angle"
    ]
   },
   {
    "when": {
-    "movement": {
+    "posture": {
      "$in": [
-      "press"
-     ]
-    },
-    "bench_angle": {
-     "$in": [
-      "flat"
+      "incline face-up",
+      "incline face-down",
+      "decline face-up"
      ]
     }
    },
-   "fill": {
-    "posture": [
-     "lying"
+   "exclude": {
+    "support": [
+     "bench or seat"
     ]
    }
   },
@@ -2927,29 +2929,14 @@
    "when": {
     "posture": {
      "$in": [
-      "seated"
+      "incline face-up",
+      "incline face-down"
      ]
     }
    },
    "exclude": {
     "bench_angle": [
-     "flat",
-     "decline"
-    ]
-   }
-  },
-  {
-   "when": {
-    "bench_angle": {
-     "$in": [
-      "flat",
-      "decline"
-     ]
-    }
-   },
-   "exclude": {
-    "posture": [
-     "seated"
+     "flat"
     ]
    }
   },
@@ -3035,15 +3022,32 @@
   },
   {
    "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
     "posture": {
      "$in": [
       "standing"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
      ]
     }
    },
    "exclude": {
     "support": [
-     "floor"
+     "bench or seat",
+     "floor",
+     "pad",
+     "ball",
+     "hanging",
+     "bosu ball",
+     "bars"
     ]
    }
   },
@@ -3075,9 +3079,9 @@
       "press"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "flat"
+      "lying flat face-up"
      ]
     },
     "$or": [
@@ -3125,12 +3129,9 @@
       "press"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "15°",
-      "30°",
-      "45°",
-      "60°"
+      "incline face-up"
      ]
     },
     "$or": [
@@ -3178,9 +3179,9 @@
       "press"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "upright"
+      "seated upright"
      ]
     },
     "$or": [
@@ -3228,9 +3229,9 @@
       "press"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "decline"
+      "decline face-up"
      ]
     },
     "$or": [
@@ -3278,9 +3279,9 @@
       "fly"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "flat"
+      "lying flat face-up"
      ]
     },
     "load_source": {
@@ -3306,12 +3307,9 @@
       "fly"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "15°",
-      "30°",
-      "45°",
-      "60°"
+      "incline face-up"
      ]
     },
     "load_source": {
@@ -3337,9 +3335,9 @@
       "fly"
      ]
     },
-    "bench_angle": {
+    "posture": {
      "$in": [
-      "decline"
+      "decline face-up"
      ]
     },
     "load_source": {
@@ -3392,7 +3390,8 @@
     "posture": {
      "$in": [
       "bent over",
-      "lying"
+      "lying flat face-down",
+      "incline face-down"
      ]
     },
     "load_source": {
@@ -3678,7 +3677,7 @@
     },
     "posture": {
      "$in": [
-      "seated",
+      "seated upright",
       "standing"
      ]
     }
@@ -3710,7 +3709,7 @@
     },
     "posture": {
      "$in": [
-      "seated",
+      "seated upright",
       "standing"
      ]
     }
@@ -3794,7 +3793,7 @@
     },
     "posture": {
      "$in": [
-      "lying",
+      "lying flat face-down",
       "hips raised"
      ]
     }
@@ -3817,7 +3816,7 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-down"
      ]
     },
     "hands": {
@@ -3853,7 +3852,11 @@
    },
    "exclude": {
     "posture": [
-     "seated"
+     "seated upright",
+     "lying flat face-up",
+     "incline face-up",
+     "incline face-down",
+     "decline face-up"
     ]
    }
   },
@@ -3947,7 +3950,7 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-down"
      ]
     },
     "hands": {
@@ -3984,7 +3987,7 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-down"
      ]
     },
     "hands": {
@@ -4017,11 +4020,6 @@
     "load_source": {
      "$in": [
       "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "lying"
      ]
     },
     "hands": {
@@ -4064,11 +4062,6 @@
       "body weight"
      ]
     },
-    "posture": {
-     "$in": [
-      "lying"
-     ]
-    },
     "hands": {
      "$in": [
       "on handles or dumbbells",
@@ -4107,11 +4100,6 @@
     "load_source": {
      "$in": [
       "body weight"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "lying"
      ]
     },
     "hands": {
@@ -5940,36 +5928,6 @@
       "raise"
      ]
     },
-    "shoulder_action": {
-     "$in": [
-      "flexion"
-     ]
-    },
-    "posture": {
-     "$in": [
-      "standing",
-      "seated"
-     ]
-    },
-    "modality": {
-     "$in": [
-      "resistance"
-     ]
-    }
-   },
-   "fill": {
-    "target": [
-     "front delts"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "raise"
-     ]
-    },
     "ankle_action": {
      "$in": [
       "plantar flexion"
@@ -6038,7 +5996,39 @@
     "posture": {
      "$in": [
       "standing",
-      "seated"
+      "seated upright",
+      "incline face-up"
+     ]
+    },
+    "modality": {
+     "$in": [
+      "resistance"
+     ]
+    }
+   },
+   "fill": {
+    "target": [
+     "front delts"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "raise"
+     ]
+    },
+    "shoulder_action": {
+     "$in": [
+      "flexion"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing",
+      "seated upright",
+      "incline face-up"
      ]
     },
     "modality": {
@@ -6063,6 +6053,11 @@
     "shoulder_action": {
      "$in": [
       "flexion"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "incline face-up"
      ]
     },
     "bench_angle": {
@@ -6161,7 +6156,8 @@
     "posture": {
      "$in": [
       "standing",
-      "seated",
+      "seated upright",
+      "incline face-up",
       "kneeling",
       "leaning away",
       "side-lying"
@@ -7072,61 +7068,17 @@
       "press"
      ]
     },
+    "posture": {
+     "$in": [
+      "incline face-up"
+     ]
+    },
     "bench_angle": {
      "$in": [
       "15°",
       "30°"
      ]
-    },
-    "$and": [
-     {
-      "$or": [
-       {
-        "load_source": {
-         "$exists": true,
-         "$in": [
-          "barbell",
-          "dumbbell",
-          "kettlebell"
-         ],
-         "$nin": [
-          "body weight"
-         ]
-        }
-       },
-       {
-        "machine_type": {
-         "$in": [
-          "smith"
-         ]
-        },
-        "load_source": {
-         "$exists": true,
-         "$nin": [
-          "body weight"
-         ]
-        }
-       }
-      ]
-     },
-     {
-      "$or": [
-       {
-        "braced": {
-         "$exists": false
-        }
-       },
-       {
-        "braced": {
-         "$exists": true,
-         "$nin": [
-          "chest"
-         ]
-        }
-       }
-      ]
-     }
-    ]
+    }
    },
    "exclude": {
     "synergists": [
@@ -9554,15 +9506,20 @@
       "posture": {
        "$exists": true,
        "$nin": [
-        "seated",
-        "lying"
+        "seated upright",
+        "lying flat face-up",
+        "incline face-up",
+        "decline face-up",
+        "lying flat face-down",
+        "incline face-down"
        ]
       }
      },
      {
       "posture": {
        "$in": [
-        "lying"
+        "lying flat face-up",
+        "lying flat face-down"
        ]
       },
       "support": {
@@ -9572,14 +9529,25 @@
      {
       "posture": {
        "$in": [
-        "lying"
+        "lying flat face-up",
+        "lying flat face-down"
        ]
       },
       "support": {
        "$exists": true,
        "$nin": [
-        "bench"
+        "bench or seat"
        ]
+      }
+     },
+     {
+      "posture": {
+       "$in": [
+        "incline face-down"
+       ]
+      },
+      "support": {
+       "$exists": true
       }
      }
     ]
@@ -9762,9 +9730,34 @@
     },
     "$or": [
      {
-      "bench_angle": {
+      "posture": {
        "$in": [
-        "flat"
+        "bent over",
+        "incline face-down"
+       ]
+      },
+      "$or": [
+       {
+        "bench_angle": {
+         "$exists": false
+        }
+       },
+       {
+        "bench_angle": {
+         "$in": [
+          "flat",
+          "15°",
+          "30°",
+          "45°"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "posture": {
+       "$in": [
+        "lying flat face-down"
        ]
       }
      },
@@ -9785,31 +9778,6 @@
    "fill": {
     "target": [
      "rear delts"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "press"
-     ]
-    },
-    "bench_angle": {
-     "$in": [
-      "15°",
-      "30°"
-     ]
-    },
-    "support": {
-     "$in": [
-      "bench"
-     ]
-    }
-   },
-   "fill": {
-    "posture": [
-     "lying"
     ]
    }
   },
@@ -9862,7 +9830,7 @@
    "when": {
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-down"
      ]
     },
     "hands": {
@@ -10489,8 +10457,10 @@
     }
    },
    "exclude": {
-    "support": [
-     "seat"
+    "posture": [
+     "seated upright",
+     "lying flat face-down",
+     "incline face-down"
     ]
    }
   },
@@ -10522,25 +10492,6 @@
       "fly"
      ]
     },
-    "bench_angle": {
-     "$in": [
-      "decline"
-     ]
-    }
-   },
-   "fill": {
-    "posture": [
-     "lying"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "fly"
-     ]
-    },
     "load_source": {
      "$exists": true,
      "$in": [
@@ -10555,31 +10506,6 @@
    "exclude": {
     "laterality": [
      "bilateral"
-    ]
-   }
-  },
-  {
-   "when": {
-    "support": {
-     "$in": [
-      "seat"
-     ]
-    },
-    "bench_angle": {
-     "$in": [
-      "upright"
-     ]
-    },
-    "load_source": {
-     "$exists": true,
-     "$nin": [
-      "body weight"
-     ]
-    }
-   },
-   "fill": {
-    "posture": [
-     "seated"
     ]
    }
   },
@@ -10664,7 +10590,7 @@
      "$in": [
       "standing",
       "kneeling",
-      "seated"
+      "seated upright"
      ]
     }
    },
@@ -10682,9 +10608,9 @@
       "row"
      ]
     },
-    "support": {
+    "posture": {
      "$in": [
-      "seat"
+      "seated upright"
      ]
     },
     "$or": [
@@ -10723,31 +10649,15 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-up",
+      "decline face-up"
      ]
     },
     "elbow_position": {
      "$in": [
       "in front"
      ]
-    },
-    "$or": [
-     {
-      "bench_angle": {
-       "$in": [
-        "flat",
-        "decline"
-       ]
-      }
-     },
-     {
-      "support": {
-       "$in": [
-        "floor"
-       ]
-      }
-     }
-    ]
+    }
    },
    "fill": {
     "stabilizers": [
@@ -11199,7 +11109,9 @@
     },
     "posture": {
      "$in": [
-      "lying"
+      "lying flat face-up",
+      "incline face-up",
+      "decline face-up"
      ]
     }
    },
@@ -11493,26 +11405,11 @@
      "$in": [
       "bridge"
      ]
-    },
-    "$or": [
-     {
-      "support": {
-       "$exists": false
-      }
-     },
-     {
-      "support": {
-       "$exists": true,
-       "$nin": [
-        "seat"
-       ]
-      }
-     }
-    ]
+    }
    },
    "fill": {
     "posture": [
-     "lying"
+     "lying flat face-up"
     ]
    }
   },
@@ -11635,38 +11532,8 @@
     }
    },
    "fill": {
-    "support": [
-     "seat"
-    ]
-   }
-  },
-  {
-   "when": {
-    "movement": {
-     "$in": [
-      "cycle"
-     ]
-    },
-    "$or": [
-     {
-      "bench_angle": {
-       "$exists": false
-      }
-     },
-     {
-      "bench_angle": {
-       "$exists": true,
-       "$nin": [
-        "flat",
-        "decline"
-       ]
-      }
-     }
-    ]
-   },
-   "fill": {
     "posture": [
-     "seated"
+     "seated upright"
     ]
    }
   },
@@ -11786,8 +11653,9 @@
     "posture": {
      "$in": [
       "standing",
-      "seated",
-      "lying"
+      "seated upright",
+      "lying flat face-up",
+      "incline face-up"
      ]
     }
    },
@@ -11868,7 +11736,7 @@
       "support": {
        "$exists": true,
        "$nin": [
-        "seat"
+        "bench or seat"
        ]
       }
      }
@@ -12080,7 +11948,7 @@
       "support": {
        "$exists": true,
        "$nin": [
-        "seat"
+        "bench or seat"
        ]
       }
      }
@@ -12112,7 +11980,7 @@
     "posture": {
      "$in": [
       "standing",
-      "seated"
+      "seated upright"
      ]
     },
     "load_source": {
@@ -12153,7 +12021,7 @@
     "posture": {
      "$in": [
       "standing",
-      "seated"
+      "seated upright"
      ]
     },
     "load_source": {
@@ -12337,8 +12205,7 @@
    },
    "exclude": {
     "support": [
-     "bench",
-     "seat",
+     "bench or seat",
      "pad",
      "ball",
      "hanging",
@@ -12650,41 +12517,6 @@
    "when": {
     "posture": {
      "$in": [
-      "bent over",
-      "side-lying"
-     ]
-    }
-   },
-   "exclude": {
-    "bench_angle": [
-     "upright"
-    ]
-   }
-  },
-  {
-   "when": {
-    "posture": {
-     "$in": [
-      "hips raised",
-      "upside down"
-     ]
-    }
-   },
-   "exclude": {
-    "bench_angle": [
-     "flat",
-     "15°",
-     "30°",
-     "45°",
-     "60°",
-     "upright"
-    ]
-   }
-  },
-  {
-   "when": {
-    "posture": {
-     "$in": [
       "leaning away",
       "leaning toward"
      ]
@@ -12700,7 +12532,11 @@
    "when": {
     "posture": {
      "$in": [
-      "lying",
+      "lying flat face-up",
+      "incline face-up",
+      "decline face-up",
+      "lying flat face-down",
+      "incline face-down",
       "side-lying",
       "upside down"
      ]
@@ -12781,7 +12617,7 @@
     "posture": {
      "$in": [
       "standing",
-      "seated"
+      "seated upright"
      ]
     }
    },
@@ -12816,12 +12652,7 @@
     },
     "posture": {
      "$in": [
-      "seated"
-     ]
-    },
-    "bench_angle": {
-     "$in": [
-      "upright"
+      "seated upright"
      ]
     }
    },
@@ -13879,7 +13710,7 @@
       "support": {
        "$exists": true,
        "$nin": [
-        "seat"
+        "bench or seat"
        ]
       }
      }
@@ -13887,7 +13718,7 @@
    },
    "exclude": {
     "posture": [
-     "seated"
+     "seated upright"
     ]
    }
   },
@@ -13988,7 +13819,11 @@
    },
    "exclude": {
     "posture": [
-     "lying"
+     "lying flat face-up",
+     "incline face-up",
+     "decline face-up",
+     "lying flat face-down",
+     "incline face-down"
     ]
    }
   },
@@ -14358,13 +14193,14 @@
    "when": {
     "posture": {
      "$in": [
-      "seated"
+      "seated upright"
      ]
     },
     "machine_type": {
      "$in": [
       "pin-loaded",
-      "plate-loaded"
+      "plate-loaded",
+      "stationary bike"
      ]
     },
     "load_source": {
@@ -14384,12 +14220,141 @@
    },
    "fill": {
     "support": [
-     "seat"
+     "bench or seat"
     ]
    }
   }
  ],
  "defaults": [
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press",
+      "fly"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying flat face-up",
+      "seated upright"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$in": [
+      "barbell",
+      "dumbbell",
+      "kettlebell"
+     ],
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "default": {
+    "support": [
+     "bench or seat"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "press"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "shoulder"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "lying flat face-up",
+      "seated upright"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "smith"
+     ]
+    },
+    "load_source": {
+     "$exists": true,
+     "$nin": [
+      "body weight"
+     ]
+    }
+   },
+   "default": {
+    "support": [
+     "bench or seat"
+    ]
+   }
+  },
+  {
+   "when": {
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    },
+    "$and": [
+     {
+      "$or": [
+       {
+        "load_source": {
+         "$exists": true,
+         "$nin": [
+          "machine"
+         ]
+        }
+       },
+       {
+        "machine_type": {
+         "$in": [
+          "cable",
+          "smith"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "$or": [
+       {
+        "movement": {
+         "$exists": true,
+         "$nin": [
+          "raise"
+         ]
+        }
+       },
+       {
+        "joints": {
+         "$exists": true,
+         "$nin": [
+          "ankle"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "default": {
+    "support": [
+     "floor"
+    ]
+   }
+  },
   {
    "when": {
     "movement": {
@@ -14881,6 +14846,27 @@
    "reworded": "the founder, \"Reword both\", 2026-10-22 15:48:42 UTC, by the Domain Expert's test, whether a pad or a platform moves with the load; it read \"a foot platform pushed against is braced feet; the body rests on the seat or the pad\"",
    "reviewed": "the Domain Expert, 2026-10-18 23:42 UTC",
    "accepted": "the founder, \"Otherwise I agree\", 2026-10-18 23:51:45 UTC"
+  },
+  {
+   "attr": "support",
+   "value": "raised calf platform thingy",
+   "ruling": "a step under the forefoot is box's own meaning, a box or a step; on a standing calf machine every machine has the edge, so it tells nothing apart there",
+   "reviewed": "the Domain Expert, 2026-11-26 23:35 UTC (rule-mining/floor-when-standing-2026-11-26/domain-expert-floor-when-standing.md)",
+   "accepted": "the founder, \"Yes, stop asking there\", 2026-11-26 23:35:06 UTC, on the card \"Stop asking what the body is on, on your hack squat?\", whose consequence named both typed labels; the question itself stays, on his wedge (23:35:49 UTC)"
+  },
+  {
+   "attr": "support",
+   "value": "machine platform / on the machine itself",
+   "ruling": "standing on a machine's own platform is plain standing; the machine decides what is under the feet, so nothing is stored for it",
+   "reviewed": "the Domain Expert, 2026-11-26 23:35 UTC (rule-mining/floor-when-standing-2026-11-26/domain-expert-floor-when-standing.md)",
+   "accepted": "the founder, \"Yes, stop asking there\", 2026-11-26 23:35:06 UTC, on the card \"Stop asking what the body is on, on your hack squat?\", whose consequence named both typed labels; the question itself stays, on his wedge (23:35:49 UTC)"
+  },
+  {
+   "attr": "support",
+   "value": "floor. this question is weird. it's weird how it says \"blank when not standing.\" i don't know if it is worth it to add that qualifier. maybe we should just make \"floor\" an option because you can stand on things other than the floor",
+   "ruling": "The typed text beginning 'floor. this question is weird' is the founder's comment on the question's wording and not something a body rests on, so it is retired as an answer; its one answer-word, floor, is the existing answer floor, and its point is taken up by offering floor when standing.",
+   "reviewed": "the Domain Expert, 2026-11-26 23:35 UTC (rule-mining/floor-when-standing-2026-11-26/domain-expert-floor-when-standing.md)",
+   "accepted": "the founder, \"What the heck is up with answers like this\", 2026-11-26 23:27:18 UTC, on a screenshot of it offered as a chip on a standing dumbbell hammer curl"
   }
  ],
  "zero_weight": {
@@ -14960,7 +14946,7 @@
      "life fitness front pulldown"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "modality": [
      "resistance"
@@ -15014,7 +15000,7 @@
      "standing"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "modality": [
      "resistance"
@@ -15061,10 +15047,10 @@
      "life fitness lateral raise"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "modality": [
      "resistance"
@@ -15111,7 +15097,7 @@
      "standing"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "fly"
@@ -15156,10 +15142,10 @@
      "life fitness shoulder press"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "modality": [
      "resistance"
@@ -15190,6 +15176,56 @@
   {
    "name": "Hack squat calf raise",
    "answers": {
+    "mover": [
+     "body"
+    ],
+    "braced": [
+     "hips"
+    ],
+    "joints": [
+     "ankle"
+    ],
+    "stance": [
+     "side by side"
+    ],
+    "machine": [
+     "body masters hack squat"
+    ],
+    "posture": [
+     "standing"
+    ],
+    "modality": [
+     "resistance"
+    ],
+    "movement": [
+     "raise"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "load_source": [
+     "machine"
+    ],
+    "machine_type": [
+     "pin-loaded"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "shoulders"
+    ],
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
+   "name": "Hack squat calf raise",
+   "answers": {
+    "ankle_action": [
+     "plantar flexion"
+    ],
     "mover": [
      "body"
     ],
@@ -15308,19 +15344,16 @@
      "life fitness leg extension"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "extension"
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -15385,10 +15418,7 @@
      "elbow"
     ],
     "posture": [
-     "lying"
-    ],
-    "support": [
-     "bench"
+     "incline face-up"
     ],
     "modality": [
      "resistance"
@@ -15451,10 +15481,47 @@
      "elbow"
     ],
     "posture": [
-     "lying"
+     "incline face-up"
     ],
-    "support": [
-     "bench"
+    "movement": [
+     "press"
+    ],
+    "hand_width": [
+     "shoulder width"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "load_source": [
+     "barbell"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "hands"
+    ],
+    "relative_direction": [
+     "incline"
+    ]
+   }
+  },
+  {
+   "name": "Incline bench press",
+   "answers": {
+    "modality": [
+     "resistance"
+    ],
+    "braced": [
+     "back",
+     "hips"
+    ],
+    "joints": [
+     "shoulder",
+     "elbow"
+    ],
+    "posture": [
+     "incline face-up"
     ],
     "movement": [
      "press"
@@ -15528,7 +15595,7 @@
      "knee"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
@@ -15565,6 +15632,26 @@
    }
   },
   {
+   "name": "Romanian deadlift",
+   "answers": {
+    "modality": [
+     "resistance"
+    ],
+    "movement": [
+     "hinge"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "load_source": [
+     "barbell"
+    ],
+    "start_position": [
+     "on your body"
+    ]
+   }
+  },
+  {
    "name": "Machine preacher curl",
    "answers": {
     "grip": [
@@ -15577,7 +15664,7 @@
      "elbow"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "movement": [
      "curl"
@@ -15600,7 +15687,7 @@
      "neutral"
     ],
     "posture": [
-     "lying"
+     "lying flat face-up"
     ],
     "modality": [
      "resistance"
@@ -15671,7 +15758,7 @@
      "hips"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "row"
@@ -15732,6 +15819,45 @@
    }
   },
   {
+   "name": "Decline machine chest fly",
+   "answers": {
+    "grip": [
+     "neutral"
+    ],
+    "braced": [
+     "back",
+     "hips"
+    ],
+    "posture": [
+     "incline face-up"
+    ],
+    "movement": [
+     "fly"
+    ],
+    "handle_way": [
+     "down at a decline"
+    ],
+    "laterality": [
+     "independent"
+    ],
+    "bench_angle": [
+     "45°"
+    ],
+    "load_source": [
+     "machine"
+    ],
+    "machine_type": [
+     "pin-loaded"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "hands"
+    ]
+   }
+  },
+  {
    "name": "Pec deck",
    "answers": {
     "feet": [
@@ -15757,10 +15883,10 @@
      "body masters pec/rear delt"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "fly"
@@ -15770,9 +15896,6 @@
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -15933,6 +16056,145 @@
   {
    "name": "Barbell row",
    "answers": {
+    "modality": [
+     "resistance"
+    ],
+    "feet": [
+     "on the floor"
+    ],
+    "grip": [
+     "overhand"
+    ],
+    "hands": [
+     "on handles or dumbbells"
+    ],
+    "mover": [
+     "load"
+    ],
+    "braced": [
+     "back",
+     "elbows",
+     "forearms",
+     "hand"
+    ],
+    "stance": [
+     "side by side"
+    ],
+    "travel": [
+     "in place"
+    ],
+    "posture": [
+     "bent over"
+    ],
+    "bar_type": [
+     "straight"
+    ],
+    "movement": [
+     "row"
+    ],
+    "knee_bend": [
+     "soft"
+    ],
+    "elbow_path": [
+     "tucked"
+    ],
+    "hand_width": [
+     "shoulder width"
+    ],
+    "handle_way": [
+     "level"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "bench_angle": [
+     "60°"
+    ],
+    "load_source": [
+     "barbell"
+    ],
+    "which_higher": [
+     "hands"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "hands"
+    ],
+    "elbow_position": [
+     "by your side"
+    ],
+    "foot_placement": [
+     "middle"
+    ],
+    "start_position": [
+     "on your body"
+    ],
+    "relative_direction": [
+     "lateral"
+    ]
+   }
+  },
+  {
+   "name": "Barbell row",
+   "answers": {
+    "grip": [
+     "overhand"
+    ],
+    "mover": [
+     "load"
+    ],
+    "braced": [
+     "feet"
+    ],
+    "stance": [
+     "side by side"
+    ],
+    "posture": [
+     "bent over"
+    ],
+    "bar_type": [
+     "straight"
+    ],
+    "movement": [
+     "row"
+    ],
+    "knee_bend": [
+     "soft"
+    ],
+    "elbow_path": [
+     "tucked"
+    ],
+    "hand_width": [
+     "shoulder width"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "bench_angle": [
+     "45°"
+    ],
+    "load_source": [
+     "barbell"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "hands"
+    ],
+    "elbow_position": [
+     "by your side"
+    ]
+   }
+  },
+  {
+   "name": "Barbell row",
+   "answers": {
+    "modality": [
+     "resistance"
+    ],
     "grip": [
      "overhand"
     ],
@@ -16056,19 +16318,16 @@
      "life fitness seated leg curl"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16152,10 +16411,10 @@
      "life fitness incline press"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "press"
@@ -16171,9 +16430,6 @@
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16396,6 +16652,59 @@
    }
   },
   {
+   "name": "Romanian deadlift",
+   "answers": {
+    "modality": [
+     "resistance"
+    ],
+    "grip": [
+     "one overhand, one underhand"
+    ],
+    "mover": [
+     "load"
+    ],
+    "stance": [
+     "narrow"
+    ],
+    "posture": [
+     "standing"
+    ],
+    "support": [
+     "floor"
+    ],
+    "bar_type": [
+     "straight"
+    ],
+    "movement": [
+     "hinge"
+    ],
+    "knee_bend": [
+     "soft"
+    ],
+    "hand_width": [
+     "shoulder width"
+    ],
+    "laterality": [
+     "bilateral"
+    ],
+    "load_source": [
+     "barbell"
+    ],
+    "activity_type": [
+     "single"
+    ],
+    "load_position": [
+     "hands"
+    ],
+    "start_position": [
+     "on your body"
+    ],
+    "relative_direction": [
+     "vertical"
+    ]
+   }
+  },
+  {
    "name": "Bench press",
    "answers": {
     "grip": [
@@ -16411,8 +16720,11 @@
      "shoulder",
      "elbow"
     ],
+    "posture": [
+     "lying flat face-up"
+    ],
     "support": [
-     "bench"
+     "bench or seat"
     ],
     "bar_type": [
      "straight"
@@ -16426,8 +16738,50 @@
     "laterality": [
      "bilateral"
     ],
-    "bench_angle": [
-     "flat"
+    "load_source": [
+     "barbell"
+    ],
+    "activity_type": [
+     "single"
+    ]
+   }
+  },
+  {
+   "name": "Bench press",
+   "answers": {
+    "modality": [
+     "resistance"
+    ],
+    "grip": [
+     "overhand"
+    ],
+    "mover": [
+     "load"
+    ],
+    "braced": [
+     "back"
+    ],
+    "joints": [
+     "shoulder",
+     "elbow"
+    ],
+    "posture": [
+     "lying flat face-up"
+    ],
+    "support": [
+     "bench or seat"
+    ],
+    "bar_type": [
+     "straight"
+    ],
+    "movement": [
+     "press"
+    ],
+    "hand_width": [
+     "shoulder width"
+    ],
+    "laterality": [
+     "bilateral"
     ],
     "load_source": [
      "barbell"
@@ -16550,19 +16904,16 @@
      "hips"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "reverse fly"
     ],
     "laterality": [
      "unilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16598,10 +16949,10 @@
      "hips"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "row"
@@ -16611,9 +16962,6 @@
     ],
     "laterality": [
      "unilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16652,10 +17000,10 @@
      "elbow"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
@@ -16665,9 +17013,6 @@
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16705,10 +17050,10 @@
      "elbow"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
@@ -16718,9 +17063,6 @@
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -16862,7 +17204,7 @@
      "side by side"
     ],
     "posture": [
-     "lying"
+     "lying flat face-down"
     ],
     "support": [
      "floor"
@@ -17080,10 +17422,10 @@
      "side by side"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "press"
@@ -17093,9 +17435,6 @@
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17132,10 +17471,7 @@
      "life fitness leg extension"
     ],
     "posture": [
-     "seated"
-    ],
-    "support": [
-     "seat"
+     "incline face-up"
     ],
     "movement": [
      "extension"
@@ -17222,10 +17558,10 @@
      "life fitness incline press"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "press"
@@ -17238,9 +17574,6 @@
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17323,19 +17656,16 @@
      "life fitness lateral raise"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "raise"
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17368,19 +17698,13 @@
      "shins"
     ],
     "posture": [
-     "lying"
-    ],
-    "support": [
-     "bench"
+     "decline face-up"
     ],
     "movement": [
      "fly"
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "decline"
     ],
     "load_source": [
      "dumbbell"
@@ -17410,10 +17734,10 @@
      "Life Fitness Row/Rear Deltoid"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "row"
@@ -17429,9 +17753,6 @@
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17466,16 +17787,13 @@
      "standing"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "reverse fly"
     ],
     "laterality": [
      "independent"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17508,10 +17826,10 @@
      "elbow"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
@@ -17521,9 +17839,6 @@
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17693,19 +18008,16 @@
      "side by side"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "curl"
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -17742,10 +18054,7 @@
      "atlantis, isolateral incline chest press"
     ],
     "posture": [
-     "lying"
-    ],
-    "support": [
-     "seat"
+     "incline face-up"
     ],
     "movement": [
      "press"
@@ -17869,10 +18178,10 @@
      "chest"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "row"
@@ -17922,10 +18231,10 @@
      "life fitness standing calf raise"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "raise"
@@ -17971,19 +18280,16 @@
      "narrow"
     ],
     "posture": [
-     "seated"
+     "seated upright"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "press"
     ],
     "laterality": [
      "bilateral"
-    ],
-    "bench_angle": [
-     "upright"
     ],
     "load_source": [
      "machine"
@@ -18023,7 +18329,7 @@
      "elbow"
     ],
     "support": [
-     "seat"
+     "bench or seat"
     ],
     "movement": [
      "press"
@@ -18144,9 +18450,372 @@
    "kind",
    "noun"
   ],
-  "lines": []
+  "lines": [
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "row"
+     ]
+    },
+    "says": "row",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "press"
+     ]
+    },
+    "says": "press",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "curl"
+     ]
+    },
+    "says": "curl",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "extension"
+     ]
+    },
+    "says": "extension",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "raise"
+     ]
+    },
+    "says": "raise",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "hinge"
+     ]
+    },
+    "says": "hip hinge",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "crunch"
+     ]
+    },
+    "says": "crunch",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "abduction"
+     ]
+    },
+    "says": "hip abduction",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "fly"
+     ]
+    },
+    "says": "fly",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "reverse fly"
+     ]
+    },
+    "says": "reverse fly",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "squat"
+     ]
+    },
+    "says": "squat",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "rotation"
+     ]
+    },
+    "says": "rotation",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "stretch"
+     ]
+    },
+    "says": "stretch",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "dance"
+     ]
+    },
+    "says": "dancing",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "carry"
+     ]
+    },
+    "says": "carry",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "shrug"
+     ]
+    },
+    "says": "shrug",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "bridge"
+     ]
+    },
+    "says": "glute bridge",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "dip"
+     ]
+    },
+    "says": "dip",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "clean"
+     ]
+    },
+    "says": "clean",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "side bend"
+     ]
+    },
+    "says": "side bend",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "run"
+     ]
+    },
+    "says": "running",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "climb"
+     ]
+    },
+    "says": "step-up",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "lunge"
+     ]
+    },
+    "says": "lunge",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "hold"
+     ]
+    },
+    "says": "hold",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "snatch"
+     ]
+    },
+    "says": "snatch",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "push"
+     ]
+    },
+    "says": "push",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "pullover"
+     ]
+    },
+    "says": "pullover",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "walk"
+     ]
+    },
+    "says": "walking",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "cycle"
+     ]
+    },
+    "says": "cycling",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "ski"
+     ]
+    },
+    "says": "skiing",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "adduction"
+     ]
+    },
+    "says": "hip adduction",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "throw"
+     ]
+    },
+    "says": "throw",
+    "at": "noun"
+   },
+   {
+    "when": {},
+    "for": {
+     "movement": [
+      "jump"
+     ]
+    },
+    "says": "jump",
+    "at": "noun"
+   }
+  ]
  },
  "wordings": [
+  {
+   "of": "support",
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "posture": {
+     "$in": [
+      "standing"
+     ]
+    },
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "ask": "Is anything under your feet?",
+   "answers": [
+    {
+     "value": "wedge",
+     "words": "wedge"
+    },
+    {
+     "value": "box",
+     "words": "box or step"
+    }
+   ]
+  },
   {
    "of": "relative_direction",
    "when": {
