@@ -21,7 +21,8 @@ void sameRereadParts;
 export let KEY;
 export let VERSION;
 // The name a card shows, '' when none (version 10.78).
-export const nameOf = (e) => e?.name?.text || '';
+// A typed name shows unless a name the app gave was written after it, which is how a cleared name reads on another phone.
+export const nameOf = (e) => (e?.name?.text && !(e.shown && e.shown.t > e.name.t) ? e.name.text : '');
 // Where each set stands now: the `to` of the latest Move naming it, by `t`; a set no Move names stands where it was saved.
 export function placedBy(moves) {
     const at = new Map();
@@ -556,21 +557,40 @@ export function builtName(coords) {
     const text = words.join(' ');
     return text ? text[0].toUpperCase() + text.slice(1) : '';
 }
-// Every live exercise's alias by id: its own name (typed or borrowed, nameFor), else its expert name, else its built
-// name. Among those not own, a group sharing one alias is told apart: each adds the plain word (the broadest said line
-// with words) of the first answer, in the Key's order, it holds and the others don't and that has one; with none,
-// numbered by createdAt (never a stored value, which reads as a note, not a name).
+// A name with what tells it apart: a number after it, a word before it.
+export function toldName(name, told) {
+    if (!told || !name)
+        return name;
+    if (/^\d+$/.test(told))
+        return `${name} ${told}`;
+    const t = `${told} ${name[0].toLowerCase()}${name.slice(1)}`;
+    return t[0].toUpperCase() + t.slice(1);
+}
+// Every live exercise's alias by id: its own name (typed or borrowed, nameFor), else the name written down for it
+// (name-rows.md), else its expert name, else its built name. Among those not own, a group sharing one name is told
+// apart: each adds the plain word (the broadest said line with words) of the first answer, in the Key's order, it holds
+// and the others don't and that has one; with none, numbered by createdAt (never a stored value, which reads as a
+// note, not a name). A written name stands as it is and what told it apart is taken: only the others are told apart.
 export function aliases(live, ownOf) {
     const out = {};
     for (const e of live) {
         const own = ownOf(e);
-        const expert = own ? '' : expertName(e);
-        out[e.id] = own ? { text: own, from: 'own' } : expert ? { text: expert, from: 'expert' } : { text: builtName(e.coords), from: 'built' };
+        if (own) {
+            out[e.id] = { text: own, from: 'own' };
+            continue;
+        }
+        if (e.shown) {
+            out[e.id] = { text: toldName(e.shown.text, e.shown.told), from: e.shown.from, name: e.shown.text, ...(e.shown.told ? { told: e.shown.told } : {}) };
+            continue;
+        }
+        const expert = expertName(e);
+        const name = expert || builtName(e.coords);
+        out[e.id] = { text: name, from: expert ? 'expert' : 'built', name };
     }
     const groups = new Map();
     for (const e of live)
-        if (out[e.id].from !== 'own' && out[e.id].text) {
-            const k = out[e.id].text.toLowerCase();
+        if (out[e.id].from !== 'own' && out[e.id].name) {
+            const k = out[e.id].name.toLowerCase();
             (groups.get(k) || groups.set(k, []).get(k)).push(e);
         }
     const keys = KEY.attributes.map((a) => a.key);
@@ -579,29 +599,34 @@ export function aliases(live, ownOf) {
         return by.find((l) => by.every((o) => narrower(o, l)))?.says || '';
     };
     for (const group of groups.values()) {
-        if (group.length < 2)
+        const free = group.filter((e) => !e.shown);
+        if (group.length < 2 || !free.length)
             continue;
+        const taken = new Set(group.filter((e) => e.shown).map((e) => (e.shown.told || '1').toLowerCase()));
         const told = new Map();
-        for (const e of group) {
+        for (const e of free) {
             const others = group.filter((o) => o !== e);
             found: for (const q of keys)
                 for (const v of e.coords[q] || []) {
-                    if (MUSCLE_ROLES.includes(q) || others.some((o) => (o.coords[q] || []).includes(v)) || !plain(q, v))
+                    if (MUSCLE_ROLES.includes(q) || others.some((o) => (o.coords[q] || []).includes(v)) || !plain(q, v) || taken.has(plain(q, v).toLowerCase()))
                         continue;
                     told.set(e.id, plain(q, v));
                     break found;
                 }
         }
-        const left = group.filter((e) => !told.has(e.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-        for (const e of group) {
+        for (const e of free) {
             const w = told.get(e.id);
-            if (w) {
-                const t = `${w} ${out[e.id].text[0].toLowerCase()}${out[e.id].text.slice(1)}`;
-                out[e.id] = { ...out[e.id], text: t[0].toUpperCase() + t.slice(1) };
-            }
+            if (w)
+                out[e.id] = { ...out[e.id], text: toldName(out[e.id].name, w), told: w };
         }
-        left.forEach((e, i) => { if (i)
-            out[e.id] = { ...out[e.id], text: `${out[e.id].text} ${i + 1}` }; });
+        let n = 0;
+        for (const e of free.filter((x) => !told.has(x.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt))) {
+            do
+                n++;
+            while (taken.has(String(n)));
+            if (n > 1)
+                out[e.id] = { ...out[e.id], text: toldName(out[e.id].name, String(n)), told: String(n) };
+        }
     }
     return out;
 }
@@ -704,6 +729,60 @@ export function nameFor(ex, live) {
         if (!(from.coords[k] || []).includes(v))
             (extras[k] = extras[k] || []).push(v);
     return { from, extras };
+}
+// The name an Exercise takes from another: its own, or the one it borrows (nameFor), '' for none or a tie.
+export const lentName = (e, live) => { const n = nameFor(e, live); return !n || 'tie' in n ? '' : 'own' in n ? n.own : nameOf(n.from); };
+// Writes down the name each of `ids` shows (name-rows.md), every live Exercise when `ids` is null: one with no typed
+// name showing, that borrows none and has none written takes today's alias. A written name is never written again,
+// so a later Key, or a new Exercise beside it, changes nothing it reads. The same state when nothing is written.
+export function frozen(s, ids, t) {
+    const live = s.exercises.filter((e) => !e.mergedInto);
+    const lent = (e) => lentName(e, live);
+    let now = null;
+    const exercises = s.exercises.map((e) => {
+        if (e.mergedInto || e.shown || (ids && !ids.has(e.id)) || lent(e))
+            return e;
+        const a = (now ??= aliases(live, lent))[e.id];
+        if (!a?.name || a.from === 'own')
+            return e;
+        return { ...e, shown: { text: a.name, from: a.from, ...(a.told ? { told: a.told } : {}), t: after(e, t) } };
+    });
+    return exercises.some((e, i) => e !== s.exercises[i]) ? { ...s, exercises } : s;
+}
+// After a cleared name's time, so the written name is the later of the two on every phone and has a row of its own.
+const after = (e, t) => (e.name && e.name.t >= t ? new Date(Date.parse(e.name.t) + 1).toISOString() : t);
+// The one writer of names both apps run on each change the lifter makes (never on a read): an Exercise that is new,
+// that a set just landed on, or whose typed name was just cleared has its showing name written down. An Exercise an
+// Edit just made takes the name of the one it came from, with its source, once that one's is written: the name follows
+// the Edit (the founder, 27 Nov). Only at that moment: an Exercise read back is never named again from where it came.
+export function named(prev, next, t) {
+    if (prev.exercises === next.exercises && prev.sets === next.sets)
+        return next;
+    const before = new Map(prev.exercises.map((e) => [e.id, e]));
+    const had = new Set(prev.sets.map((x) => x.id));
+    const ids = new Set();
+    for (const e of next.exercises) {
+        const b = before.get(e.id);
+        if (!b || (nameOf(b) && !nameOf(e)))
+            ids.add(e.id);
+    }
+    for (const x of next.sets)
+        if (!had.has(x.id))
+            ids.add(x.exerciseId);
+    if (!ids.size)
+        return next;
+    let out = next;
+    for (const made of next.exercises.filter((e) => !before.has(e.id) && e.moveId && !e.mergedInto && !e.shown && !nameOf(e))) {
+        const fromId = out.moves.find((m) => m.id === made.moveId)?.from;
+        if (!fromId)
+            continue;
+        out = frozen(out, new Set([fromId]), t);
+        const from = out.exercises.find((e) => e.id === fromId && !e.mergedInto);
+        const took = !from ? null : nameOf(from) ? { name: { text: nameOf(from), t } } : from.shown ? { shown: { ...from.shown, t } } : null;
+        if (took)
+            out = { ...out, exercises: out.exercises.map((e) => (e.id === made.id ? { ...e, ...took } : e)) };
+    }
+    return frozen(out, ids, t);
 }
 export function offersFor(ex, live, others) {
     if (nameFor(ex, live))
