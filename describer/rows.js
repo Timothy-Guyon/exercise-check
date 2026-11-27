@@ -105,8 +105,11 @@ export function rowsOf(s) {
         // No build since 10.81 merges two Exercises; a record made before may hold one.
         if (e.mergedInto !== undefined)
             rows.push({ table: 'exercise_merges', exercise: e.id, into_exercise: e.mergedInto });
+        // The name it shows: the lifter's typed one, and the one the app gave and wrote down (name-rows.md).
         if (e.name)
-            rows.push({ table: 'exercise_names', exercise: e.id, shown_at: e.name.t, name: e.name.text, source: 'own' });
+            rows.push({ table: 'exercise_names', exercise: e.id, shown_at: e.name.t, name: e.name.text, source: 'own', told: null });
+        if (e.shown)
+            rows.push({ table: 'exercise_names', exercise: e.id, shown_at: e.shown.t, name: e.shown.text, source: e.shown.from, told: e.shown.told ?? null });
     }
     // Every Exercise before any Edit, since a merge names two.
     for (const e of s.exercises)
@@ -274,9 +277,14 @@ export function stateOf(rows, blank, partial = false) {
                 return ed;
             });
         put(e, 'mergedInto', mergeOf.get(id)?.[0].into_exercise);
-        const name = [...(namesOf.get(id) || [])].sort((x, y) => String(x.shown_at).localeCompare(String(y.shown_at))).pop();
+        // The latest typed name and the latest the app gave; nameOf says which shows.
+        const names = [...(namesOf.get(id) || [])].sort((x, y) => String(x.shown_at).localeCompare(String(y.shown_at)));
+        const name = names.filter((x) => x.source === 'own').pop();
+        const shown = names.filter((x) => x.source !== 'own').pop();
         if (name)
             e.name = { text: name.name, t: name.shown_at };
+        if (shown)
+            e.shown = { text: shown.name, from: shown.source, ...(shown.told ? { told: shown.told } : {}), t: shown.shown_at };
         put(e, 'was', coordsOf(wasOf.get(id)?.[0].answer_set));
         return e;
     });
