@@ -506,11 +506,6 @@ export function cardValues(coords, added) {
 // of the app (the founder's "App word", 16:21:36 UTC), then the muscles and the role, its word for one muscle and the
 // Key's own label for several, which for the target is "target" itself.
 export const lineParts = (k, n, added) => MUSCLE_ROLES.includes(k) ? { label: 'muscles', role: ` as ${n === 1 ? ROLE_WORDS[k] : labelOf(k, added)}` } : { label: labelOf(k, added), role: '' };
-// An option is a filter and its value, its words from the Key each time (version 10.90, log-finder-feed.md, the
-// Technical Advisor's shape): labelled, the card's line, "load: machine", "muscles: biceps as synergist"; unlabelled,
-// the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
-// The key the build checks the Key's frozen `named` entries by (describer-key.ts) until they leave the Key (step 2c).
-export const namedKey = (given) => coordKey(Object.fromEntries(Object.entries(stored(given).coords).filter(([k]) => !MUSCLE_ROLES.includes(k))));
 // Since names step 2b (name-rulings.md) the name is the expert's list's: the one name of the smallest passed sets that
 // hold the Exercise's stored answers, fills included. Several names among them give none, so the built name shows and
 // the review queue holds the item. No list held is an empty list. Hoisted, since the rulings sit below.
@@ -639,12 +634,26 @@ export function askedOn(k, coords) {
     const worded = (w?.answers || []).map((x) => x.value);
     return { ask: w?.ask ?? a?.ask ?? '', values: [...worded, ...own.filter((v) => !worded.includes(v))] };
 }
+// A question's help on these answers (help-spec.md): its sentence, and a line for each answer that has one. An answer
+// the wording that holds here words has no line, its words being the plain meaning (the Technical Advisor, 2026-11-26),
+// so every screen agrees. null where the Key holds no help for the question: the screen then shows no way to open it.
+let HELP_OF = new Map();
+export function helpOn(k, coords) {
+    const h = HELP_OF.get(k);
+    if (!h)
+        return null;
+    const worded = new Set((wordingOn(k, coords)?.answers || []).map((a) => a.value));
+    return { says: h.says, answers: Object.fromEntries((h.answers || []).filter((a) => !worded.has(a.value)).map((a) => [a.value, a.says])) };
+}
 // Values in the order askedOn shows them; a value it does not list keeps its place after them.
 export function inAskedOrder(k, values, coords) {
     const order = askedOn(k, coords).values;
     const rank = (v) => (order.includes(v) ? order.indexOf(v) : order.length);
     return values.map((v, i) => [v, i]).sort((x, y) => rank(x[0]) - rank(y[0]) || x[1] - y[1]).map(([v]) => v);
 }
+// An option is a filter and its value, its words from the Key each time (version 10.90, log-finder-feed.md, the
+// Technical Advisor's shape): labelled, the card's line, "load: machine", "muscles: biceps as synergist"; unlabelled,
+// the options alone, a muscle with its role, as an unnamed exercise's title and a set filter's row read them.
 export function optionWords(k, values, coords, added, labelled = true) {
     const { label, role } = lineParts(k, values.length, added);
     const said = values.map((v) => answerWords(k, v, coords)).join(', ');
@@ -927,6 +936,7 @@ export function holdKey(k) {
     WORDINGS_OF = new Map();
     for (const w of k.wordings || [])
         WORDINGS_OF.set(w.of, [...(WORDINGS_OF.get(w.of) || []), w]);
+    HELP_OF = new Map(k.help.map((h) => [h.of, h]));
     VALUE_RENAMED = new Map(Object.entries(k.renamed).map(([q, vs]) => [q, new Map(Object.entries(vs))]));
     REREAD = k.reread || [];
     offered = new Set(k.lines.flatMap((l) => l.offer || []));
@@ -961,11 +971,13 @@ export const KEY_SHAPE = {
     reread: listOf((l) => isObject(l) && isObject(l.when) && (l.set !== undefined || l.clear !== undefined)
         && (l.set === undefined || mapOf(listOf(isString))(l.set)) && (l.clear === undefined || listOf(isString)(l.clear))),
     zero_weight: isObject,
-    named: listOf(shaped({ name: isString, answers: mapOf(listOf(isString)) })),
     said: shaped({ order: listOf(isString), lines: listOf((l) => isObject(l) && isObject(l.when) && mapOf(listOf(isString))(l.for)
             && isString(l.says) && (l.at === undefined || isString(l.at))) }),
     wordings: listOf((w) => isObject(w) && isString(w.of) && isObject(w.when) && (w.ask === undefined || isString(w.ask))
         && (w.answers === undefined || listOf((a) => isObject(a) && isString(a.value) && isString(a.words))(w.answers))),
+    // Absent on a Key from before the part (the desk reads one as `--was`); an app takes only a Key of its own format.
+    help: (h) => listOf((x) => isObject(x) && isString(x.of) && isString(x.says)
+        && (x.answers === undefined || listOf((a) => isObject(a) && isString(a.value) && isString(a.says))(x.answers)))(h),
 };
 // queueOf reads every attribute's `after`, and the chain every line one_rule names. The format is checked as a string
 // here; App.tsx's servedKey takes only its own format, and the timeline reads any.
