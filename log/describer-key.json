@@ -1,6 +1,6 @@
 {
  "format": "661b09cf48",
- "version": "10.100",
+ "version": "10.101",
  "date": "2026-11-28",
  "attributes": [
   {
@@ -249,18 +249,35 @@
    "about": "The model, only when the title names one",
    "values": [
     "calf extension machine",
+    "Life Fitness",
+    "Life Fitness plate-loaded",
+    "Life Fitness Front Pulldown",
+    "Life Fitness Incline Press",
+    "Life Fitness Shoulder Press",
+    "Life Fitness Lateral Raise",
+    "Life Fitness Leg Extension",
     "Life Fitness Row/Rear Deltoid",
+    "Life Fitness Seated Leg Curl",
+    "Life Fitness Standing Calf Raise",
     "Body Masters",
+    "Body Masters Hack Squat",
+    "Body Masters Front Power Squat",
+    "Body Masters Pec/Rear Delt",
+    "Body Masters Plate Loaded Squat Press",
+    "Atlantis",
+    "Atlantis Standing Lateral Raise",
+    "Atlantis Isolateral Incline Chest Press",
+    "Prime Fitness",
+    "Prime Fitness Rear Delt Fly",
+    "Prime Extreme Row",
     "Arsenal",
     "Nautilus",
-    "Body Masters Plate Loaded Squat Press",
     "Dynamic Fitness and Strength",
     "Cybex",
     "Hammer Strength",
     "Cybex Plate Loaded Squat Press",
     "Legend Fitness",
     "Magnum Biangular Lat Row",
-    "Prime Extreme Row",
     "Matrix",
     "Megamass",
     "Panatta Super Rowing Machine Circular",
@@ -918,7 +935,8 @@
   ],
   "machine": [
    "movement",
-   "load_source"
+   "load_source",
+   "machine_type"
   ],
   "bar_type": [
    "movement",
@@ -1876,6 +1894,19 @@
    },
    "offer": [
     "machine_type"
+   ]
+  },
+  {
+   "when": {
+    "machine_type": {
+     "$in": [
+      "pin-loaded",
+      "plate-loaded"
+     ]
+    }
+   },
+   "reveal": [
+    "machine"
    ]
   },
   {
@@ -5198,6 +5229,44 @@
    "reveal": [
     "joints"
    ]
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "target": {
+     "$in": [
+      "glutes"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "hip"
+     ]
+    }
+   },
+   "fill": {
+    "synergists": [
+     "glutes"
+    ]
+   }
   },
   {
    "when": {
@@ -13843,6 +13912,45 @@
     "machine_type": {
      "$exists": true,
      "$nin": [
+      "plate-loaded"
+     ]
+    }
+   },
+   "exclude": {
+    "machine": [
+     "Life Fitness plate-loaded",
+     "Body Masters Hack Squat",
+     "Body Masters Front Power Squat",
+     "Atlantis Isolateral Incline Chest Press"
+    ]
+   }
+  },
+  {
+   "when": {
+    "machine_type": {
+     "$exists": true,
+     "$nin": [
+      "pin-loaded"
+     ]
+    }
+   },
+   "exclude": {
+    "machine": [
+     "Life Fitness Lateral Raise",
+     "Life Fitness Leg Extension",
+     "Life Fitness Seated Leg Curl",
+     "Life Fitness Standing Calf Raise",
+     "Body Masters Pec/Rear Delt",
+     "Atlantis Standing Lateral Raise",
+     "Prime Fitness Rear Delt Fly"
+    ]
+   }
+  },
+  {
+   "when": {
+    "machine_type": {
+     "$exists": true,
+     "$nin": [
       "pin-loaded",
       "plate-loaded"
      ]
@@ -14354,6 +14462,40 @@
    "when": {
     "movement": {
      "$in": [
+      "squat"
+     ]
+    }
+   },
+   "default": {
+    "joints": [
+     "hip",
+     "knee"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
+      "squat"
+     ]
+    },
+    "joints": {
+     "$in": [
+      "knee"
+     ]
+    }
+   },
+   "default": {
+    "target": [
+     "quads"
+    ]
+   }
+  },
+  {
+   "when": {
+    "movement": {
+     "$in": [
       "hinge",
       "press",
       "row"
@@ -14636,13 +14778,53 @@
    },
    "never_both": true,
    "exhaustive": true
+  },
+  {
+   "questions": [
+    "machine"
+   ],
+   "children": {
+    "Life Fitness": [
+     "Life Fitness plate-loaded",
+     "Life Fitness Lateral Raise",
+     "Life Fitness Leg Extension",
+     "Life Fitness Row/Rear Deltoid",
+     "Life Fitness Seated Leg Curl",
+     "Life Fitness Standing Calf Raise"
+    ],
+    "Life Fitness plate-loaded": [
+     "Life Fitness Front Pulldown",
+     "Life Fitness Incline Press",
+     "Life Fitness Shoulder Press"
+    ],
+    "Body Masters": [
+     "Body Masters Hack Squat",
+     "Body Masters Front Power Squat",
+     "Body Masters Pec/Rear Delt",
+     "Body Masters Plate Loaded Squat Press"
+    ],
+    "Atlantis": [
+     "Atlantis Standing Lateral Raise",
+     "Atlantis Isolateral Incline Chest Press"
+    ],
+    "Prime Fitness": [
+     "Prime Fitness Rear Delt Fly",
+     "Prime Extreme Row"
+    ],
+    "Cybex": [
+     "Cybex Plate Loaded Squat Press",
+     "Cybex Modular Arm Curl"
+    ],
+    "Hammer Strength": [
+     "Hammer Strength Ground Base Squat / High Pull"
+    ]
+   },
+   "never_both": true,
+   "exhaustive": false
   }
  ],
  "one_rule": [
   [
-   324,
-   325,
-   326,
    327,
    328,
    329,
@@ -14701,7 +14883,10 @@
    382,
    383,
    384,
-   385
+   385,
+   386,
+   387,
+   388
   ]
  ],
  "renamed": {
@@ -14735,6 +14920,21 @@
   "which_higher": {
    "your hands": "hands",
    "your feet": "feet"
+  },
+  "machine": {
+   "life fitness front pulldown": "Life Fitness Front Pulldown",
+   "life fitness incline press": "Life Fitness Incline Press",
+   "life fitness shoulder press": "Life Fitness Shoulder Press",
+   "life fitness lateral raise": "Life Fitness Lateral Raise",
+   "life fitness leg extension": "Life Fitness Leg Extension",
+   "life fitness seated leg curl": "Life Fitness Seated Leg Curl",
+   "life fitness standing calf raise": "Life Fitness Standing Calf Raise",
+   "body masters hack squat": "Body Masters Hack Squat",
+   "body masters power squat": "Body Masters Front Power Squat",
+   "body masters pec/rear delt": "Body Masters Pec/Rear Delt",
+   "atlantis standing lateral raise machine": "Atlantis Standing Lateral Raise",
+   "atlantis, isolateral incline chest press": "Atlantis Isolateral Incline Chest Press",
+   "prime fitness/rear delt fly": "Prime Fitness Rear Delt Fly"
   }
  },
  "reread": [],
