@@ -1,6 +1,10 @@
 // The terms and claims by name, in the build's order (describer-key.ts reads them for its checks and the Key's format;
 // reach.ts reads LOGIC). Each list is the keys of its type, so tsc refuses a term or a claim added to one and not the
 // other (describer/typescript-move.md, commit 5; until then describer-key.py held them, beside a scan of App.tsx).
+// How this code reads a Key's parts (said-once.md): a number the build's format hash takes in, raised by hand whenever
+// the same parts are read a new way, so an older build never takes a Key written for the new reading. 2: a word is said
+// once at its place.
+export const READING = 2;
 export const LOGIC = ['$and', '$or', '$nor'];
 export const FIELD_OPS = ['$eq', '$ne', '$in', '$nin', '$all', '$size', '$exists', '$not', '$elemMatch'];
 export const ONE_VALUE_OPS = ['$eq', '$ne', '$in', '$nin', '$not'];
@@ -161,24 +165,32 @@ export const valuesMeet = (vs, terms) => {
         && ($size === undefined || (vs.length > 0 && vs.length === $size)) && ($not === undefined || !valuesMeet(vs, $not))
         && ($elemMatch === undefined || vs.some((v) => valueMeets(v, $elemMatch)));
 };
-// The muscle tree (version 10.70, muscle-tree.md; the founder's tree, 2026-10-31 21:59 UTC): a muscle and every muscle
-// under it, at any depth, and every muscle above it, read from the Key's parts. A name the Key holds no parts for, a
-// typed one, is a set of one. Bound by holdKey.
-export let WITHIN;
-export let ABOVE;
-export const within = (m) => WITHIN.get(m) ?? new Set([m]);
-export const above = (m) => ABOVE.get(m) ?? new Set();
-// A role counts upward: a muscle question's answer is read as its muscles and every muscle above them, so a condition on
-// a target of back meets a target of lats, and one on lats never meets a target of back (the founder, 20:35 UTC).
-export const upward = (vs) => {
-    const up = new Set(vs.flatMap((v) => [...above(v)]));
-    return [...vs, ...KEY.muscles.filter((m) => up.has(m) && !vs.includes(m))];
+let RELATED = new Map();
+// Under question q: the answer and every answer under it, at any depth; and every answer above it. An answer in no
+// tree, a typed one or any answer of a question with none, is a set of one with nothing above it.
+export const within = (q, a) => RELATED.get(q)?.within.get(a) ?? new Set([a]);
+export const above = (q, a) => RELATED.get(q)?.above.get(a) ?? new Set();
+// The answers directly under one, in order: none where q's answers form no tree.
+export const childrenOf = (q, a) => RELATED.get(q)?.children[a] ?? [];
+// Counts upward (the founder, 2026-10-31 20:35 UTC): a question's answer is read as its answers and every answer above
+// them, so a condition on back meets lats, and one on lats never meets back. Those above come in no promised order.
+export const upward = (q, vs) => {
+    const up = new Set(vs.flatMap((v) => [...above(q, v)]));
+    return up.size ? [...vs, ...[...up].filter((m) => !vs.includes(m))] : vs;
 };
-// Never both (the founder, 21:25:14 UTC): a muscle and one above or below it never both hold a role.
-export const nearOf = (a, b) => a !== b && (within(a).has(b) || within(b).has(a));
+// One above or below the other in q's tree.
+export const nearOf = (q, a, b) => a !== b && (within(q, a).has(b) || within(q, b).has(a));
+// Whether answer a under q and answer b under r can't both be selected, by the Key's relations: the same answer under
+// two questions of one list, or, where the list says never both, an answer and one above or below it.
+export const cantBoth = (q, a, r, b) => {
+    const rel = RELATED.get(q);
+    if (!rel || rel !== RELATED.get(r))
+        return false;
+    return a === b ? q !== r : rel.never_both && nearOf(q, a, b);
+};
 // A list joins whole conditions, by $and, $or or $nor; anything else is a question's terms.
 export const matches = (coords, c) => Object.entries(c).every(([k, x]) => x === undefined ? true
-    : !Array.isArray(x) ? valuesMeet(MUSCLE_ROLES.includes(k) ? upward(coords[k] || []) : coords[k] || [], x)
+    : !Array.isArray(x) ? valuesMeet(upward(k, coords[k] || []), x)
         : k === '$and' ? x.every((s) => matches(coords, s))
             : k === '$or' ? x.some((s) => matches(coords, s))
                 : k === '$nor' ? !x.some((s) => matches(coords, s))
@@ -201,8 +213,9 @@ export const MUSCLE_ROLES = ['target', ...ROLES];
 // Each role's word for one muscle, as the hint says them, for the count of the muscles a rule leaves only some roles
 // (version 10.39, joint-filter.md; until 10.72 also the label over their group).
 export const ROLE_WORDS = { target: 'target', synergists: 'synergist', stabilizers: 'stabilizer' };
-// The attributes a question answers: the muscle question its three, every other question its own.
-export const answersOf = (k) => (MUSCLE_ROLES.includes(k) ? MUSCLE_ROLES : [k]);
+// The attributes a question answers: the questions that share its list of answers (the muscle question its three),
+// every other question its own.
+export const answersOf = (k) => RELATED.get(k)?.questions ?? [k];
 // A muscle holds one role at a time, the one the lifter's last tap gave it (version 10.37, one-role.md): a role a tap
 // touched is answered, emptied or not, so a fill taken off stays off; any other question is answered by a value.
 export const answeredIn = (own, k) => (MUSCLE_ROLES.includes(k) ? own[k] !== undefined : has(own, k));
@@ -211,11 +224,9 @@ export const answeredIn = (own, k) => (MUSCLE_ROLES.includes(k) ? own[k] !== und
 // Advisor's review of the row's muscle lines). The Queue's bands, Next, Keep and a struck line's unskip all read it, so a
 // question stands in the Queue or in the Description, never both.
 export const hasLine = (view, own, k) => has(view, k) || answersOf(k).some((r) => r !== k && has(own, r));
-// A muscle the lifter's own answers hold in a role other than k, which a fill of k leaves out (version 10.37).
-export const heldElsewhere = (own, k, x) => MUSCLE_ROLES.includes(k) && MUSCLE_ROLES.some((r) => r !== k && (own[r] || []).includes(x));
-// A muscle above or below one the lifter's own answers hold in any role, which a fill of a role leaves out (version 10.70,
-// muscle-tree.md: Never both, kept by the Describer and by the build, never by a line's guard).
-export const heldNear = (own, k, x) => MUSCLE_ROLES.includes(k) && MUSCLE_ROLES.some((r) => (own[r] || []).some((v) => nearOf(v, x)));
+// Whether answer x under k can't be selected with an answer the lifter's own answers hold (cantBoth), which a fill of k
+// then leaves out: the same muscle in another role (version 10.37), a muscle above or below one in any role (10.70).
+export const cantJoin = (own, k, x) => answersOf(k).some((r) => (own[r] || []).some((v) => cantBoth(k, x, r, v)));
 // The table's fill lines, applied forward to what was answered: a line whose condition holds fills what is still
 // unanswered, until nothing changes (version 2: a curl with the elbow ticked fills the elbow's action, flexion).
 // An answer always wins over a fill: under "more" a filled question can be answered, and a role fill leaves out a
@@ -267,7 +278,7 @@ export function follow(own, copied, t, before) {
             continue;
         const given = withFills(Object.fromEntries(Object.entries(coords).filter(([x]) => x !== k))).coords[k] || [];
         const held = MUSCLE_ROLES.flatMap((r) => coords[r] || []);
-        const back = marks[k].filter((v) => !held.includes(v) && !heldNear(coords, k, v) && given.includes(v));
+        const back = marks[k].filter((v) => !held.includes(v) && !cantJoin(coords, k, v) && given.includes(v));
         const kept = [...coords[k].filter((v) => !marks[k].includes(v) || given.includes(v)), ...back];
         if (kept.length === coords[k].length && !back.length)
             continue;
@@ -289,7 +300,7 @@ export function fillsOf(own) {
             for (const [k, v = []] of Object.entries(l.fill)) {
                 if (answeredIn(own, k) || (has(coords, k) && !isMulti(k)))
                     continue;
-                const add = v.filter((x) => !(coords[k] || []).includes(x) && !heldElsewhere(own, k, x) && !heldNear(own, k, x));
+                const add = v.filter((x) => !(coords[k] || []).includes(x) && !cantJoin(own, k, x));
                 if (!add.length)
                     continue;
                 coords[k] = [...(coords[k] || []), ...add];
@@ -333,11 +344,14 @@ export function effectsOf(coords) {
 // role counts upward and no part is left to hold it (the Technical Advisor's review: lower body on a curl). Read over
 // all of a role's hides at once, since one line hides the quads and another the calves.
 export const hidesOf = (k, vs) => {
-    if (!MUSCLE_ROLES.includes(k))
+    const rel = RELATED.get(k);
+    if (!rel || !Object.keys(rel.children).length)
         return vs;
-    const down = new Set(vs.flatMap((v) => [...within(v)]));
-    const up = (m) => down.has(m) || ((KEY.parts[m] || []).length > 0 && KEY.parts[m].every(up));
-    return [...down, ...KEY.muscles.filter((m) => !down.has(m) && up(m))];
+    const down = new Set(vs.flatMap((v) => [...within(k, v)]));
+    if (!rel.exhaustive)
+        return [...down];
+    const up = (m) => down.has(m) || (childrenOf(k, m).length > 0 && childrenOf(k, m).every(up));
+    return [...down, ...(KEY.attributes.find((a) => a.key === k)?.values ?? []).filter((m) => !down.has(m) && up(m))];
 };
 // The questions a condition names, through $and, $or and $nor.
 export const conditionKeys = (c) => Object.entries(c).flatMap(([k, x]) => (x === undefined ? [] : Array.isArray(x) ? x.flatMap(conditionKeys) : [k]));
@@ -523,7 +537,9 @@ export const narrower = (a, b) => { const ta = saidTerms(a); return [...saidTerm
 export const saidApplies = (l, coords) => matches(coords, l.when) && Object.entries(l.for).every(([q, vs]) => (vs || []).every((v) => (coords[q] || []).includes(v)));
 // The built name (aliases-spec.md, the Technical Advisor's 1a): of the lines that apply, the narrowest speaks for each
 // answer; their words in place order, then the Key's question order; an answer no line speaks for is not said; the first
-// letter upper case. All the coordinates, fills included. No tie-break.
+// letter upper case. All the coordinates, fills included. Where no line is narrower than all the others, the one with
+// the most terms speaks: nothing narrower beats it, and the build lets two such lines stand only when they say the same
+// word at the same place (said-once.md).
 export function builtName(coords) {
     const said = KEY.said || { order: [], lines: [] };
     const on = said.lines.filter((l) => saidApplies(l, coords));
@@ -538,8 +554,10 @@ export function builtName(coords) {
         }
     const keys = KEY.attributes.map((a) => a.key);
     const firstQ = (l) => Math.min(...Object.keys(l.for).map((q) => keys.indexOf(q)).filter((i) => i >= 0), keys.length);
-    const words = [...speaking].filter((l) => l.says)
-        .sort((a, b) => said.order.indexOf(a.at || '') - said.order.indexOf(b.at || '') || firstQ(a) - firstQ(b)).map((l) => l.says);
+    // A word is said once at its place (said-once.md): one word for several setups is one line per setup.
+    const lines = [...speaking].filter((l) => l.says)
+        .sort((a, b) => said.order.indexOf(a.at || '') - said.order.indexOf(b.at || '') || firstQ(a) - firstQ(b));
+    const words = lines.filter((l, i) => !lines.slice(0, i).some((o) => o.at === l.at && o.says === l.says)).map((l) => l.says);
     const text = words.join(' ');
     return text ? text[0].toUpperCase() + text.slice(1) : '';
 }
@@ -842,7 +860,7 @@ export function answerOrder(taps, present, keyOrder) {
     taps.forEach((tap, i) => {
         if (!tap.attr || tap.by === 'rule' || !PLACING_KINDS.includes(tap.kind))
             return;
-        for (const k of MUSCLE_ROLES.includes(tap.attr) ? MUSCLE_ROLES : [tap.attr])
+        for (const k of answersOf(tap.attr))
             at[k] = i;
     });
     const inKey = [...keyOrder.filter((k) => present.includes(k)), ...present.filter((k) => !keyOrder.includes(k))];
@@ -941,10 +959,15 @@ export function holdKey(k) {
     REREAD = k.reread || [];
     offered = new Set(k.lines.flatMap((l) => l.offer || []));
     RULE_OF = new Map(k.one_rule.flatMap((ats, r) => ats.map((at) => [at, r])));
-    const down = (m) => [m, ...(k.parts[m] || []).flatMap(down)];
-    const up = (m) => k.muscles.filter((p) => (k.parts[p] || []).includes(m)).flatMap((p) => [p, ...up(p)]);
-    WITHIN = new Map(k.muscles.map((m) => [m, new Set(down(m))]));
-    ABOVE = new Map(k.muscles.map((m) => [m, new Set(up(m))]));
+    RELATED = new Map();
+    for (const r of k.relations) {
+        const names = [...new Set(Object.entries(r.children).flatMap(([p, cs]) => [p, ...cs]))];
+        const down = (a) => [a, ...(r.children[a] || []).flatMap(down)];
+        const up = (a) => names.filter((p) => (r.children[p] || []).includes(a)).flatMap((p) => [p, ...up(p)]);
+        const held = { ...r, within: new Map(names.map((a) => [a, new Set(down(a))])), above: new Map(names.map((a) => [a, new Set(up(a))])) };
+        for (const q of r.questions)
+            RELATED.set(q, held);
+    }
     RULINGS = null;
     PASSED = null;
 }
@@ -966,7 +989,8 @@ export const isDefaultLine = (l) => isObject(l) && isObject(l.when) && Object.ke
 export const KEY_SHAPE = {
     format: isString, version: (v) => isString(v) && /^\d+(\.\d+)*$/.test(v), date: isString,
     attributes: listOf(shaped(ATTRIBUTE_SHAPE)), after: mapOf(listOf(isString)), joints: mapOf(isString), lines: listOf(isLine), defaults: listOf(isDefaultLine),
-    muscles: listOf(isString), parts: mapOf(listOf(isString)), one_rule: listOf(listOf((n) => Number.isInteger(n) && n >= 0)),
+    muscles: listOf(isString),
+    relations: listOf(shaped({ questions: listOf(isString), children: mapOf(listOf(isString)), never_both: isBoolean, exhaustive: isBoolean })), one_rule: listOf(listOf((n) => Number.isInteger(n) && n >= 0)),
     retired: listOf(shaped({ attr: isString, value: isString })), renamed: mapOf(mapOf(isString)),
     reread: listOf((l) => isObject(l) && isObject(l.when) && (l.set !== undefined || l.clear !== undefined)
         && (l.set === undefined || mapOf(listOf(isString))(l.set)) && (l.clear === undefined || listOf(isString)(l.clear))),

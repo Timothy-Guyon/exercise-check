@@ -1,6 +1,6 @@
 {
- "format": "ac6d2eaf01",
- "version": "10.99",
+ "format": "661b09cf48",
+ "version": "10.100",
  "date": "2026-11-28",
  "attributes": [
   {
@@ -14555,78 +14555,89 @@
   "peroneals",
   "calves"
  ],
- "parts": {
-  "upper body": [
-   "neck",
-   "shoulders",
-   "arms",
-   "chest",
-   "serratus",
-   "back"
-  ],
-  "neck": [
-   "neck flexors",
-   "neck extensors"
-  ],
-  "shoulders": [
-   "delts",
-   "rotator cuff"
-  ],
-  "delts": [
-   "front delts",
-   "side delts",
-   "rear delts"
-  ],
-  "arms": [
-   "upper arms",
-   "forearms"
-  ],
-  "upper arms": [
-   "biceps",
-   "brachialis",
-   "triceps"
-  ],
-  "forearms": [
-   "brachioradialis",
-   "wrist flexors",
-   "wrist extensors"
-  ],
-  "chest": [
-   "upper chest",
-   "lower chest"
-  ],
-  "back": [
-   "traps",
-   "upper back",
-   "lats",
-   "lower back"
-  ],
-  "core": [
-   "abs",
-   "obliques",
-   "lower back"
-  ],
-  "lower body": [
-   "hips",
-   "thighs",
-   "lower legs"
-  ],
-  "hips": [
-   "hip flexors",
-   "abductors",
-   "glutes"
-  ],
-  "thighs": [
-   "quads",
-   "adductors",
-   "hamstrings"
-  ],
-  "lower legs": [
-   "tibialis",
-   "peroneals",
-   "calves"
-  ]
- },
+ "relations": [
+  {
+   "questions": [
+    "target",
+    "synergists",
+    "stabilizers"
+   ],
+   "children": {
+    "upper body": [
+     "neck",
+     "shoulders",
+     "arms",
+     "chest",
+     "serratus",
+     "back"
+    ],
+    "neck": [
+     "neck flexors",
+     "neck extensors"
+    ],
+    "shoulders": [
+     "delts",
+     "rotator cuff"
+    ],
+    "delts": [
+     "front delts",
+     "side delts",
+     "rear delts"
+    ],
+    "arms": [
+     "upper arms",
+     "forearms"
+    ],
+    "upper arms": [
+     "biceps",
+     "brachialis",
+     "triceps"
+    ],
+    "forearms": [
+     "brachioradialis",
+     "wrist flexors",
+     "wrist extensors"
+    ],
+    "chest": [
+     "upper chest",
+     "lower chest"
+    ],
+    "back": [
+     "traps",
+     "upper back",
+     "lats",
+     "lower back"
+    ],
+    "core": [
+     "abs",
+     "obliques",
+     "lower back"
+    ],
+    "lower body": [
+     "hips",
+     "thighs",
+     "lower legs"
+    ],
+    "hips": [
+     "hip flexors",
+     "abductors",
+     "glutes"
+    ],
+    "thighs": [
+     "quads",
+     "adductors",
+     "hamstrings"
+    ],
+    "lower legs": [
+     "tibialis",
+     "peroneals",
+     "calves"
+    ]
+   },
+   "never_both": true,
+   "exhaustive": true
+  }
+ ],
  "one_rule": [
   [
    324,
@@ -15402,5 +15413,250 @@
    ]
   }
  ],
- "help": []
+ "help": [
+  {
+   "of": "shoulder_action",
+   "says": "Watch your arm from shoulder to elbow as you lift, push or pull; ignore the elbow bending, and pick the closest.",
+   "answers": [
+    {
+     "value": "flexion",
+     "says": "Swings forward, in front of your body, as on a front raise."
+    },
+    {
+     "value": "extension",
+     "says": "The reverse of a front raise, down and back, as on a straight-arm pulldown."
+    },
+    {
+     "value": "abduction",
+     "says": "Lifts out to your side, away from your body, as on a lateral raise."
+    },
+    {
+     "value": "adduction",
+     "says": "Comes in to your side from out wide, as on a wide-grip pulldown."
+    },
+    {
+     "value": "horizontal abduction",
+     "says": "Opens from in front of your chest out wide, as on a reverse fly."
+    },
+    {
+     "value": "horizontal adduction",
+     "says": "Closes from out wide in across your chest, as on a chest fly."
+    },
+    {
+     "value": "internal rotation",
+     "says": "Twists inward in place, the elbow staying put, as on a cable internal rotation."
+    },
+    {
+     "value": "external rotation",
+     "says": "Twists outward in place, the elbow staying put, as on a cable external rotation."
+    }
+   ]
+  },
+  {
+   "of": "relative_direction",
+   "says": "Follow your hands or legs as you push, pull or raise, and judge the path against your torso, not the floor.",
+   "answers": [
+    {
+     "value": "vertical",
+     "says": "Along your body, toward overhead or down from it, as on a pulldown."
+    },
+    {
+     "value": "incline",
+     "says": "Angled toward your head, as on an incline bench press."
+    },
+    {
+     "value": "decline",
+     "says": "Angled toward your hips, as on a decline bench press."
+    },
+    {
+     "value": "lateral",
+     "says": "Out to your side, or in from it, as on a lateral raise."
+    },
+    {
+     "value": "forward",
+     "says": "Raised out in front of you, as on a front raise."
+    }
+   ]
+  },
+  {
+   "of": "elbow_position",
+   "says": "See where your elbow stays, compared with your torso, through the rep; on a press, go by the bottom.",
+   "answers": [
+    {
+     "value": "in front",
+     "says": "Upper arm lifted forward of your torso, as on a preacher curl."
+    },
+    {
+     "value": "by your side",
+     "says": "Upper arm down along your ribs, as on a hammer curl or a pushdown."
+    },
+    {
+     "value": "behind",
+     "says": "Upper arm angled back behind your torso, as on an incline dumbbell curl."
+    },
+    {
+     "value": "overhead",
+     "says": "Upper arm up beside your head, as on an overhead triceps extension."
+    },
+    {
+     "value": "out to the side",
+     "says": "Upper arm out sideways at shoulder level, as on a high cable curl."
+    }
+   ]
+  },
+  {
+   "of": "posture",
+   "says": "Pick the position your torso holds all set; a bend you go into and out of each rep doesn't count.",
+   "answers": [
+    {
+     "value": "standing",
+     "says": "Your weight on your feet, even leaning on a pad, as on a hack squat."
+    },
+    {
+     "value": "seated upright",
+     "says": "Sitting up, even if the backrest tips back a little, as on a seated shoulder press."
+    },
+    {
+     "value": "kneeling",
+     "says": "On your knees, or on hands and knees, as on a cable crunch."
+    },
+    {
+     "value": "bent over",
+     "says": "Folded forward at the hips and held there, as on a bent-over row."
+    },
+    {
+     "value": "lying flat face-up",
+     "says": "On your back, as on a bench press; a hip thrust counts too."
+    },
+    {
+     "value": "lying flat face-down",
+     "says": "On your front, as on a lying leg curl; a push-up counts too."
+    },
+    {
+     "value": "incline face-up",
+     "says": "Leaning back on a tilted pad, weight off your feet, as on a 45° leg press."
+    },
+    {
+     "value": "incline face-down",
+     "says": "Face-down on a tilted pad, as on a chest-supported incline row."
+    },
+    {
+     "value": "decline face-up",
+     "says": "On your back, shoulders lower than hips, as on a decline bench press."
+    },
+    {
+     "value": "hips raised",
+     "says": "On hands and feet, hips piked high, as on a pike push-up; not a hip thrust."
+    },
+    {
+     "value": "leaning away",
+     "says": "Standing, torso tilted away from the working arm, as on a lean-in lateral raise."
+    },
+    {
+     "value": "leaning toward",
+     "says": "Standing, torso tilted toward the working arm, as on a lateral raise holding a post."
+    }
+   ]
+  },
+  {
+   "of": "braced",
+   "says": "Tick each part resting on a pad, seat, bench or floor that doesn't move with the weight; never feet you stand on.",
+   "answers": [
+    {
+     "value": "back",
+     "says": "On a backrest or bench that stays put, as on a bench press."
+    },
+    {
+     "value": "hips",
+     "says": "Your backside held in a seat, as on a leg extension."
+    },
+    {
+     "value": "thighs",
+     "says": "Pinned under a pad, as on a lat pulldown."
+    },
+    {
+     "value": "feet",
+     "says": "Planted while you sit or lie, never while you stand, as on a bench press."
+    },
+    {
+     "value": "elbows",
+     "says": "Resting on a pad, as on a preacher curl."
+    },
+    {
+     "value": "forearms",
+     "says": "Laid on your thighs, a bench or pads, as on a seated wrist curl."
+    },
+    {
+     "value": "hand",
+     "says": "A free hand propping you up, not holding the weight, as on a one-arm dumbbell row."
+    }
+   ]
+  },
+  {
+   "of": "elbow_path",
+   "says": "At the end of the pull, see how far out from your ribs your elbows are.",
+   "answers": [
+    {
+     "value": "tucked",
+     "says": "Elbows brushing your ribs, as on a close-grip cable row."
+    },
+    {
+     "value": "in between",
+     "says": "Anywhere between the two, about 45° out, as on an overhand barbell row."
+    },
+    {
+     "value": "flared",
+     "says": "Elbows out wide, level with your shoulders, as on a face pull."
+    }
+   ]
+  },
+  {
+   "of": "hip_action",
+   "says": "Watch your thigh against your torso as you lift, push or pull; either one may be the part that moves.",
+   "answers": [
+    {
+     "value": "flexion",
+     "says": "Thigh and torso fold toward each other, as on a hanging leg raise."
+    },
+    {
+     "value": "extension",
+     "says": "Thigh and torso open apart, the hip straightening, as on a squat."
+    },
+    {
+     "value": "abduction",
+     "says": "Thigh moves out, away from the other leg, as on the hip abduction machine."
+    },
+    {
+     "value": "adduction",
+     "says": "Thigh moves in, toward the other leg, as on the hip adduction machine."
+    },
+    {
+     "value": "internal rotation",
+     "says": "Thigh twists inward in place; with the knee bent, the foot swings out."
+    },
+    {
+     "value": "external rotation",
+     "says": "Thigh twists outward in place, the knee opening out, as on a clamshell."
+    }
+   ]
+  },
+  {
+   "of": "mover",
+   "says": "Pick body when you move yourself over planted feet or hands, even holding a weight; pick load when you stay put.",
+   "answers": [
+    {
+     "value": "load",
+     "says": "You stay put; a weight, handle or just a limb moves, as on a pulldown."
+    },
+    {
+     "value": "body",
+     "says": "You move over planted feet or hands, even holding a bar, as on a squat."
+    },
+    {
+     "value": "none",
+     "says": "Nothing travels; you hold still against the load, as on a plank."
+    }
+   ]
+  }
+ ]
 }
